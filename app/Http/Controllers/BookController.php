@@ -26,8 +26,7 @@ class BookController extends Controller
         $deps = Dep::all();
         $books = Book::paginate($this->itemsPerPage);
         $genres = Genre::all();
-        return $data = [$deps,$books,$genres];
-        //return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
+        return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
     }
     
     static function show($id)

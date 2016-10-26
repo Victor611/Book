@@ -29,11 +29,7 @@ Route::group(['middleware' => 'auth'], function ()
 	
 //	Route::get('/', 'RecomendController@index');
     
-	//Route::get('/', 'BookController@index');
-	Route::get('/', ['uses' => 'BookController@index', function()
-{
-	 return view('book.index');
-}]);
+	Route::get('/', 'BookController@index');
 	Route::get('/book', 'BookController@index');
     Route::post('/book', 'BookController@filter');
 	Route::get('/book/{id}', 'BookController@show');
