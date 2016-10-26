@@ -74,7 +74,7 @@ class ComentController extends Controller
     {
         return  $validator = Validator::make($request->all(),
         [
-           
+           'coment'=>'required|max:500',
         ]);        
     }
 }

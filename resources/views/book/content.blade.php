@@ -34,6 +34,7 @@
                             <!-- form rating -->                            
                             <div class="col-sm-12" style="padding-top:20px; margin-left:15px; ">
                                 <div class="col-sm-8">
+                                    @include('common.errors')
                                     <form action="{{ url('/rating') }}" method="POST" class="form-horizontal">
                                     {!! csrf_field() !!}
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
@@ -62,6 +63,7 @@
                                 <div class="col-sm-4">
                                     @if ( Auth::user()->hasRole('moderator'))
                                         <div class="btn-group" style="display: inline; float:right;">
+                                           
                                             <form method="post" action="/moder/save/rec">
                                             {!! csrf_field() !!}
                                                 <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -73,15 +75,15 @@
                                                 <ul class="dropdown-menu" role="menu">
                                                     
                                                         <li>
-                                                            <input type="checkbox" name="dep_id" value="-1"
+                                                            <input type="checkbox" name="deps[]" value="-1"
                                                                 {{App\Recomend::hasRecomend($book->id, -1)==-1 ? "checked":""}}>
                                                             Рекомендовать всем
                                                         </li>
                                                     @foreach ($deps as $d)
                                                         
                                                         <li>
-                                                            <input type="checkbox" name="dep_id" value="{{ $d->id }}"
-                                                                {{App\Recomend::hasRecomend($book->id, $d->id)==$d->id ? "checked":""}}>
+                                                            <input type="checkbox" name="deps[]" value="{{ $d->id }}"
+                                                                {{App\Recomend::hasRecomend($book->id, $d->id)==$d->id || App\Recomend::hasRecomend($book->id, $d->id)==-1? "checked":""}}>
                                                             {{ $d->name }}
                                                         </li>
                                                     @endforeach
@@ -112,7 +114,7 @@
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 2?"btn btn-danger":"btn btn-default"}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 2?"btn btn-warning":"btn btn-default"}}">
                                         <input type="hidden" name="status" value="2">Читаю
                                     </button>
                                 </form>        
@@ -120,7 +122,7 @@
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-danger" :"btn btn-default"}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-success" :"btn btn-default"}}">
                                         <input type="hidden" name="status" value="3">Прочитал
                                     </button>
                                 </form>
@@ -145,7 +147,7 @@
                                 <div id="panel1" class="tab-pane fade in active">
                                     <h3>Отзывы</h3>
                                                                
-                                    @include('common.errors')
+                                   
                                     <!-- New coment Form -->
                                     <form action="{{ url('/coment') }}" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
                                     {!! csrf_field() !!}
@@ -226,11 +228,14 @@
                                     <h3>Статус чтения</h3>
                                     <div class="col-md-12">                           
                                         <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                            Хочу прочитать
+                                            @if(count(App\Status::StatusToBook($book->id, "1"))>0)
+                                                Хочу прочитать
+                                            @else Никто не хочет читать
+                                            @endif
                                         </h4></br>
                                         @foreach(App\Status::StatusToBook($book->id, "1")  as $k=>$v)
                                             <a href="/user/{{$v->id}}"style = "text-decoration:none; color:#777;" >
-                                                <div class="col-sm-2" style="text-align:center;">
+                                                <div class="col-sm-1" style="text-align:center; margin-right:20px;">
                                                     <p>
                                                         <img src="/uploads/avatars/{{$v->avatar}}" style="width:100px; heidth:100px; ">
                                                         {{$v->name}}
@@ -242,11 +247,14 @@
                                     </div>
                                     <div class="col-md-12">                           
                                         <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                            Читаю
+                                            @if(count(App\Status::StatusToBook($book->id, "2"))>0)
+                                                Читаю
+                                            @else Никто не читает
+                                            @endif
                                         </h4></br>
                                         @foreach(App\Status::StatusToBook($book->id, "2")  as $k=>$v)
                                             <a href="/user/{{$v->id}}" style = "text-decoration:none; color:#777;">
-                                                <div class="col-sm-2" style="text-align:center;">
+                                                <div class="col-sm-1" style="text-align:center; margin-right:20px;">
                                                     <p>
                                                         <img src="/uploads/avatars/{{$v->avatar}}" style="width:100px; heidth:100px;">
                                                         {{$v->name}}
@@ -258,11 +266,14 @@
                                     </div>
                                     <div class="col-md-12">                           
                                         <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                            Прочел
+                                            @if(count(App\Status::StatusToBook($book->id, "3"))>0)
+                                                Прочел
+                                            @else Никто не прочел
+                                            @endif
                                         </h4></br>
                                         @foreach(App\Status::StatusToBook($book->id, "3")  as $k=>$v)
                                             <a href="/user/{{$v->id}}" style = "text-decoration:none; color:#777;">
-                                                <div class="col-sm-2" style="text-align:center;">
+                                                <div class="col-sm-1" style="text-align:center;margin-right:20px;;">
                                                     <p>
                                                         <img src="/uploads/avatars/{{$v->avatar}}" style="width:100px; heidth:100px; ">
                                                         {{$v->name}}

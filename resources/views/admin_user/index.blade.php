@@ -63,7 +63,7 @@
                                         </td>
                                         
                                         <td>
-                                            <form action="{{ url('/admin/delete/user/'.$user->id) }}" method="GET">
+                                            <form action="{{ url('/admin/delete/user/'.$user->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">
                                             {!! csrf_field() !!}
                                             {!! method_field('DELETE') !!}
                                                 <button type="submit" class="btn btn-danger">
@@ -74,6 +74,7 @@
                                         
                                     </tr>
                                 @endforeach
+                                <?php echo $users->links(); ?>
                             </tbody>
                         </table>
                     </div>

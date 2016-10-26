@@ -29,7 +29,11 @@ Route::group(['middleware' => 'auth'], function ()
 	
 //	Route::get('/', 'RecomendController@index');
     
-	Route::get('/', 'BookController@index');     
+	//Route::get('/', 'BookController@index');
+	Route::get('/', ['uses' => 'BookController@index', function()
+{
+	 return view('book.index');
+}]);
 	Route::get('/book', 'BookController@index');
     Route::post('/book', 'BookController@filter');
 	Route::get('/book/{id}', 'BookController@show');
@@ -47,13 +51,15 @@ Route::group(['middleware' => 'auth'], function ()
 
 Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' => 'moderator'], function()
 {
+	//CRUD moder Book
 	Route::get('/book', ['uses' => 'BookModerController@index']);
 	Route::get('/create/book', ['uses' => 'BookModerController@create']);
     Route::post('/save/book', ['uses' => 'BookModerController@save']);
     Route::get('/edit/book/{id}', ['uses' => 'BookModerController@edit']);
     Route::post('/update/book/{id}', ['uses' => 'BookModerController@update']);
     Route::get('/delete/book/{id}', 'BookModerController@delete');
-        
+    
+	//CRUD moder User    
     Route::get('/user', ['uses' => 'UserModerController@index']);
 	Route::get('/create/user', ['uses' => 'UserModerController@create']);
     Route::post('/save/user', ['uses' => 'UserModerController@save']);
@@ -61,6 +67,7 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
     Route::post('/update/user/{id}', ['uses' => 'UserModerController@update']);
     Route::get('/delete/user/{id}', 'UserModerController@delete');
 	
+	// CRUD moder Department
 	Route::get('/dep',['uses' => 'DepController@index']);
 	Route::get('/create/dep', ['uses' => 'DepController@create']);
 	Route::post('/save/dep', ['uses' => 'DepController@save']);
@@ -68,6 +75,7 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
     Route::post('/update/dep/{id}', ['uses' => 'DepController@update']);
     Route::get('/delete/dep/{id}', 'DepController@delete');
 	
+	//CRUD moder Link
 	Route::get('/link/{id}',['uses' => 'LinkController@index']);
 	Route::get('/create/link/{id}', ['uses' => 'LinkController@create']);
 	Route::post('/save/link', ['uses' => 'LinkController@save']);
@@ -75,12 +83,16 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
     Route::post('/update/link/{id}', ['uses' => 'LinkController@update']);
     Route::get('/delete/link/{id}', 'LinkController@delete');
 	
-	//Route::get('/dep',['uses' => 'DepController@index']);
-	//Route::get('/create/dep', ['uses' => 'DepController@create']);
+	//  C /R/U/D moder recomendation
 	Route::post('/save/rec', ['uses' => 'RecomendController@save']);
-	Route::get('/edit/dep/{id}', ['uses' => 'DepController@edit']);
-    Route::post('/update/dep/{id}', ['uses' => 'DepController@update']);
-    Route::get('/delete/dep/{id}', 'DepController@delete');
+	
+	//CRUD moder Genre
+	Route::get('/genre',['uses' => 'GenreController@index']);
+	Route::get('/create/genre', ['uses' => 'GenreController@create']);
+	Route::post('/save/genre', ['uses' => 'GenreController@save']);
+	Route::get('/edit/genre/{id}', ['uses' => 'GenreController@edit']);
+    Route::post('/update/genre/{id}', ['uses' => 'GenreController@update']);
+    Route::get('/delete/genre/{id}', 'GenreController@delete');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'roles'], 'roles' => 'admin'], function()
@@ -91,5 +103,9 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'roles'], 'roles' =>
 	Route::get('/user', ['uses' => 'UserAdminController@index']);
     Route::get('/delete/user/{id}', ['uses' => 'UserAdminController@delete']);
 	
+	Route::get('/book', ['uses' => 'BookAdminController@index']);
+	
 	Route::post('/active', ['uses' => 'ActiveController@index']);
 });
+
+

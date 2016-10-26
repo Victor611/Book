@@ -9,7 +9,7 @@
                     <div class="panel-body">
                         <!-- Display Validation Errors -->
                         @include('common.errors')
-                       
+                        
                         <form action="{{ url('/moder/save/book') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
                             {!! csrf_field() !!}
                             

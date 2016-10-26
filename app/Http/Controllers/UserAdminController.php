@@ -19,7 +19,7 @@ class UserAdminController extends Controller
 // Главная   
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('admin_user.index', ['users' => $users]);
     }
 // Удалить  

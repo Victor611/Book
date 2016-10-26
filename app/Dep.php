@@ -10,7 +10,7 @@ class Dep extends Model
 {
     protected $table = 'deps';
     protected $fillable = ['parent_id', 'name'];
-    
+    public $timestamps =false;
     
     public function user()
     {

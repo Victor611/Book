@@ -19,6 +19,7 @@ class Recomend extends Model
         $recomend = DB::table('recomends')
                     ->where('dep_id', '=', $did)
                     ->where('book_id', '=', $bid)
+                    ->orWhere('dep_id', '=', -1)
                     ->get();
         foreach($recomend as $rec)
         {
@@ -26,19 +27,7 @@ class Recomend extends Model
         }
     }
     
-    static function hasRecomendId($bid, $did)
-    {
-       
-        $recomend = DB::table('recomends')
-                    ->where('dep_id', '=', $did)
-                    ->where('book_id', '=', $bid)
-                    ->get();
-        foreach($recomend as $rec)
-        {
-            
-            return $rec->id;
-        }
-    }
+
     
     public function book()
     {
@@ -50,10 +39,5 @@ class Recomend extends Model
         return $this->belongsTo('App\Dep');
     }
     
-    //static function countComent($uid)
-    //{
-    //    return DB::table('coments')
-    //            ->where('user_id', '=', $uid)
-    //            ->count();
-    //}
+   
 }

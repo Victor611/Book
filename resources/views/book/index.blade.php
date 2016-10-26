@@ -6,13 +6,18 @@
         <div class="col-md-8 col-lg-8">
             <div class="panel panel-default">
                 <div class="panel-heading">Books</div>
-                    <div class="panel-body">       
+                    <div class="panel-body">
+                   
                         @foreach ($books as $book)
                             <table class="table table-striped task-table">
                                 <tr>
+                                    
                                     <td class="table-text col-sm-3">
-                                        <img src="/uploads/book_avatar/{{$book->avatar}}" style="width:100px; heidth:100px; float:left;">
+                                        <a href="{{ url('book/'.$book->id) }}">
+                                            <img src="/uploads/book_avatar/{{$book->avatar}}" style="width:100px; heidth:100px; float:left;">
+                                        </a>
                                     </td>
+                                    
                                     <!-- Book Name -->
                                     <td class="table-text col-sm-9">
                                         <div class="col-sm-12">
@@ -20,19 +25,19 @@
                                             <div class="col-sm-12"><h4>{{ $book->title }}</h4></div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Author :</div>
+                                            <div class="col-sm-3">Автор :</div>
                                             <div class="col-sm-9">{{ $book->author }}</div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Pub Year :</div>
+                                            <div class="col-sm-3">Год издания :</div>
                                             <div class="col-sm-9">{{ $book->pubyear }}</div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Genre :</div>
+                                            <div class="col-sm-3">Жанр :</div>
                                             <div class="col-sm-9">{{ $book->genre->name }}</div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Type :</div>
+                                            <div class="col-sm-3">Тип :</div>
                                             <div class="col-sm-9">
                                                 {{ $book->type }}
                                                 
@@ -42,6 +47,7 @@
                                                 @endif
                                             </div>
                                         </div>
+                                       
                                         <div class="col-sm-12">
                                             <p>
                                             <!--склонение в зависимости от количества отзывов-->
@@ -53,51 +59,13 @@
                                             </p>
                                         </div>                    
                                         
-                                        
-                                       
                                         <div style="float:right;">
                                             <a href="{{ url('book/'.$book->id) }}">
                                                 <button type="submit" class="btn btn-info">
                                                     <i class="glyphicon glyphicon-eye-open"></i> Подробнее 
                                                 </button>
                                             </a>
-                                        </div>
-                                          
-                                        <!--Рекомендации-->
-                                        @if ( Auth::user()->hasRole('moderator'))
-                                        <div class="btn-group" style="display: inline; float:right;">
-                                            <form method="post" action="/moder/save/rec">
-                                            {!! csrf_field() !!}
-                                                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                                    <span class="caret"></span>
-                                                    <span class="sr-only">Меню с переключением</span>
-                                                </button>
-                                                    <input type="hidden" name="book_id" value="{{ $book->id }}">
-                                                    <input type="hidden" name="status" value="1">
-                                                <ul class="dropdown-menu" role="menu">
-                                                    
-                                                        <li>
-                                                            <input type="checkbox" name="dep_id" value="-1"
-                                                                {{App\Recomend::hasRecomend($book->id, -1)==-1 ? "checked":""}}>
-                                                            Рекомендовать всем
-                                                        </li>
-                                                    @foreach ($deps as $d)
-                                                        
-                                                        <li>
-                                                            <input type="checkbox" name="dep_id" value="{{ $d->id }}"
-                                                                {{App\Recomend::hasRecomend($book->id, $d->id)==$d->id ? "checked":""}}>
-                                                            {{ $d->name }}
-                                                        </li>
-                                                    @endforeach
-                                                </ul>
-                                                    
-                                                <button type="submit" class="btn btn-default">
-                                                    Рекомендовать
-                                                </button>
-                                            </form>
-                                        </div>
-                                        @endif
-                                        <!--Конец рекомендаций-->            
+                                        </div>        
                                     </td>
                                 </tr>
                             </table>
@@ -108,33 +76,73 @@
             </div>        
         
         
-        
+        <!--Фильтр-->
         <div class="col-md-4 col-lg-4 ">
             <div class="panel panel-default">   
                 <div class="panel-heading">Filter</div>
                 <div class="panel-body">       
                     
+                    <?php $sort = Request::has('sort') ? Request::get('sort') :false;?>
                     <form action="/book" method="post">
-                     {!! csrf_field() !!}
-                        <p><input name="sort" type="radio" value="asc" checked> по возрастанию <i class="glyphicon glyphicon-arrow-up"></i></p>
-                        <p><input name="sort" type="radio" value="desc"> по убыванию <i class="glyphicon glyphicon-arrow-down"></i></p><hr>
-                        <p><input name="order_by" type="radio" value="author" checked> по автору </p>
-                        <p><input name="order_by" type="radio" value="pubyear"> по году издания </p>
-                        <p><input name="order_by" type="radio" value="title"> по названию </p><hr>
+                     {{ csrf_field() }}
+                        <p>Сортировка</p>
+                        <select name="sort" class="form-control" >
+                            <option value="">Без сортировки</option>
+                            <option @if($sort=='author::asc') selected @endif value="author::asc">
+                                Автор от А до Я
+                            </option>
+                            
+                            <option @if($sort=='author::desc') selected @endif value="author::desc">
+                                Автор от Я до А
+                            </option>
+                            
+                            <option @if($sort=='pubyear::asc') selected @endif value="pubyear::asc">
+                                Год издания по возрастанию
+                            </option>
+                            
+                            <option @if($sort=='pubyear::desc') selected @endif value="pubyear::desc">
+                                Год издания по убыванию
+                            </option>
+                            
+                            <option @if($sort=='title::asc') selected @endif value="title::asc">
+                                Название от А до Я
+                            </option>
+                            
+                            <option @if($sort=='title::desc') selected @endif value="title::desc">
+                                Название от Я до А
+                            </option>
+                        </select>
+
+                        <hr>
                         <p>Жанр</p>
                         @foreach($genres as $genre)
-                            <p><input name="genre_id" type="radio" value="{{$genre->id}}"> {{$genre->name}} </p>
+                            <p><input name="genres[]" type="checkbox" value="{{$genre->id}}"
+                                    @if( isset($genres_r) && in_array($genre->id, $genres_r) )
+                                            checked
+                                    @endif
+                                >
+                            {{$genre->name}} </p>
                         @endforeach
                         <hr>
                         <p>Рекомендовано</p>
                         @if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin'))
                             @foreach ($deps as $dep)
-                                <p><input name="dep_id" type="radio" value="{{$dep->id}}"> {{$dep->name}} </p>
+                                <p><input name="deps[]" type="checkbox" value="{{$dep->id}}"
+                                    @if( isset($deps_r) && in_array($dep->id, $deps_r) )
+                                        checked
+                                    @endif
+                                >
+                                {{$dep->name}} </p>
                             @endforeach
                         @elseif(Auth::user()->hasRole('user'))
-                            <p><input name="dep_id" type="radio" value="{{Auth::user()->dep_id}}">Моему отделу</p>
+                            <p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}"
+                                @if( isset($deps_r) && in_array(Auth::user()->dep_id, $deps_r) )
+                                        checked
+                                @endif
+                            >
+                            Моему отделу</p>
                         @endif
-                        <p><input type="submit" value="Выбрать"></p>
+                        <p><input type="submit" value="Выбрать" class="form-control"></p>
                     <?php //dd($books);?>   
                     </form> 
                     

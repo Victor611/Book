@@ -13,7 +13,15 @@
                     <!--Form Edit Dep-->
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/moder/update/dep/'.$dep->id) }}">
                         {!! csrf_field() !!}
-
+  
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label">Department</label>
+                
+                            <div class="col-sm-6">
+                                <input type="text" name="name" class="form-control"  value="{{$dep->name}}">
+                            </div>
+                        </div>
+                            
                         <div class="form-group" >
                             <label class="col-sm-3 control-label">Department parent</label>
                                
@@ -23,14 +31,6 @@
                             
                                     <option value ='{{ $dep->id }}'>{{ $dep->name }}</option>
                                 </select>
-                            </div>
-                        </div>
-                            
-                        <div class="form-group">
-                            <label class="col-sm-3 control-label">Department</label>
-                
-                            <div class="col-sm-6">
-                                <input type="text" name="name" class="form-control"  value="{{$dep->name}}">
                             </div>
                         </div>
                 

@@ -11,9 +11,9 @@ use App\Rating;
 use App\Recomend;
 use App\Logger;
 
-
 use Image;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 class BookModerController extends Controller
 {
@@ -26,7 +26,7 @@ class BookModerController extends Controller
 // Главная   
     public function index()
     {
-        $books = Book::all();
+        $books = Book::paginate(10);
         return view('moder_book.index', ['books' => $books]);
     }
     
@@ -40,7 +40,8 @@ class BookModerController extends Controller
     public function save(Request $request)
     {
         
-        $validator = BookModerController::check($request);        
+        $validator_ru = BookModerController::checkBookRu($request);
+        $validator = BookModerController::checkBook($request);        
         if ($validator->fails())
         {
             return redirect('/moder/create/book')
@@ -48,25 +49,24 @@ class BookModerController extends Controller
                 ->withErrors($validator);
         }
         
+        $data = new Book;
+        if($request->hasFile('avatar'))
+        {
+            $book_avatar = $request->file('avatar');
+            $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
+            Image::make($book_avatar)->save(public_path('uploads/book_avatar/'.$filename));
+            $data->avatar = $filename;
+        }
+        $data->title = $request->title;
+        $data->author = $request->author;
+        $data->pubyear = $request->pubyear;
+        $data->description = $request->description;
+        $data->genre_id = $request->genre_id;
+        $data->type = $request->type;
+        $data->save();
+        Logger::write(Logger::$book, $data->id, 'create');
         
-            $data = new Book;
-            if($request->hasFile('avatar'))
-            {
-                $book_avatar = $request->file('avatar');
-                $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
-                Image::make($book_avatar)->save(public_path('uploads/book_avatar/'.$filename));
-                $data->avatar = $filename;
-            }
-            $data->title = $request->title;
-            $data->author = $request->author;
-            $data->pubyear = $request->pubyear;
-            $data->description = $request->description;
-            $data->genre_id = $request->genre_id;
-            $data->type = $request->type;
-            $data->save();
-            Logger::write(Logger::$book, $data->id, 'create');
-            
-            return redirect('/moder/book');
+        return redirect('/moder/book');
         
     }
 // форма редактирования книги    
@@ -80,7 +80,8 @@ class BookModerController extends Controller
 //Обновить книгу
     public function update(Request $request, $id)
     {
-        $validator = BookModerController::check($request);
+        $validator_ru = BookModerController::checkBookRu($request);
+        $validator = BookModerController::checkBook($request);
         if ($validator->fails())
         {
             return redirect('/moder/edit/book/'.$id)
@@ -88,15 +89,14 @@ class BookModerController extends Controller
                 ->withErrors($validator);
         }
         
-
         $data = Book::find($id);
-            if($request->hasFile('avatar'))
-            {
-                $book_avatar = $request->file('avatar');
-                $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
-                Image::make($book_avatar)->save(public_path('uploads/book_avatar/'.$filename));
-                $data->avatar = $filename;
-            }
+        if($request->hasFile('avatar'))
+        {
+            $book_avatar = $request->file('avatar');
+            $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
+            Image::make($book_avatar)->save(public_path('uploads/book_avatar/'.$filename));
+            $data->avatar = $filename;
+        }
         $data->title = $request->title;
         $data->author = $request->author;
         $data->pubyear = $request->pubyear;
@@ -120,17 +120,27 @@ class BookModerController extends Controller
         return redirect('/moder/book'); 
     }
     
-    public function check(Request $request)
+    public function checkBook(Request $request)
     {
         return  $validator = Validator::make($request->all(),
         [
-            'title' => 'required|max:255',
-            'author' => 'required|max:255',
-            'pubyear' => 'required|numeric|min:1900|max:2050',
-            'description' => 'required|max:255',
-            'genre_id' => 'required|max:255',
-            'type' => 'required|max:30',
+            'pubyear' => 'required|numeric|between:1900,2050',
+            'genre_id' => 'required|numeric|max:255',
             'avatar' => 'image|mimes:jpeg,bmp,png',
         ]);        
+        
+        
     }
+    
+    public function checkBookRu(Request $request)
+    {
+        return $validator_ru = $this->validate($request,
+        [
+            'title'=>'required|alpha_num_ru|max:255',
+            'author' => 'required|alpha_ru|max:255',
+            'type' => 'required|type_book|max:30',
+            'description' => 'required|max:500',
+        ]);
+    }
+    
 }

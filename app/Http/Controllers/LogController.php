@@ -18,14 +18,8 @@ class LogController extends Controller
     
     public function index()
     {
-        $logs = DB::table('logs')->orderBy('time', 'desc')->paginate(20);
+        $logs = DB::table('logs')->orderBy('time', 'desc')->take(1000)->paginate(20);
         return view('admin_log.index', ['logs' => $logs]);
     }
-    
-    public function delete()
-    {
-        DB::table('logs')->truncate();
-        
-        return redirect('/admin/log'); 
-    }
+
 }

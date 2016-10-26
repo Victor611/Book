@@ -90,9 +90,9 @@ class LinkController extends Controller
     {
         return  $validator = Validator::make($request->all(),
         [
-            'book_id' => 'required|max:10',
+            'book_id' => 'required|numeric|max:255',
             'format' => 'required|max:500',
-            'url' => 'required|max:255',
+            'url' => 'required|url|max:255',
         ]);        
     }
 }

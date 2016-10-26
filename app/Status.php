@@ -46,7 +46,7 @@ class Status extends Model
                     ->join('ratings', 'books.id', '=', 'ratings.book_id')
                     ->where('ratings.user_id', '=', $uid)
                     ->where('ratings.status', '=', $sid)
-                    ->paginate(4);
+                    ->paginate(5);
     }
     
     static function StatusToBook($bid, $sid)//выбирает юзеров которые читают книгу принимает book_id & status_id

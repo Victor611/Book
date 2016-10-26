@@ -16,6 +16,14 @@ class ProfileController extends Controller
     
     public function update_avatar(Request $request)
     {
+        $validator = ProfileController::checkProfile($request);
+        if ($validator->fails())
+        {
+            return redirect('/profile')
+                ->withInput()
+                ->withErrors($validator);
+        }
+        
         if($request->hasFile('avatar'))
         {
             $avatar = $request->file('avatar');
@@ -27,5 +35,13 @@ class ProfileController extends Controller
             $user->save();
         }
         return view('profile', ['user' => Auth::user()]);
+    }
+    
+    public function checkProfile(Request $request)
+    {
+        return  $validator = Validator::make($request->all(),
+        [
+            'avatar' => 'image|mimes:jpeg,bmp,png',
+        ]);        
     }
 }

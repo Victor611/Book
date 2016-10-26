@@ -11,32 +11,34 @@
                             <table class="table table-striped task-table">
                                 <tr>
                                     <td class="table-text col-sm-3">
-                                        <img src="/uploads/avatars/{{$user->avatar}}" style="width:100px; heidth:100px; float:left;">
+                                        <a href="{{ url('user/'.$user->id) }}">
+                                            <img src="/uploads/avatars/{{$user->avatar}}" style="width:100px; heidth:100px; float:left;">
+                                        </a>
                                     </td>
                                     <!-- Book Name -->
                                     <td class="table-text col-sm-9">
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Name :</div>
+                                            <div class="col-sm-3">Имя :</div>
                                             <div class="col-sm-9">{{ $user->name }}</div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Role :</div>
+                                            <div class="col-sm-3">Роль :</div>
                                             <div class="col-sm-9">{{ $user->role->name }}</div>
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Department :</div>
+                                            <div class="col-sm-3">Отдел :</div>
                                             <div class="col-sm-9">{{ $user->dep->name }}</div>
                                         </div>
                                             
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Read:</div>
+                                            <div class="col-sm-3">Прочел:</div>
                                             <div class="col-sm-9">
                                                 <?php  new App\Sklonenie(App\Status::countStatus(($user->id), 3), ['книга','книги','книг']);?>
                                             </div>
                                         </div>    
                                         
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Commented:</div>
+                                            <div class="col-sm-3">Оставил:</div>
                                             <div class="col-sm-9">
                                                 <!--склонение в зависимости от количества отзывов у юзера-->
                                              <?php new App\Sklonenie(App\Coment::countComent($user->id),['отзыв','отзыва','отзывов']);?>
@@ -62,15 +64,38 @@
         <div class="col-md-4 col-lg-4 ">
             <div class="panel panel-default">   
                 <div class="panel-heading">Filter</div>
-                <div class="panel-body">       
-                 <form action="/users" method="post">
+                <div class="panel-body">
+                
+                <?php $sort = Request::has('sort') ? Request::get('sort') :false;?>
+                <form action="/users" method="post">
                      {!! csrf_field() !!}
-                        <p><input name="sort" type="radio" value="asc" checked> по возрастанию <i class="glyphicon glyphicon-arrow-up"></i></p>
-                        <p><input name="sort" type="radio" value="desc"> по убыванию <i class="glyphicon glyphicon-arrow-down"></i></p><hr>
-                        <p><input name="order_by" type="radio" value="name" checked> по имени </p>
-                        <p><input name="order_by" type="radio" value="role_id"> по роли </p>
-                        <p><input name="order_by" type="radio" value="dep_id"> по подразделению </p><hr>
-                        <p><input type="submit" value="Выбрать"></p>
+                        <p><input name="sort" type="radio" value="">
+                            Без сортировки </p><hr>
+                        <p><input name="sort" type="radio" @if($sort=='name::asc') checked @endif value="name::asc">
+                            По имени от А до Я <i class="glyphicon glyphicon-arrow-up"></i>
+                        </p>
+                        
+                        <p><input name="sort" type="radio" @if($sort=='name::desc') checked @endif value="name::desc">
+                            По имени от Я до А <i class="glyphicon glyphicon-arrow-down"></i>
+                        </p>
+                        
+                        <p><input name="sort" type="radio" @if($sort=='role_id::asc') checked @endif value="role_id::asc">
+                            Роли по возрастанию <i class="glyphicon glyphicon-arrow-up"></i>
+                        </p>
+                        
+                        <p><input name="sort" type="radio" @if($sort=='role_id::desc') checked @endif value="role_id::desc">
+                            Роли по убыванию <i class="glyphicon glyphicon-arrow-down"></i>
+                        </p>
+                        
+                        <p><input name="sort" type="radio" @if($sort=='dep_id::asc') checked @endif value="dep_id::asc">
+                            По подразделению от А до Я <i class="glyphicon glyphicon-arrow-up"></i>
+                        </p>
+                        
+                        <p><input name="sort" type="radio" @if($sort=='dep_id::desc') checked @endif value="dep_id::desc">
+                        По подразделению от А до Я <i class="glyphicon glyphicon-arrow-down"></i>
+                        </p>
+                        
+                        <p><input type="submit" value="Выбрать" class="form-control"></p>
                     <?php //dd($books);?>   
                     </form>         
                 </div>

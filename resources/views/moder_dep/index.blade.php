@@ -44,7 +44,7 @@
                                         </td>
                                         
                                         <td>
-                                            <form action="{{ url('/moder/delete/dep/'.$d->id) }}" method="GET">
+                                            <form action="{{ url('/moder/delete/dep/'.$d->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">
                                             {!! csrf_field() !!}
                                             {!! method_field('DELETE') !!}
                                                 <button type="submit" class="btn btn-danger">
@@ -54,6 +54,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
+                                <?php echo $deps->links(); ?>
                             </tbody>
                         </table>
                     </div>

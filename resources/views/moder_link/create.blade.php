@@ -22,11 +22,15 @@
                             <div class="col-sm-6">
                                 <select  class="form-control" name="format">
                                     <option value ='doc'>doc</option>
+                                    <option value ='docx'>docx</option>
                                     <option value ='txt'>txt</option>
                                     <option value ='fb2'>fb2</option>
                                     <option value ='mobi'>mobi</option>
                                     <option value ='epub'>epub</option>
                                     <option value ='pdf'>pdf</option>
+                                    <option value ='ppt'>ppt</option>
+                                    <option value ='djvu'>DjVu</option>
+                                    <option value ='rtf'>rtf</option>
                                 </select>
                             </div>
                         </div>

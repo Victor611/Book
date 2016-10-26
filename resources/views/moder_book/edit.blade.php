@@ -52,10 +52,10 @@
                                 <div class="col-sm-6">
                                     
                                     <select  class="form-control" name="genre_id">
-                                       <option value ='{{$book->genre->id}}'>{{$book->genre->name}}</option>
+                                      
                                     @foreach ($genres as $g)
                                         
-                                        <option value ='{{ $g->id }}'>{{ $g->name }}</option>
+                                        <option value ='{{ $g->id }}' @if($g->id == $book->genre->id) selected @endif>{{ $g->name }}</option>
                                     
                                     @endforeach
                                     </select>
@@ -66,9 +66,8 @@
                                  <label class="col-sm-3 control-label">Type</label>
                                 <div class="col-sm-6">
                                     <select  class="form-control" name="type">
-                                        <option value ='{{$book->type}}'>{{$book->type}}</option>
-                                        <option value ='Бумажная'>Бумажная</option>
-                                        <option value ='Электронная'>Электронная</option>
+                                        <option value ='Бумажная' @if($book->type == 'Бумажная') selected @endif>Бумажная</option>
+                                        <option value ='Электронная'@if($book->type == 'Электронная') selected @endif>Электронная</option>
                                     </select>
                                 </div>
                             </div>   

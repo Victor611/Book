@@ -13,6 +13,8 @@ use Request;
 
 class BookController extends Controller
 {
+    public $itemsPerPage = 10;
+    
     public function __construct()
     {
         $this->middleware('auth');
@@ -20,11 +22,12 @@ class BookController extends Controller
     
     public function index()
     {
-       $sql='';
+       
         $deps = Dep::all();
-        $books = Book::paginate(3);
+        $books = Book::paginate($this->itemsPerPage);
         $genres = Genre::all();
-        return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres, 'sql' => $sql]);
+        return $data = [$deps,$books,$genres];
+        //return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
     }
     
     static function show($id)
@@ -36,35 +39,60 @@ class BookController extends Controller
     
     public function filter(Request $request)
     {
+       
         $sort = Request::has('sort') ? Request::get('sort') : false; // Параметр сортировки 'ASC','DESC'
-        $order_by = Request::has('order_by') ? Request::get('order_by'): false;    // столбец сортировки
-        $genre_id = Request::has('genre_id') ? Request::get('genre_id') : false; //Какой жанр книги
-        $dep_id = Request::has('dep_id') ? Request::get('dep_id') :false;// Какой тематики книги
-         
-        $column = '';       
-        if($sort) $param = $sort;
-        if($order_by) $column = $order_by;
-        
-        $where = [];
-        if($genre_id)
+        $column = "id";
+        $order = null;
+        if($sort)
         {
-            $where['genre_id'] = intval($genre_id);   
-        }
+            list($column, $order) = explode("::", $sort);
+        }    
+            
+            
+        $books = Book::leftJoin('recomends', 'books.id', '=', 'recomends.book_id')->where( function($query)
+        {    
+            $genres = Request::has('genres') ? Request::get('genres') : []; //Какой жанр книги
+            $deps = Request::has('deps') ? Request::get('deps') :false;// Какой тематики книги
+            
+            $where = [];
         
-        $books = Book::where($where)->orderBy($column, $param)->get();
-        
-        if($dep_id)
-        {
-            $books = Book::join('recomends', 'books.id', '=', 'recomends.book_id')
-                    ->where('recomends.status', '=', 1)
-                    ->where('recomends.dep_id', '=', $dep_id)
-                    ->orWhere('recomends.dep_id', '=', -1)
-                    ->orderBy($column, $param)
-                    ->get();
-        }
-             
-        $deps = Dep::all();
-        $genres = Genre::all();
-        return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
+            if($deps)
+            {
+                //$query->join('recomends', 'books.id', '=', 'recomends.book_id');
+                $query->where('recomends.dep_id', '=', -1);
+                $query->orWhere(function ($q) use($deps)
+                {
+                    foreach($deps as $dep_id)
+                    {
+                        $q->orWhere('recomends.dep_id', '=', $dep_id);
+                    }
+                });
+            }
+            
+            if($genres)
+            {
+                $query->where(function ($q) use ($genres)
+                {
+                    foreach($genres as $genre_id)
+                    {
+                       $q->orWhere('genre_id', '=', $genre_id);
+                    }                    
+                });
+            } 
+                 
+        })
+        ->orderBy('books.'.$column, $order)
+        ->groupBy('id')
+        //->toSql();
+        //dd($books); exit;
+        ->paginate($this->itemsPerPage);
+       
+        return view('book.index', [
+                        'books' => $books,
+                        'deps' => Dep::all(),
+                        'genres' => Genre::all(),
+                        'deps_r' => Request::get('deps'),
+                        'genres_r' => Request::get('genres'),
+        ]);
     }
 }

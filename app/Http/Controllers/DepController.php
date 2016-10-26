@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Dep;
 use App\User;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
 
 class DepController extends Controller
 {
@@ -21,7 +22,7 @@ class DepController extends Controller
 // Главная   
     public function index()
     {
-        $deps = Dep::all();
+        $deps = Dep::paginate(10);
         return view('moder_dep.index', ['deps' => $deps]);
     }
     
@@ -35,14 +36,8 @@ class DepController extends Controller
     public function save(Request $request)
     {
         
-        $validator = DepController::checkCreate($request);        
-        if ($validator->fails())
-        {
-            return redirect('/moder/create/dep')
-                ->withInput()
-                ->withErrors($validator);
-        }
-        
+        $validator = DepController::checkDep($request);        
+                
             $data = new Dep;
             $data->name = $request->name;
             $data->parent_id = $request->parent_id;
@@ -60,13 +55,7 @@ class DepController extends Controller
 // Save Edit Dep
     public function update(Request $request, $id)
     {
-        $validator = DepController::checkUpdate($request);
-        if ($validator->fails())
-        {
-            return redirect('/moder/edit/dep/'.$id)
-                ->withInput()
-                ->withErrors($validator);
-        }
+        $validator = DepController::checkDep($request);
         
             $data = Dep::find($id);
             $data->name = $request->name;
@@ -82,20 +71,11 @@ class DepController extends Controller
         return redirect('/moder/dep'); 
     }
     
-    public function checkCreate(Request $request)
+    public function checkDep(Request $request)
     {
-        return  $validator = Validator::make($request->all(),
+        return $validator_ru = $this->validate($request,
         [
-            'name' => 'required|max:255',
-        ]);        
-    }
-    
-    public function checkUpdate(Request $request)
-    {
-        return  $validator = Validator::make($request->all(),
-        [
-            'name' => 'required|max:255',
-            
-        ]);        
+            'name' => 'required|alpha_num_ru|max:255',
+        ]);
     }
 }

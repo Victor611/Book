@@ -15,7 +15,7 @@ class UserController extends Controller
     
     public function index()
     {
-        $users = User::paginate(3);
+        $users = User::paginate(10);
         return view('user.index', ['users' => $users]);
     }
     
@@ -28,16 +28,18 @@ class UserController extends Controller
     public function filter(Request $request)
     {
         $sort = Request::has('sort') ? Request::get('sort') : false; // Параметр сортировки 'ASC','DESC'
-        $order_by = Request::has('order_by') ? Request::get('order_by'): false;    // столбец сортировки
-         
-        $column = '';       
-        if($sort) $param = $sort;
-        if($order_by) $column = $order_by;
         
+        $column = "id";
+        $order = null;
+        if($sort)
+        {
+            list($column, $order) = explode("::", $sort);
+        }    
+         
         $where = [];
         
-        $users = User::where($where)->orderBy($column, $param)->get();
-        //dd($users);
+        $users = User::where($where)->orderBy($column, $order)->paginate(10);
+        
         return view('user.index', ['users' => $users]);
     }
 }

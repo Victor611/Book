@@ -8,21 +8,16 @@
                  <div class="panel-heading">Logs</div>
                     <div class="panel-body">
                         
-                        <a href="{{ url('/admin/delete/logs') }}">
-                            <button type="button" class="btn btn-danger">
-                                <i class="glyphicon glyphicon-trash"></i> Удалить все логи
-                            </button>
-                        </a>
                         <table class="table table-striped task-table">
 
                             <!-- Table Headings -->
                             <thead>
-                                <th>Name</th>
-                                <th>IP</th>
                                 <th>Time</th>
+                                <th>User</th>
+                                <th>IP</th>
                                 <th>Action</th>
-                                <th>What</th>
-                                <th>id</th>
+                                <th>Oblect</th>
+                                <th>ID</th>
                                 
                             </thead>
                             
@@ -34,10 +29,14 @@
                                     case(1): $obj= 'Book';break;
                                     case(2): $obj= 'User';break;
                                 endswitch;
-                            
                             ?>
                     
                                     <tr>
+                                    
+                                        <td class="table-text">
+                                            <div>{{strftime("%d.%m.%Y", strtotime($log->time))." в ".strftime("%H.%M", strtotime($log->time))}}</div>
+                                        </td>
+                                            
                                         <!-- Task Name -->
                                         <td class="table-text">
                                             <div>{{$user->name}}</div>
@@ -46,11 +45,7 @@
                                         <td class="table-text">
                                             <div>{{$log->ip}}</div>
                                         </td>
-                                                                                
-                                        <td class="table-text">
-                                            <div>{{$log->time}}</div>
-                                        </td>
-                                           
+                                          
                                         <td class="table-text">
                                             <div>{{$log->action}}</div>
                                         </td>
@@ -62,7 +57,6 @@
                                         <td class="table-text">    
                                             <div>{{$log->obj_id}}</div>
                                         </td>
-                                        
                                     </tr>
                                 @endforeach
                                 <?php echo $logs->links(); ?>

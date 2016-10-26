@@ -10,6 +10,8 @@ use App\Dep;
 use App\Logger;
 use Illuminate\Support\Facades\Validator;
 
+use App\Http\Controllers\Controller;
+
 class UserModerController extends Controller
 {
     
@@ -22,7 +24,7 @@ class UserModerController extends Controller
 // Главная   
     public function index()
     {
-        $users = User::all();
+        $users = User::paginate(10);
         return view('moder_user.index', ['users' => $users]);
     }
     
@@ -36,7 +38,7 @@ class UserModerController extends Controller
 // save new book
     public function save(Request $request)
     {
-        
+        $validator_ru = UserModerController::checkUserRu($request);
         $validator = UserModerController::checkCreate($request);        
         if ($validator->fails())
         {
@@ -68,6 +70,7 @@ class UserModerController extends Controller
 //Обновить книгу
     public function update(Request $request, $id)
     {
+        $validator_ru = UserModerController::checkUserRu($request);
         $validator = UserModerController::checkUpdate($request);
         if ($validator->fails())
         {
@@ -107,7 +110,7 @@ class UserModerController extends Controller
             'password' => 'required|min:6|max:255',
             'password' => 'required|min:6|confirmed',
             'password_confirmation' => 'required|min:6',
-            'role_id' => 'required',
+            'role_id' => 'required|numeric',
         ]);        
     }
     
@@ -118,5 +121,13 @@ class UserModerController extends Controller
             'name' => 'required|max:255',
             'role_id' => 'required',
         ]);        
+    }
+    
+    public function checkUserRu(Request $request)
+    {
+        return $validator_ru = $this->validate($request,
+        [
+            'name'=>'alpha_num_ru',
+        ]);
     }
 }

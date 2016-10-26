@@ -36,9 +36,9 @@
 
                             <div class="col-md-6">
                                 <select  class="form-control" name="role_id">
-                                    <option value ='{{ $user->role->id }}'>{{ $user->role->name }}</option>
+                                    
                                     @foreach ($roles as $r)
-                                        <option value ='{{ $r->id }}'>{{ $r->name }}</option>
+                                        <option value ='{{ $r->id }}' @if($r->id == $user->role->id) selected @endif>{{ $r->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -51,9 +51,8 @@
 
                             <div class="col-md-6">
                                 <select  class="form-control" name="dep_id">
-                                    <option value ='{{ $user->dep->id }}'>{{ $user->dep->name }}</option>
                                     @foreach ($deps as $d)
-                                        <option value ='{{ $d->id }}'>{{ $d->name }}</option>
+                                        <option value ='{{ $d->id }}' @if($d->id == $user->dep->id) selected @endif>{{ $d->name }}</option>
                                     @endforeach
                                 </select>
                             </div>
