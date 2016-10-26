@@ -8,6 +8,9 @@ use App\Status;
 use App\Rating;
 use App\User;
 
+use Illuminate\Support\Facades\Validator;
+use App\Http\Controllers\Controller;
+
 
 class StatusController extends Controller
 {
@@ -40,8 +43,9 @@ class StatusController extends Controller
     {
         return $status = $this->validate($request,
         [
-            'status'=>'required|status|max:255',
-            'user_id'=>'requirred|numeric|max:255',
+            'status'=>'required|status',
+            'user_id'=>'required|integer',
+            'book_id'=>'required|integer',
             
         ]);
     }

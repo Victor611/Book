@@ -6,10 +6,6 @@ use Illuminate\Support\ServiceProvider;
 use Validator;
 use App\CustomValidator;
 
-namespace App\Providers;
-use Validator;
-use Illuminate\Support\ServiceProvider;
-use App\CustomValidator;
 
 
 class AppServiceProvider extends ServiceProvider

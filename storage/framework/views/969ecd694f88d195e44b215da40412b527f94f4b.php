@@ -5,6 +5,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Books</div>
                     <div class="panel-body">
+                    
                         <!-- Обложка -->
                         <div class="col-sm-12 col-md-4">
                             <img src="/uploads/book_avatar/<?php echo e($book->avatar); ?>" style="width:200px; heidth:200px; margin-right:50px; float:left;">
@@ -148,8 +149,7 @@
                             <!--content coment-->
                             <div class="tab-content">
                                 <div id="panel1" class="tab-pane fade in active">
-                                    <h3>Отзывы</h3>
-                                                               
+                                    <h3>Отзывы</h3>                     
                                    
                                     <!-- New coment Form -->
                                     <form action="<?php echo e(url('/coment')); ?>" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
@@ -175,7 +175,9 @@
                                     <!--coment content-->
                                     <?php if(count($book->coment) > 0): ?>
                                         <div class="panel-body">
+                                          
                                             <?php foreach($book->coment as $c): ?>
+                                              
                                             <table class="table table-striped task-table">
                                             <?php if(Auth::user()->id == $c->user->id): ?>
                                                 <thead>

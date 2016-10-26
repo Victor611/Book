@@ -7,6 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Books</div>
                     <div class="panel-body">
+                    
                         <!-- Обложка -->
                         <div class="col-sm-12 col-md-4">
                             <img src="/uploads/book_avatar/{{$book->avatar}}" style="width:200px; heidth:200px; margin-right:50px; float:left;">
@@ -145,8 +146,7 @@
                             <!--content coment-->
                             <div class="tab-content">
                                 <div id="panel1" class="tab-pane fade in active">
-                                    <h3>Отзывы</h3>
-                                                               
+                                    <h3>Отзывы</h3>                     
                                    
                                     <!-- New coment Form -->
                                     <form action="{{ url('/coment') }}" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
@@ -171,7 +171,9 @@
                                     <!--coment content-->
                                     @if (count($book->coment) > 0)
                                         <div class="panel-body">
+                                          
                                             @foreach ($book->coment as $c)
+                                              
                                             <table class="table table-striped task-table">
                                             @if (Auth::user()->id == $c->user->id)
                                                 <thead>

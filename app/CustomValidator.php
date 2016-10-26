@@ -1,7 +1,7 @@
 <?php
 namespace App;
 
-use Illuminate\Validation\Validator; 
+use Illuminate\Validation\Validator;
 
 
 class CustomValidator extends Validator

@@ -17,7 +17,7 @@ class ComentController extends Controller
         $validator = ComentController::check($request);        
         if ($validator->fails())
         {
-            return redirect('/book/'.$id)
+            return redirect('/book/'.$request->book_id)
                 ->withInput()
                 ->withErrors($validator);
         }
@@ -37,16 +37,17 @@ class ComentController extends Controller
         $validator = ComentController::check($request);
         if ($validator->fails())
         {
-            return redirect('/book/'.$id)
+            return redirect('/book/'.$request->book_id)
                 ->withInput()
                 ->withErrors($validator);
         }
         
         $data = Coment::find($id);
-        
-        if ($request->coment=='')
+       
+        if (empty($request->coment))
         {
             $data->delete();
+            return BookController::show($request->book_id);
         }
         else
         {
@@ -61,12 +62,12 @@ class ComentController extends Controller
         return BookController::show($request->book_id);
     }
 // Удалить книгу    
-    public function delete($id)
-    {
-        $coment = Coment::find($id);
-        $coment->delete();
-        return redirect('/admin/coment'); 
-    }
+    //public function delete($id)
+    //{
+    //    $coment = Coment::find($id);
+    //    $coment->delete();
+    //    return redirect('/admin/coment'); 
+    //}
     
 
 
@@ -74,7 +75,7 @@ class ComentController extends Controller
     {
         return  $validator = Validator::make($request->all(),
         [
-           'coment'=>'required|max:500',
+           'coment'=>'max:500',
         ]);        
     }
 }
