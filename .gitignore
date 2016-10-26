@@ -1,3 +1,5 @@
+/vendor
+/public/storage
 /config
 /node_modules
 Homestead.yaml
