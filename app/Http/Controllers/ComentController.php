@@ -61,6 +61,11 @@ class ComentController extends Controller
         
         return BookController::show($request->book_id);
     }
+  
+  
+    
+    
+    
 // Удалить книгу    
     //public function delete($id)
     //{
