@@ -47,7 +47,7 @@ class ComentController extends Controller
         if (empty($request->coment))
         {
             $data->delete();
-            return BookController::show($request->book_id);
+            return redirect('/book/'.$request->book_id);
         }
         else
         {
@@ -59,7 +59,7 @@ class ComentController extends Controller
         }
         
         
-        return BookController::show($request->book_id);
+        return redirect('/book/'.$request->book_id);
     }
   
   
