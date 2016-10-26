@@ -1,7 +1,7 @@
-/vendor
-/storage
-/config
-/node_modules
+vendor/
+storage/
+config/
+node_modules/
 Homestead.yaml
 Homestead.json
 .env
