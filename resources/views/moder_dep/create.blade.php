@@ -27,7 +27,7 @@
                                     <select  class="form-control" name="parent_id">
                                     <option value ='NULL'>Никому не подчиняется</option>
                                     @foreach ($deps as $d)
-                                        <option value ='{{ $d->id }}'>{{ $d->name }}</option>
+                                        <option value ="{{ $d->id }}">{{ $d->name }}</option>
                                     @endforeach
                                     </select>
                                 </div>

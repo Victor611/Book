@@ -48,8 +48,9 @@ class DepController extends Controller
 // Form Edit Dep    
     public function edit($id)
     {
-        $dep = Dep::find($id);
-        return view('moder_dep.edit',['dep' => $dep]);
+        $deps = Dep::all();
+	$dep = Dep::find($id);
+        return view('moder_dep.edit',['dep' => $dep, 'deps' => $deps]);
         
     }
 // Save Edit Dep

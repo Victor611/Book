@@ -10,7 +10,8 @@
             <p>{{$user->role->name}}</p>
             <form enctype="multipart/form-data" action="/profile" method="POST">
                 <label>Upload Profile Image</label>
-                <input type="file" name="avatar">
+                @include('common.errors')
+	 	<input type="file" name="avatar">
                 <input type="hidden" name="_token" value="{{csrf_token()}}">
                 <button type="submit" class="btn btn-default" style="display:inline; margin: 10px 0;">
                     <i class="glyphicon glyphicon-download"></i>Сохранить изображение  

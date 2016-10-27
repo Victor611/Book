@@ -28,9 +28,11 @@
                             <div class="col-sm-6">
                                 <select  class="form-control" name="parent_id">
                                     <option value ='0'>Никому не подчиняется</option>
-                            
-                                    <option value ='{{ $dep->id }}'>{{ $dep->name }}</option>
-                                </select>
+
+                                    @foreach($deps as $d)
+					<option value="{{$d->id}}"@if($dep->id==$d->id) "selected" @endif>{{$d->name}}</option>
+				    @endforeach
+				</select>
                             </div>
                         </div>
                 
