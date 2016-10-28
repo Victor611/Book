@@ -83,10 +83,10 @@
                 <div class="panel-body">       
                     
                     <?php $sort = Request::has('sort') ? Request::get('sort') :false;?>
-                    <form action="/book" method="post">
+                    <form action="/book" method="POST" class="filter">
                      {{ csrf_field() }}
                         <p>Сортировка</p>
-                        <select name="sort" class="form-control" >
+                        <select name="sort" class="form-control filter-input" >
                             <option value="">Без сортировки</option>
                             <option @if($sort=='author::asc') selected @endif value="author::asc">
                                 Автор от А до Я
@@ -116,7 +116,7 @@
                         <hr>
                         <p>Жанр</p>
                         @foreach($genres as $genre)
-                            <p><input name="genres[]" type="checkbox" value="{{$genre->id}}"
+                            <p><input name="genres[]" type="checkbox" value="{{$genre->id}}" class="filter-input"
                                     @if( isset($genres_r) && in_array($genre->id, $genres_r) )
                                             checked
                                     @endif
@@ -125,9 +125,9 @@
                         @endforeach
                         <hr>
                         <p>Рекомендовано</p>
-                        @if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin'))
+                        @if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin')) 
                             @foreach ($deps as $dep)
-                                <p><input name="deps[]" type="checkbox" value="{{$dep->id}}"
+                                <p><input name="deps[]" type="checkbox" value="{{$dep->id}}" class="filter-input"
                                     @if( isset($deps_r) && in_array($dep->id, $deps_r) )
                                         checked
                                     @endif
@@ -135,15 +135,16 @@
                                 {{$dep->name}} </p>
                             @endforeach
                         @elseif(Auth::user()->hasRole('user'))
-                            <p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}"
+                            <p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}" class="filter-input"
                                 @if( isset($deps_r) && in_array(Auth::user()->dep_id, $deps_r) )
                                         checked
                                 @endif
                             >
                             Моему отделу</p>
                         @endif
-                        <p><input type="submit" value="Выбрать" class="form-control"></p>
-                    <?php //dd($books);?>   
+                        <!--<p><input type="submit" value="Выбрать" class="form-control"></p>-->
+                        <!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
+                     
                     </form> 
                     
                     
@@ -152,5 +153,4 @@
         </div>
     </div>
 </div>
-
 @endsection

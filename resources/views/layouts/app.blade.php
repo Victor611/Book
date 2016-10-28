@@ -91,5 +91,10 @@
     <script src="/jquery/jquery-2.2.3.min.js"></script>
     <script src="/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+    <script>
+        $(".filter-input").change(function(){
+            $(".filter").submit();
+        });
+    </script>
 </body>
 </html>
