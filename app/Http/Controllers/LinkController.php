@@ -20,14 +20,14 @@ class LinkController extends Controller
 // Show Links    
     public function index($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('moder_link.index', ['book' => $book]);
     }
 
 // Form Add New Link   
     public function create($id)
     {
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('moder_link.create', ['book' => $book]);
     }
     
@@ -71,7 +71,7 @@ class LinkController extends Controller
                 ->withErrors($validator);
          }
 
-         $data = Link::find($id);
+         $data = Link::findOrFail($id);
          $data->book_id = $request->book_id;
          $data->url = $request->url;
          $data->format = $request->format;
@@ -81,7 +81,7 @@ class LinkController extends Controller
 // Удалить книгу    
     public function delete($id)
     {
-        $link = Link::find($id);
+        $link = Link::findOrFail($id);
         $link->delete();
         return redirect('/moder/book'); 
     }

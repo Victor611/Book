@@ -31,7 +31,18 @@
                                                         
                             <div class="col-sm-12">Description </div>
                             <div class="col-sm-12">{{ $book->description }}</div>
-                        
+                            
+                           <div class="col-sm-12" style="padding-top:10px;">
+                                <p>
+                                    <!--склонение в зависимости от количества отзывов-->
+                                    <?php new App\Sklonenie(count($book->coment),['отзыв','отзыва','отзывов']);?>
+                                    <!--Средний рейтинг книги-->
+                                    | Рейтинг книги: <?php  echo round(App\Rating::avgRating($book->id),0);?>
+                                    <!--Склонение в зависимости от количества оценок-->
+                                    | <?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>
+                               </p>
+                           </div>
+ 
                             <!-- form rating -->                            
                             <div class="col-sm-12" style="padding-top:20px; margin-left:15px; ">
                                 <div class="col-sm-8">
@@ -157,7 +168,7 @@
                                             <label class="col-sm-2 control-label">Coment</label>
                                 
                                             <div class="col-sm-7">
-                                                <textarea class="form-control" rows="1" name="coment"></textarea>
+                                                <textarea class="form-control" style="max-width: 616px;" rows="1" name="coment"></textarea>
                                             </div>
         
                                             <div class=" col-sm-2">
@@ -175,7 +186,7 @@
                                             @foreach ($book->coment as $c)
                                               
                                             <table class="table table-striped task-table">
-                                            @if (Auth::user()->id == $c->user->id)
+                                            @if (Auth::user()->id == $c->user->id || Auth::user()->hasRole('moderator'))
                                                 <thead>
                                                     <tr><p>{{$c->user->name}}  {{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}} написал(а)</p></tr>
                                                 </thead>
@@ -192,12 +203,12 @@
                                                                 <div class="form-group">
                                                                     
                                                                     <div class="col-sm-9">
-                                                                        <textarea class="form-control" rows="1" name="coment">{{$c->coment}}</textarea>
+                                                                        <textarea class="form-control" style="max-width: 744px;" rows="1" name="coment">{{$c->coment}}</textarea>
                                                                     </div>
                                                                     
                                                                     <div class=" col-sm-2">
                                                                         <button type="submit" class="btn btn-default">
-                                                                            <i class="fa fa-plus"></i> Edit Coment
+                                                                            <i class="fa fa-edit"></i> Edit Coment
                                                                         </button>
                                                                     </div>
                                                                 

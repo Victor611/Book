@@ -22,7 +22,7 @@ class UserController extends Controller
     
     static function show($id)
     {
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('user.content', ['user' => $user]);
     }
     

@@ -16,7 +16,7 @@ class CustomValidator extends Validator
          //echo "1";
          //var_dump($value);
          //exit;
-         return  preg_match('/^[(а-яА-Яa-zA-Z0-9)]+[^<>@]*$/', $value);
+         return  preg_match('/^[(а-яА-Яa-zA-Z0-9\&)]+[^<>@]*$/', $value);
     }
     
     public function validateAlphaRu($attribute, $value, $parameters)
@@ -28,7 +28,7 @@ class CustomValidator extends Validator
          //$atribute - это название поля, в нашем случае site
          //$value - значение поля
          //$parameters - это параметры, которые можно передать так urlrl:ru, ($parameters=['ru'])
-         return  preg_match('/^[(а-яА-Яa-zA-Z)]+[^<>@0-9]*$/', $value);
+         return  preg_match('/^[(а-яА-Яa-zA-Z\&)]+[^<>@0-9]*$/', $value);
     }
     
     public function validateTypeBook($attribute, $value, $parameters)

@@ -9,6 +9,7 @@ use App\Role;
 use App\Dep;
 use App\Logger;
 use Illuminate\Support\Facades\Validator;
+use DB;
 
 use App\Http\Controllers\Controller;
 
@@ -63,7 +64,7 @@ class UserModerController extends Controller
     {
         $deps = Dep::all();
         $roles = Role::all();
-        $user = User::find($id);
+        $user = User::findOrFail($id);
         return view('moder_user.edit',['user' => $user, 'roles' => $roles, 'deps' => $deps]);
         
     }
@@ -79,7 +80,7 @@ class UserModerController extends Controller
                 ->withErrors($validator);
         }
 
-        $data = User::find($id);
+        $data = User::findOrFile($id);
         $data->name = $request->name;
         if($data->email != $request->email)
             $data->email = $request->email;
@@ -94,7 +95,8 @@ class UserModerController extends Controller
     {
         
         $user = User::find($id);
-        $user->coment()->delete();
+	DB::table('coments')->where('user_id', '=', $id)->delete();
+	DB::table('ratings')->where('user_id', '=', $id)->delete();
         $user->rating()->delete();
         $user->delete();
         Logger::write(Logger::$user, $id, 'delete');

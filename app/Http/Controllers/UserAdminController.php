@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
 use App\Logger;
+use DB;
 
 class UserAdminController extends Controller
 {
@@ -26,9 +27,9 @@ class UserAdminController extends Controller
     public function delete($id)
     {
         
-        $user = User::find($id);
-        $user->coment()->delete();
-        $user->rating()->delete();
+        $user = User::findOrFail($id);
+	DB::table('coments')->where('user_id', '=', $id)->delete();        
+	DB::table('ratings')->where('user_id', '=', $id)->delete();
         $user->delete();
         Logger::write(Logger::$user, $id, 'delete');
         return redirect('/admin/user'); 

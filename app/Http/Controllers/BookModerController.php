@@ -10,10 +10,11 @@ use App\Link;
 use App\Rating;
 use App\Recomend;
 use App\Logger;
-
+use Storage;
 use Image;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\Controller;
+use DB;
 
 class BookModerController extends Controller
 {
@@ -54,7 +55,11 @@ class BookModerController extends Controller
         {
             $book_avatar = $request->file('avatar');
             $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
-            Image::make($book_avatar)->save(public_path('uploads/book_avatar/'.$filename));
+	    $img=Image::make($book_avatar);
+            $img->resize(180, null, function ($constraint) {
+                $constraint->aspectRatio();
+            });
+            $img->save(public_path('uploads/book_avatar/'.$filename));
             $data->avatar = $filename;
         }
         $data->title = $request->title;
@@ -73,7 +78,7 @@ class BookModerController extends Controller
     public function edit($id)
     {
         $genres = Genre::all();
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('moder_book.edit',['book' => $book, 'genres' => $genres]);
         
     }
@@ -94,7 +99,12 @@ class BookModerController extends Controller
         {
             $book_avatar = $request->file('avatar');
             $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
-            Image::make($book_avatar)->save(public_path('uploads/book_avatar/'.$filename));
+             
+	    $img=Image::make($book_avatar);
+	    $img->resize(180, null, function ($constraint) {
+            	$constraint->aspectRatio();
+	    });
+	    $img->save(public_path('uploads/book_avatar/'.$filename));
             $data->avatar = $filename;
         }
         $data->title = $request->title;
@@ -111,11 +121,12 @@ class BookModerController extends Controller
     public function delete($id)
     {
         $book = Book::find($id);
-        $book->coment()->delete();
-        $book->rating()->delete();
-        $book->link()->delete();
-        $book->recomend()->delete();
-        $book->delete();
+	DB::table('coments')->where('book_id', '=', $id)->delete();
+	DB::table('ratings')->where('book_id', '=', $id)->delete();
+	DB::table('links')->where('book_id', '=', $id)->delete();
+	DB::table('recomends')->where('book_id', '=', $id)->delete();        
+        Storage::delete('uploads/book_avatar/'.$book->avatar); 
+ 	$book->delete();
         Logger::write(Logger::$book, $id, 'delete');
         return redirect('/moder/book'); 
     }

@@ -14,12 +14,12 @@
                                     
                                     <td class="table-text col-sm-3">
                                         <a href="{{ url('book/'.$book->id) }}">
-                                            <img src="/uploads/book_avatar/{{$book->avatar}}" style="width:100px; heidth:100px; float:left;">
+                                            <img src="/uploads/book_avatar/{{$book->avatar}}" style="max-width:150px; float:left;">
                                         </a>
                                     </td>
                                     
                                     <!-- Book Name -->
-                                    <td class="table-text col-sm-9">
+                                    <td class="table-text col-sm-9" style="position: relative;">
                                         <div class="col-sm-12">
                                             
                                             <div class="col-sm-12"><h4>{{ $book->title }}</h4></div>
@@ -59,7 +59,7 @@
                                             </p>
                                         </div>                    
                                         
-                                        <div style="float:right;">
+                                        <div style="position: absolute; right:5px; bottom:5px;">
                                             <a href="{{ url('book/'.$book->id) }}">
                                                 <button type="submit" class="btn btn-info">
                                                     <i class="glyphicon glyphicon-eye-open"></i> Подробнее 

@@ -43,7 +43,7 @@ class GenreController extends Controller
 // Form Edit Genre    
     public function edit($id)
     {
-        $genre = Genre::find($id);
+        $genre = Genre::findOrFail($id);
         return view('moder_genre.edit',['genre' => $genre]);
         
     }
@@ -52,7 +52,7 @@ class GenreController extends Controller
     {
         $validator = GenreController::check($request);
         
-            $data = Genre::find($id);
+            $data = Genre::findOrFail($id);
             $data->name = $request->name;
             $data->save();
             return redirect('/moder/genre');
@@ -60,7 +60,7 @@ class GenreController extends Controller
 // Удалить книгу    
     public function delete($id)
     {
-        $genre = Genre::find($id);
+        $genre = Genre::findOrFail($id);
         $genre->delete();
         return redirect('/moder/genre'); 
     }

@@ -49,7 +49,7 @@ class DepController extends Controller
     public function edit($id)
     {
         $deps = Dep::all();
-	$dep = Dep::find($id);
+	$dep = Dep::findOrFail($id);
         return view('moder_dep.edit',['dep' => $dep, 'deps' => $deps]);
         
     }
@@ -67,7 +67,7 @@ class DepController extends Controller
 // Удалить книгу    
     public function delete($id)
     {
-        $dep = Dep::find($id);
+        $dep = Dep::findOrFail($id);
         $dep->delete();
         return redirect('/moder/dep'); 
     }

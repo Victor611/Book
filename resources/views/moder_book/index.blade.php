@@ -17,7 +17,8 @@
 
                             <!-- Table Headings -->
                             <thead>
-                                <th>Title</th>
+                                <th>Id</th>
+			        <th>Title</th>
                                 <th>Author</th>
                                 <th>Pub Year</th>
                                 <th>Genre</th>
@@ -31,7 +32,10 @@
                                 @foreach ($books as $book)
                                     
                                     <tr >
-                                        <!-- Task Name -->
+                                        <td class="table-text" style="vertical-align:middle">
+						<div>{{ $book->id }}</div>
+					</td>
+					<!-- Task Name -->
                                         <td class="table-text" style="vertical-align: middle">
                                             <div>{{ $book->title }}</div>
                                         </td>

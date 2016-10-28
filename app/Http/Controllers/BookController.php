@@ -32,7 +32,7 @@ class BookController extends Controller
     static function show($id)
     {
         $deps = Dep::all();
-        $book = Book::find($id);
+        $book = Book::findOrFail($id);
         return view('book.content', ['book' => $book, 'deps' => $deps]);
     }
     

@@ -21,7 +21,11 @@ class ComentController extends Controller
                 ->withInput()
                 ->withErrors($validator);
         }
-        
+       
+	if(empty($request->coment))
+	{
+		return redirect('/book/'.$request->book_id);
+	} 
         $data = new Coment;
         $data->coment = $request->coment;
         $data->user_id = $request->user_id;

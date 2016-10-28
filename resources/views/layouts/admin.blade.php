@@ -40,7 +40,8 @@
 
                 <!-- Branding Image -->
                 <a href="{{ url('/') }}">
-                    <img src="/uploads/img/logo.png" style="width:200px; left:10px; top:10px;">
+                   <!-- <img src="/uploads/img/logo.png" style="width:200px; left:10px; top:10px;">-->
+			<h3>Bookshelf</h3>
                 </a>
             </div>
 

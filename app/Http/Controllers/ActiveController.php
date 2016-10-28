@@ -19,7 +19,7 @@ class ActiveController extends Controller
     
     public function index(Request $request)
     {
-            $data = Active::find($request->user_id);
+            $data = Active::findOrFail($request->user_id);
             $data->active = $request->active;
             $data->save();
             Logger::write(Logger::$user, $request->user_id, 'update active');

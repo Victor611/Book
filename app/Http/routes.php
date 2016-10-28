@@ -105,3 +105,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'roles'], 'roles' =>
 });
 
 
+Route::get('error',function(){
+	abort(404);
+});
