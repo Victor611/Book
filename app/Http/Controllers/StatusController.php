@@ -22,8 +22,8 @@ class StatusController extends Controller
 
 	    $id=Status::hasStatusId($request->book_id, $request->user_id);
 	    $data = Status::find($id);
-
-	    if(!empty(Status::hasStatus($request->book_id, $request->user_id))==$request->status)
+		
+	    if(Status::hasStatus($request->book_id, $request->user_id) == (int)$request->status)
 	    {
 	    	$data->delete();
 	    	return redirect('/book/'.$request->book_id);

@@ -16,23 +16,23 @@
                             <!-- content book-->  
                             <div class="col-sm-12 col-md-8"><h3>{{ $book->title }}</h3>                            
                             
-                            <div class="col-sm-3">Author :</div>
+                            <div class="col-sm-3">Автор :</div>
                             <div class="col-sm-9">{{ $book->author }}</div>
                             
-                            <div class="col-sm-3">Pub Year :</div>
+                            <div class="col-sm-3">Год издания :</div>
                             <div class="col-sm-9">{{ $book->pubyear }}</div>
                                                         
                             
-                            <div class="col-sm-3">Genre :</div>
+                            <div class="col-sm-3">Жанр :</div>
                             <div class="col-sm-9">{{ $book->genre->name }}</div>
                                 
-                            <div class="col-sm-3">Type :</div>
+                            <div class="col-sm-3">Тип :</div>
                             <div class="col-sm-9">{{ $book->type }}</div>
                                                         
-                            <div class="col-sm-12">Description </div>
+                            <div class="col-sm-12">Описание </div>
                             <div class="col-sm-12">{{ $book->description }}</div>
                             
-                           <div class="col-sm-12" style="padding-top:10px;">
+                            <div class="col-sm-12" style="padding-top:10px;">
                                 <p>
                                     <!--склонение в зависимости от количества отзывов-->
                                     <?php new App\Sklonenie(count($book->coment),['отзыв','отзыва','отзывов']);?>
@@ -41,43 +41,41 @@
                                     <!--Склонение в зависимости от количества оценок-->
                                     | <?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>
                                </p>
-                           </div>
+                            </div>
  
                             <!-- form rating -->                            
                             <div class="col-sm-12" style="padding-top:20px; margin-left:15px; ">
-                                <div class="col-sm-8">
+                                @if(Auth::user())
+								<div class="col-sm-8">
                                     @include('common.errors')
-                                    <form action="{{ url('/rating') }}" method="POST" class="form-horizontal">
+                                    <form action="{{ url('/rating') }}" method="POST" class="form-horizontal filter" >
                                     {!! csrf_field() !!}
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
-                                        <input type="hidden" name="user_id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
+                                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" style="padding: 5px 20px 0 0;">Rating</label>
-                                            
                                             
                                             <div class="col-sm-5" style="padding: 5px;">
                                                 @for($i=1;$i<=5;$i++)
                                                     <input  name="rating"
-															type="radio" 
+															type="radio"
+															class="filter-input"
 															value="{{$i}}"
-                                                            @if(Auth::user())
-															    @if (App\Rating::hasRating($book->id, Auth::user()->id) == $i) checked
-																@endif
-															@endif>
+                                                            @if (App\Rating::hasRating($book->id, Auth::user()->id) == $i) checked
+															@endif
+															>
                                                     {{$i}}
                                                 @endfor
-                                            </div>
-                                            
-                                            <div class=" col-sm-2" style="padding: 0px;">
-                                                <button type="submit" class="btn btn-default">Отправить</button>
                                             </div>        
                                         </div>
                                     </form>
-                                </div>
+								</div>
+								@endif
                                 
                                 <!--Рекомендации-->
                                 <div class="col-sm-4">    
-									@if(Auth::user())?( Auth::user()->hasRole('moderator')):
+									@if(Auth::user())
+										@if(Auth::user()->hasRole('moderator'))
                                         <div class="btn-group" style="display: inline; float:right;">
                                            
                                             <form method="post" action="/moder/save/rec">
@@ -109,7 +107,8 @@
                                                     Рекомендовать
                                                 </button>
                                             </form>
-                                        </div>
+										</div>
+										@endif
                                     @endif
                                 <!--Конец рекомендаций-->
                                 </div>
@@ -117,46 +116,39 @@
                             <!-- End form rating-->
                             
                             <!-- form status-->
-                            <div class="col-sm-12" style="padding-bottom:50px;">    
+                            @if(Auth::user())
+							<div class="col-sm-12" style="padding-bottom:25px;">    
                                 <form action="/status" method="POST" style="display: inline;">
                                     {!! csrf_field() !!}
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
-                                    <input type="hidden" name="user_id" value= @if(Auth::user()) "{{Auth::user()->id}}" @endif>
-                                    <button type="submit" class= @if(Auth::user())
-																		"{{App\Status::hasStatus($book->id, Auth::user()->id) == 1 ? "btn btn-danger" : "btn btn-default"}}"
-																 @else "btn btn-default"
-																 @endif>
+                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 1 ? "btn btn-danger" : "btn btn-default"}}"
                                         <input type="hidden" name="status" value="1">Хочу прочитать
                                     </button>
                                 </form>
                                 <form action="/status" method="POST" style="display: inline;">
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
-                                    <input type="hidden" name="user_id" value= @if(Auth::user()) "{{Auth::user()->id}}" @endif>
-                                    <button type="submit" class= @if(Auth::user())
-																		"{{App\Status::hasStatus($book->id, Auth::user()->id) == 2 ? "btn btn-danger" : "btn btn-default"}}"
-																 @else "btn btn-default"
-																 @endif>
+                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 2 ? "btn btn-danger" : "btn btn-default"}}">
                                         <input type="hidden" name="status" value="2">Читаю
                                     </button>
                                 </form>        
                                 <form action="/status" method="POST" style="display: inline;">
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
-                                    <input type="hidden" name="user_id" value= @if(Auth::user()) "{{Auth::user()->id}}" @endif>
-                                    <button type="submit" class= @if(Auth::user())
-																		"{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-danger" : "btn btn-default"}}"
-																 @else "btn btn-default"
-																 @endif>
+                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-danger" : "btn btn-default"}}">
                                         <input type="hidden" name="status" value="3">Прочитал
                                     </button>
                                 </form>
                             </div>
+							@endif
                             <!-- end form status-->
                         </div>
                         
                             <!-- Navi coment and users  -->
-                        <div class="col-md-12" style="">
+                        <div class="col-md-12" style="padding-top:25px;">
                             <!--header-->
                             <ul class="nav nav-tabs">
                                 <li class="active"><a data-toggle="tab" href="#panel1">Отзывы</a></li>
@@ -173,7 +165,8 @@
                                     <h3>Отзывы</h3>                     
                                    
                                     <!-- New coment Form -->
-                                    <form action="{{ url('/coment') }}" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
+                                    @if(Auth::user())
+									<form action="{{ url('/coment') }}" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
                                     {!! csrf_field() !!}
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
                                         <input type="hidden" name="user_id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
@@ -191,6 +184,7 @@
                                             </div>
                                         </div>
                                     </form>
+									@endif
                                     <!--end coment form-->
                                     <!--coment content-->
                                     @if (count($book->coment) > 0)

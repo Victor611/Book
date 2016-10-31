@@ -49,7 +49,7 @@ class Rating extends Model
     {
         return DB::table('ratings')
                 ->where('book_id', '=', $id)
-                ->count();
+                ->count('rating');
     }
     
     public function book()

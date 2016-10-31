@@ -19,11 +19,7 @@ use DB;
 class BookModerController extends Controller
 {
     protected $layout = 'layouts.moder';
-     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+
 // Главная   
     public function index()
     {
@@ -55,7 +51,7 @@ class BookModerController extends Controller
         {
             $book_avatar = $request->file('avatar');
             $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
-	    $img=Image::make($book_avatar);
+			$img=Image::make($book_avatar);
             $img->resize(180, null, function ($constraint) {
                 $constraint->aspectRatio();
             });
@@ -70,9 +66,7 @@ class BookModerController extends Controller
         $data->type = $request->type;
         $data->save();
         Logger::write(Logger::$book, $data->id, 'create');
-        
-        return redirect('/moder/book');
-        
+        return redirect('/moder/book'); 
     }
 // форма редактирования книги    
     public function edit($id)
@@ -80,7 +74,6 @@ class BookModerController extends Controller
         $genres = Genre::all();
         $book = Book::findOrFail($id);
         return view('moder_book.edit',['book' => $book, 'genres' => $genres]);
-        
     }
 //Обновить книгу
     public function update(Request $request, $id)
@@ -94,17 +87,17 @@ class BookModerController extends Controller
                 ->withErrors($validator);
         }
         
-        $data = Book::find($id);
+        $data = Book::findOrFail($id);
         if($request->hasFile('avatar'))
         {
             $book_avatar = $request->file('avatar');
             $filename = time() .'.'. $book_avatar->getClientOriginalExtension();
              
-	    $img=Image::make($book_avatar);
-	    $img->resize(180, null, function ($constraint) {
+			$img=Image::make($book_avatar);
+			$img->resize(180, null, function ($constraint) {
             	$constraint->aspectRatio();
-	    });
-	    $img->save(public_path('uploads/book_avatar/'.$filename));
+			});
+			$img->save(public_path('uploads/book_avatar/'.$filename));
             $data->avatar = $filename;
         }
         $data->title = $request->title;
@@ -120,13 +113,13 @@ class BookModerController extends Controller
 // Удалить книгу    
     public function delete($id)
     {
-        $book = Book::find($id);
-	DB::table('coments')->where('book_id', '=', $id)->delete();
-	DB::table('ratings')->where('book_id', '=', $id)->delete();
-	DB::table('links')->where('book_id', '=', $id)->delete();
-	DB::table('recomends')->where('book_id', '=', $id)->delete();        
+        $book = Book::findOrFail($id);
+		DB::table('coments')->where('book_id', '=', $id)->delete();
+		DB::table('ratings')->where('book_id', '=', $id)->delete();
+		DB::table('links')->where('book_id', '=', $id)->delete();
+		DB::table('recomends')->where('book_id', '=', $id)->delete();        
         Storage::delete('uploads/book_avatar/'.$book->avatar); 
- 	$book->delete();
+		$book->delete();
         Logger::write(Logger::$book, $id, 'delete');
         return redirect('/moder/book'); 
     }
@@ -138,9 +131,7 @@ class BookModerController extends Controller
             'pubyear' => 'required|numeric|between:1900,2050',
             'genre_id' => 'required|numeric|max:255',
             'avatar' => 'image|mimes:jpeg,bmp,png',
-        ]);        
-        
-        
+        ]);
     }
     
     public function checkBookRu(Request $request)

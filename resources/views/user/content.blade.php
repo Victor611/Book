@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Books</div>
                     <div class="panel-body">
-                        
+                       <!--<?php var_dump();?>-->
                         <!---->
                         <div class="col-md-2">
                             <img src="/uploads/avatars/{{$user->avatar}}" style="width:100px; heidth:100px; margin-right:50px; float:left;">
@@ -17,18 +17,7 @@
                         <div class="col-md-10">
                             
                             <div class="col-sm-12">
-                                <div class="col-sm-3">Имя :</div>
-                                <div class="col-sm-9">{{ $user->name }}</div>
-                            </div>
-                            
-                            <div class="col-sm-12">
-                                <div class="col-sm-3">Email :</div>
-                                <div class="col-sm-9">{{ $user->email }}</div>
-                            </div>
-                            
-                            <div class="col-sm-12">
-                                <div class="col-sm-3">Роль :</div>
-                                <div class="col-sm-9">{{ $user->role->name }}</div>
+                                <div class="col-sm-9"><h3>{{ $user->name }}</h3></div>
                             </div>
                             
                             <div class="col-sm-12">

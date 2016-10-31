@@ -6,37 +6,30 @@ use App\Http\Requests;
 use App\User;
 use Request;
 use Image;
+use DB;
+use App\Book;
 
 class UserController extends Controller
 {
     
     public function index()
     {
-        $users = User::paginate(10);
+        $users = DB::table('users')
+                     ->select(DB::raw('users.id, users.avatar, users.name, deps.name as deps, count(ratings.status) as status'))
+                     ->join('deps', 'users.dep_id','=','deps.id')
+                     
+                     ->leftJoin('ratings','users.id','=','ratings.user_id')
+                     ->where('ratings.status', '=', 3)
+                     ->groupBy('users.id', 'users.avatar', 'users.name', 'deps.name')
+                     ->orderBy('status', 'DESC')
+                     ->get();
         return view('user.index', ['users' => $users]);
     }
     
     static function show($id)
     {
         $user = User::findOrFail($id);
-        return view('user.content', ['user' => $user]);
-    }
-    
-    public function filter(Request $request)
-    {
-        $sort = Request::has('sort') ? Request::get('sort') : false; // Параметр сортировки 'ASC','DESC'
-        
-        $column = "id";
-        $order = null;
-        if($sort)
-        {
-            list($column, $order) = explode("::", $sort);
-        }    
-         
-        $where = [];
-        
-        $users = User::where($where)->orderBy($column, $order)->paginate(10);
-        
-        return view('user.index', ['users' => $users]);
+        $coment = Book::join('coments', 'coments.book_id', '=', 'books.id')->where('user_id', '=', $id)->orderBy('coment', 'DESC')->limit(3)->get();
+        return view('user.content', ['user' => $user, 'coment' => $coment]);
     }
 }

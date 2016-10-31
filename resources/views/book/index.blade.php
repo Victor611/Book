@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-8 col-lg-8">
             <div class="panel panel-default">
-                <div class="panel-heading">Books</div>
+                <div class="panel-heading">Книги</div>
                     <div class="panel-body">
                    
                         @foreach ($books as $book)
@@ -21,8 +21,9 @@
                                     <!-- Book Name -->
                                     <td class="table-text col-sm-9" style="position: relative;">
                                         <div class="col-sm-12">
-                                            
-                                            <div class="col-sm-12"><h4>{{ $book->title }}</h4></div>
+                                            <a href="{{ url('book/'.$book->id) }}">
+                                                <div class="col-sm-12"><h4>{{ $book->title }}</h4></div>
+                                            </a> 
                                         </div>
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">Автор :</div>
@@ -49,23 +50,17 @@
                                         </div>
                                        
                                         <div class="col-sm-12">
-                                            <p>
+                                            <h5>
                                             <!--склонение в зависимости от количества отзывов-->
                                              <?php new App\Sklonenie(count($book->coment),['отзыв','отзыва','отзывов']);?>
                                             <!--Средний рейтинг книги-->
                                             | Рейтинг книги: <?php  echo round(App\Rating::avgRating($book->id),0);?>
                                             <!--Склонение в зависимости от количества оценок-->
                                             | <?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>
-                                            </p>
+                                            </h5>
                                         </div>                    
                                         
-                                        <div style="position: absolute; right:5px; bottom:5px;">
-                                            <a href="{{ url('book/'.$book->id) }}">
-                                                <button type="submit" class="btn btn-info">
-                                                    <i class="glyphicon glyphicon-eye-open"></i> Подробнее 
-                                                </button>
-                                            </a>
-                                        </div>        
+                                             
                                     </td>
                                 </tr>
                             </table>
@@ -79,7 +74,7 @@
         <!--Фильтр-->
         <div class="col-md-4 col-lg-4 ">
             <div class="panel panel-default">   
-                <div class="panel-heading">Filter</div>
+                <div class="panel-heading">Фильтр</div>
                 <div class="panel-body">       
                     
                     <?php $sort = Request::has('sort') ? Request::get('sort') :false;?>
