@@ -23,24 +23,50 @@
         .fa-btn {
             margin-right: 6px;
         }
+        
+        .logo {
+            display:block;
+            margin: 30px auto;
+        }
+        .btn-primary {
+            width: 100%;
+        }
+        
+        .panel-default {
+            margin-top: 30px;
+        }
+        .input-email {
+            margin-top: 20px;
+        }
+        
+        
+        
+                
     </style>
 </head>
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-md-8 col-md-offset-2">
+            <div class="col-md-6 col-md-offset-3"  >
+                <a href="{{url('/')}}">
+                    <img src="/uploads/img/logo.png" class="logo">
+                </a>
+                <!--<div class="headers">Туточки наваять заголовки как у гугла</div>-->
                 <div class="panel panel-default">
-                    <div class="panel-heading">Reset Password</div>
-    
                     <div class="panel-body">
                         <form class="form-horizontal" role="form" method="POST" action="{{ url('/password/reset') }}">
                             {{ csrf_field() }}
     
                             <input type="hidden" name="token" value="{{ $token }}">
     
-                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                                <div class="col-md-6">
-                                    <input id="email" type="email" class="form-control" name="email" placeholder="E-mail"value="{{ $email or old('email') }}">
+                            <div class="input-email form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <input  id="email" 
+					    type="email" 
+					    class="form-control" 
+					    name="email" 
+  					    placeholder="E-mail"
+					    value="{{ $email or old('email') }}">
     
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -51,10 +77,12 @@
                             </div>
     
                             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                <label for="password" class="col-md-4 control-label">Password</label>
-    
-                                <div class="col-md-6">
-                                    <input id="password" type="password" class="form-control" name="password">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <input  id="password" 
+					    type="password" 
+					    class="form-control" 
+					    name="password"
+					    placeholder="Введите новый пароль">
     
                                     @if ($errors->has('password'))
                                         <span class="help-block">
@@ -65,9 +93,12 @@
                             </div>
     
                             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                                <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-                                <div class="col-md-6">
-                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <div class="col-md-6 col-md-offset-3">
+                                    <input  id="password-confirm" 
+					    type="password" 
+					    class="form-control" 
+					    name="password_confirmation"
+					    placeholder="Повторите ввод пароля">
     
                                     @if ($errors->has('password_confirmation'))
                                         <span class="help-block">
@@ -78,12 +109,13 @@
                             </div>
     
                             <div class="form-group">
-                                <div class="col-md-6 col-md-offset-4">
+                                <div class="col-md-6 col-md-offset-3">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa fa-btn fa-refresh"></i> Reset Password
                                     </button>
                                 </div>
                             </div>
+
                         </form>
                     </div>
                 </div>

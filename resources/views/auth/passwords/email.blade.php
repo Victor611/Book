@@ -72,7 +72,12 @@
     
                             <div class="input-email form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                 <div class="col-md-6 col-md-offset-3">
-                                    <input id="email" type="email" class="form-control" name="email" placeholder="E-mail" value="{{ old('email') }}">
+                                    <input  id="email" 
+					    type="email" 
+					    class="form-control" 
+    					    name="email" 
+					    placeholder="E-mail" 
+					    value="{{ old('email') }}">
     
                                     @if ($errors->has('email'))
                                         <span class="help-block">
@@ -89,7 +94,6 @@
                                     </button>
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
                 </div>

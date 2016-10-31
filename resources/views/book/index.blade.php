@@ -123,6 +123,7 @@
                                 >
                             {{$genre->name}} </p>
                         @endforeach
+			@if(Auth::user())
                         <hr>
                         <p>Рекомендовано</p>
                         @if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin')) 
@@ -142,6 +143,7 @@
                             >
                             Моему отделу</p>
                         @endif
+			@endif
                         <!--<p><input type="submit" value="Выбрать" class="form-control"></p>-->
                         <!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
                      

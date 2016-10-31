@@ -50,16 +50,20 @@
                                     <form action="{{ url('/rating') }}" method="POST" class="form-horizontal">
                                     {!! csrf_field() !!}
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
-                                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                        <input type="hidden" name="user_id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label" style="padding: 5px 20px 0 0;">Rating</label>
                                             
                                             
                                             <div class="col-sm-5" style="padding: 5px;">
                                                 @for($i=1;$i<=5;$i++)
-                                                    <input name="rating" type="radio" value="{{$i}}"
-                                                        @if (App\Rating::hasRating($book->id, Auth::user()->id) == $i) checked
-                                                        @endif >
+                                                    <input  name="rating"
+															type="radio" 
+															value="{{$i}}"
+                                                            @if(Auth::user())
+															    @if (App\Rating::hasRating($book->id, Auth::user()->id) == $i) checked
+																@endif
+															@endif>
                                                     {{$i}}
                                                 @endfor
                                             </div>
@@ -72,8 +76,8 @@
                                 </div>
                                 
                                 <!--Рекомендации-->
-                                <div class="col-sm-4">
-                                    @if ( Auth::user()->hasRole('moderator'))
+                                <div class="col-sm-4">    
+									@if(Auth::user())?( Auth::user()->hasRole('moderator')):
                                         <div class="btn-group" style="display: inline; float:right;">
                                            
                                             <form method="post" action="/moder/save/rec">
@@ -117,24 +121,33 @@
                                 <form action="/status" method="POST" style="display: inline;">
                                     {!! csrf_field() !!}
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
-                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 1? "btn btn-danger":"btn btn-default"}}">
+                                    <input type="hidden" name="user_id" value= @if(Auth::user()) "{{Auth::user()->id}}" @endif>
+                                    <button type="submit" class= @if(Auth::user())
+																		"{{App\Status::hasStatus($book->id, Auth::user()->id) == 1 ? "btn btn-danger" : "btn btn-default"}}"
+																 @else "btn btn-default"
+																 @endif>
                                         <input type="hidden" name="status" value="1">Хочу прочитать
                                     </button>
                                 </form>
                                 <form action="/status" method="POST" style="display: inline;">
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
-                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 2?"btn btn-warning":"btn btn-default"}}">
+                                    <input type="hidden" name="user_id" value= @if(Auth::user()) "{{Auth::user()->id}}" @endif>
+                                    <button type="submit" class= @if(Auth::user())
+																		"{{App\Status::hasStatus($book->id, Auth::user()->id) == 2 ? "btn btn-danger" : "btn btn-default"}}"
+																 @else "btn btn-default"
+																 @endif>
                                         <input type="hidden" name="status" value="2">Читаю
                                     </button>
                                 </form>        
                                 <form action="/status" method="POST" style="display: inline;">
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
-                                    <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-success" :"btn btn-default"}}">
+                                    <input type="hidden" name="user_id" value= @if(Auth::user()) "{{Auth::user()->id}}" @endif>
+                                    <button type="submit" class= @if(Auth::user())
+																		"{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-danger" : "btn btn-default"}}"
+																 @else "btn btn-default"
+																 @endif>
                                         <input type="hidden" name="status" value="3">Прочитал
                                     </button>
                                 </form>
@@ -163,7 +176,7 @@
                                     <form action="{{ url('/coment') }}" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
                                     {!! csrf_field() !!}
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
-                                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+                                        <input type="hidden" name="user_id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Coment</label>
                                 
@@ -185,53 +198,55 @@
                                           
                                             @foreach ($book->coment as $c)
                                               
-                                            <table class="table table-striped task-table">
-                                            @if (Auth::user()->id == $c->user->id || Auth::user()->hasRole('moderator'))
-                                                <thead>
-                                                    <tr><p>{{$c->user->name}}  {{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}} написал(а)</p></tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                        <!--Edit coment form-->
-                                                        @include('common.errors')
-                                                            <form action="{{ url('/coment/edit/'.$c->id) }}" method="POST">
-                                                                {!! csrf_field() !!}
-                                                                <input type="hidden" name="book_id" value="{{$book->id}}">
-                                                                <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                                                
-                                                                <div class="form-group">
-                                                                    
-                                                                    <div class="col-sm-9">
-                                                                        <textarea class="form-control" style="max-width: 744px;" rows="1" name="coment">{{$c->coment}}</textarea>
-                                                                    </div>
-                                                                    
-                                                                    <div class=" col-sm-2">
-                                                                        <button type="submit" class="btn btn-default">
-                                                                            <i class="fa fa-edit"></i> Edit Coment
-                                                                        </button>
-                                                                    </div>
-                                                                
-                                                                </div>
-                                                            
-                                                            </form>
-                                                        <!--end edit coment form-->
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            @else
-                                                <thead>
-                                                    <tr><p>{{$c->user->name}}  {{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}} написал(а)</p></tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td class="table-text">
-                                                            <div>{{ $c->coment }}</div>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>    
-                                            @endif
-                                            </table>
+												<table class="table table-striped task-table">
+													@if(Auth::user())
+														@if (Auth::user()->id == $c->user->id || Auth::user()->hasRole('moderator'))
+															<thead>
+																<tr><p>{{$c->user->name}}  {{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}} написал(а)</p></tr>
+															</thead>
+															<tbody>
+																<tr>
+																	<td>
+																	<!--Edit coment form-->
+																	@include('common.errors')
+																		<form action="{{ url('/coment/edit/'.$c->id) }}" method="POST">
+																			{!! csrf_field() !!}
+																			<input type="hidden" name="book_id" value="{{$book->id}}">
+																			<input type="hidden" name="user_id" value="{@if(Auth::user()){{Auth::user()->id}}@endif">
+																			
+																			<div class="form-group">
+																				
+																				<div class="col-sm-9">
+																					<textarea class="form-control" style="max-width: 744px;" rows="1" name="coment">{{$c->coment}}</textarea>
+																				</div>
+																				
+																				<div class=" col-sm-2">
+																					<button type="submit" class="btn btn-default">
+																						<i class="fa fa-edit"></i> Edit Coment
+																					</button>
+																				</div>
+																			
+																			</div>
+																		
+																		</form>
+																	<!--end edit coment form-->
+																	</td>
+																</tr>
+															</tbody>
+														@endif
+													@else
+														<thead>
+															<tr><p>{{$c->user->name}}  {{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}} написал(а)</p></tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td class="table-text">
+																	<div>{{ $c->coment }}</div>
+																</td>
+															</tr>
+														</tbody>    
+													@endif
+												</table>
                                             @endforeach        
                                         </div>
                                     @endif

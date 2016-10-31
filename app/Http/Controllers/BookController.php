@@ -15,11 +15,6 @@ class BookController extends Controller
 {
     public $itemsPerPage = 10;
     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-    
     public function index()
     {
        

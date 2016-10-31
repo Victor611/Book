@@ -18,31 +18,28 @@ use Illuminate\Support\Facades\Mail;
 */
 
 
-Route::auth();
+
 
 Route::get('/register', function(){return redirect('/');});
 
+Route::get('/', 'BookController@index');
+Route::get('/book', 'BookController@index');
+Route::post('/book', 'BookController@filter');
+Route::get('/book/{id}', 'BookController@show');
+
+Route::get('/users', 'UserController@index');
+Route::post('/users', 'UserController@filter');
+Route::get('/user/{id}', 'UserController@show');	
+
+Route::auth();
 Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/profile', 'ProfileController@profile');
 	Route::post('/profile', 'ProfileController@update_avatar');
-	
-//	Route::get('/', 'RecomendController@index');
-    
-	Route::get('/', 'BookController@index');
-	Route::get('/book', 'BookController@index');
-    Route::post('/book', 'BookController@filter');
-	Route::get('/book/{id}', 'BookController@show');
-	
-    Route::get('/users', 'UserController@index');
-	Route::post('/users', 'UserController@filter');
-    Route::get('/user/{id}', 'UserController@show');
-	
 	Route::post('/coment', 'ComentController@save');
-	Route::post('/coment/edit/{id}', 'ComentController@update');
-	
+	Route::post('/coment/edit/{id}', 'ComentController@update');	
 	Route::post('/status', 'StatusController@index');
-	Route::post('/rating', 'RatingController@index');
+	Route::post('/rating', 'RatingController@index');	
 });
 
 Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' => 'moderator'], function()
