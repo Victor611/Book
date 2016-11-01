@@ -80,7 +80,7 @@ class UserModerController extends Controller
                 ->withErrors($validator);
         }
 
-        $data = User::findOrFile($id);
+        $data = User::findOrFail($id);
         $data->name = $request->name;
         if($data->email != $request->email)
             $data->email = $request->email;
