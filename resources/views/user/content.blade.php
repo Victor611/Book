@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Books</div>
                     <div class="panel-body">
-                       <!--<?php var_dump();?>-->
+                       
                         <!---->
                         <div class="col-md-2">
                             <img src="/uploads/avatars/{{$user->avatar}}" style="width:100px; heidth:100px; margin-right:50px; float:left;">
@@ -23,6 +23,25 @@
                             <div class="col-sm-12">
                                 <div class="col-sm-3">Отдел :</div>
                                 <div class="col-sm-9">{{ $user->dep->name }}</div>
+                            </div>
+                            
+                            <div class="col-sm-12">
+                                <div class="col-sm-3">Прочел:</div>
+                                <div class="col-sm-9">
+                                        @if($user->count_status == null) 0  книг
+                                        @else <?php new App\Sklonenie($user->count_status, ['книгу','книги','книг']);?>
+                                        @endif
+                                </div>
+                            </div>    
+                                        
+                            <div class="col-sm-12">
+                                <div class="col-sm-3">Оставил:</div>
+                                <div class="col-sm-9">
+                                    @if($user->count_coment == null) 0 отзывов
+                                    @else <?php new App\Sklonenie($user->count_coment, ['отзыв','отзыва','отзывов']);?>
+                                    @endif
+                                                
+                                </div>
                             </div>
                                 
                         </div>
@@ -45,7 +64,6 @@
                                                 <img src="/uploads/book_avatar/{{$v->avatar}}"  style="width:100px; heidth:100px; ">
                                             {{$v->title}}
                                             </p>
-                                           
                                         </div>
                                     </a>    
                                 @endforeach
@@ -67,7 +85,6 @@
                                                 <img src="/uploads/book_avatar/{{$v->avatar}}" style="width:100px; heidth:100px;">
                                                 {{$v->title}}
                                             </p>
-                                           
                                         </div>
                                     </a>    
                                 @endforeach
@@ -97,6 +114,29 @@
                     
                             </div>
                         </div>
+                    </div>
+                    <div class="panel-heading"><h4>Последние комментарии</h4>
+                        @foreach($coment as $c)
+                        <table class="table table-striped task-table">
+                            <tr>            
+                                <td class="table-text col-sm-1">
+                                    <a href="{{ url('book/'.$c->id) }}">
+                                        <img src="/uploads/book_avatar/{{$c->avatar}}" style="max-width:70px; float:left;">
+                                    </a>
+                                </td>
+                                <td>
+                                    <div class="col-sm-12"><h4>{{ $c->title }}</h4></div>
+                                    <div class="col-sm-12">{{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}}</div>
+                                    <div class="col-sm-12">{{$c->coment}}</div>
+                                </td>
+                            </tr>
+                        </table>
+                        @endforeach
+                    </div>
+                </div>
+            </div>
+            
+        </div>
     </div>
 </div>
 @endsection

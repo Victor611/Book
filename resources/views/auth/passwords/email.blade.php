@@ -27,6 +27,7 @@
         .logo {
             display:block;
             margin: 30px auto;
+			text-align:center;
         }
         .btn-primary {
             width: 100%;
@@ -53,7 +54,8 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3"  >
             <a href="{{url('/')}}">
-                <img src="/uploads/img/logo.png" class="logo">
+				<h3 class="logo">Bookshelf</h3>
+                <!--<img src="/uploads/img/logo.png" class="logo">-->
             </a>
                 
                 <!--<div class="headers">Туточки наваять заголовки как у гугла</div>-->

@@ -130,7 +130,7 @@
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 2 ? "btn btn-danger" : "btn btn-default"}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 2 ? "btn btn-warning" : "btn btn-default"}}">
                                         <input type="hidden" name="status" value="2">Читаю
                                     </button>
                                 </form>        
@@ -138,7 +138,7 @@
                                     {!! csrf_field() !!}    
                                     <input type="hidden" name="book_id" value="{{$book->id}}">
                                     <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
-                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-danger" : "btn btn-default"}}">
+                                    <button type="submit" class="{{App\Status::hasStatus($book->id, Auth::user()->id) == 3 ? "btn btn-success" : "btn btn-default"}}">
                                         <input type="hidden" name="status" value="3">Прочитал
                                     </button>
                                 </form>
@@ -169,7 +169,8 @@
 									<form action="{{ url('/coment') }}" method="POST" cenctype="multipart/form-data" class="form-horizontal" >
                                     {!! csrf_field() !!}
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
-                                        <input type="hidden" name="user_id" value="@if(Auth::user()){{Auth::user()->id}}@endif">
+                                        <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+										
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Coment</label>
                                 
@@ -206,7 +207,7 @@
 																		<form action="{{ url('/coment/edit/'.$c->id) }}" method="POST">
 																			{!! csrf_field() !!}
 																			<input type="hidden" name="book_id" value="{{$book->id}}">
-																			<input type="hidden" name="user_id" value="{@if(Auth::user()){{Auth::user()->id}}@endif">
+																			<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 																			
 																			<div class="form-group">
 																				
@@ -312,7 +313,7 @@
                                     <h3>Ссылки</h3>
                                     <div class="col-md-12">
                                         @foreach(App\Link::BookToLink($book->id) as $k=>$v)
-                                            <a href="{{ $v->url }}">
+                                            <a href="{{ $v->url }}" target= "_blank">
                                                 <button type="submit" class="btn btn-default" style="display : inline">
                                                     <i class="glyphicon glyphicon-download"></i> {{$v->format}} 
                                                 </button>

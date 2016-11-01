@@ -14,15 +14,7 @@ class UserController extends Controller
     
     public function index()
     {
-        $users = DB::table('users')
-                     ->select(DB::raw('users.id, users.avatar, users.name, deps.name as deps, count(ratings.status) as status'))
-                     ->join('deps', 'users.dep_id','=','deps.id')
-                     
-                     ->leftJoin('ratings','users.id','=','ratings.user_id')
-                     ->where('ratings.status', '=', 3)
-                     ->groupBy('users.id', 'users.avatar', 'users.name', 'deps.name')
-                     ->orderBy('status', 'DESC')
-                     ->get();
+        $users = User::orderBy('count_status','DESC')->paginate(10);
         return view('user.index', ['users' => $users]);
     }
     

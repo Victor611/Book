@@ -7,13 +7,14 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Рейтинг пользователей</div>
                     <div class="panel-body">
-                    <?php //var_dump($users);?>
+                   
                         @foreach ($users as $user)
+                             
                             <table class="table table-striped task-table">
                                 <tr>
                                     <td class="table-text col-sm-3">
                                         <a href="{{ url('user/'.$user->id) }}">
-                                            <img src="/uploads/avatars/{{$user->avatar}}" style="width:150px; float:left;">
+                                            <img src="/uploads/avatars/{{$user->avatar}}" style="width:100px; float:left;">
                                         </a>
                                     </td>
                                     <!-- Book Name -->
@@ -26,24 +27,30 @@
                                         
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">Отдел :</div>
-                                            <div class="col-sm-9">{{$user->deps}}</div>
+                                            <div class="col-sm-9">{{$user->dep->name}}</div>
                                         </div>
                                             
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">Прочел:</div>
-                                            <div class="col-sm-9"><?php  new App\Sklonenie($user->status, ['книга','книги','книг']);?></div>
+                                            <div class="col-sm-9">@if($user->count_status == null) 0  книг
+                                                                @else <?php new App\Sklonenie($user->count_status, ['книгу','книги','книг']);?>
+                                                                @endif
+                                            </div>
                                         </div>    
                                         
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">Оставил:</div>
-                                                <div class="col-sm-9">
+                                                <div class="col-sm-9">@if($user->count_coment == null) 0  отзывов
+                                                                @else <?php new App\Sklonenie($user->count_coment, ['отзыв','отзыва','отзывов']);?>
+                                                                @endif
+                                                                
                                             </div>
-                                        </div
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
                         @endforeach
-                        <?php //echo $users->links(); ?>
+                        <?php echo $users->links(); ?>
                     </div>
                 </div>
             </div>
