@@ -19,7 +19,7 @@ class BookController extends Controller
     {
        
         $deps = Dep::all();
-        $books = Book::paginate($this->itemsPerPage);
+        $books = Book::orderBy("created_at", "desc")->paginate($this->itemsPerPage);
         $genres = Genre::all();
         return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
     }
@@ -35,7 +35,7 @@ class BookController extends Controller
     {
        
         $sort = Request::has('sort') ? Request::get('sort') : false; // Параметр сортировки 'ASC','DESC'
-        $column = "id";
+        $column = "created_at";
         $order = null;
         if($sort)
         {
