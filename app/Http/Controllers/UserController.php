@@ -21,7 +21,14 @@ class UserController extends Controller
     static function show($id)
     {
         $user = User::findOrFail($id);
-        $coment = Book::join('coments', 'coments.book_id', '=', 'books.id')->where('user_id', '=', $id)->orderBy('coment', 'DESC')->limit(3)->get();
+        $coment = Book::join('coments', 'coments.book_id', '=', 'books.id')->where('user_id', '=', $id)->orderBy('coments.updated_at', 'DESC')->limit(3)->get();
         return view('user.content', ['user' => $user, 'coment' => $coment]);
+    }
+    
+    public function filter(Request $request)
+    {
+         $referal = Request::has('referal') ? Request::get('referal') : false;
+         $db_referal = User::where('name', 'like', '%'.$referal.'%');
+         //foreach($db_referal as )
     }
 }

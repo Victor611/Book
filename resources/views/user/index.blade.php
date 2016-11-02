@@ -4,6 +4,8 @@
 <div class="container">
     <div class="row">
         <div class="col-md-10 col-md-offset-1 col-lg-10 col-md-offset-1">
+            <input type="text" name="referal" placeholder="Живой поиск" value="" class="who"  autocomplete="off">
+                <ul class="search_result"></ul>
             <div class="panel panel-default">
                 <div class="panel-heading">Рейтинг пользователей</div>
                     <div class="panel-body">

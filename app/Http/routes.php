@@ -32,6 +32,7 @@ Route::post('/users', 'UserController@filter');
 Route::get('/user/{id}', 'UserController@show');	
 
 Route::auth();
+
 Route::group(['middleware' => 'auth'], function ()
 {
 	Route::get('/profile', 'ProfileController@profile');
