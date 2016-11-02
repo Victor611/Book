@@ -30,9 +30,9 @@
                                         <td class="table-text">
                                             <div>{{ $d->name }}</div>
                                         </td>
-                                        <?php //print_r($d->id);?>
+                                        <?php //print_r($d->children);?>
                                         <td class="table-text">
-                                            <div>@if(!empty($d->parent_id->name))?{{ $d->parent_id->name }}:;@endif</div>
+                                            <div>@if(!empty($d->children->name)) {{ $d->children->name }} @else Никому не подчиняется @endif</div>
                                         </td>
                                         <?php //print_r($book->id);?>    
                                         <td>

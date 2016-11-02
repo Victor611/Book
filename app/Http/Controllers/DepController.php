@@ -22,7 +22,7 @@ class DepController extends Controller
 // Главная   
     public function index()
     {
-        $deps = Dep::paginate(10);
+        $deps = Dep::with('children')->paginate(10);
         return view('moder_dep.index', ['deps' => $deps]);
     }
     
@@ -48,8 +48,9 @@ class DepController extends Controller
 // Form Edit Dep    
     public function edit($id)
     {
-        $deps = Dep::all();
-	$dep = Dep::findOrFail($id);
+        $deps = Dep::where('parent_id', '0')->get();
+		$dep = Dep::find($id);
+		//var_dump($deps); exit;
         return view('moder_dep.edit',['dep' => $dep, 'deps' => $deps]);
         
     }

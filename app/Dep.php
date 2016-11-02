@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\Recomend;
 
-class Dep extends Model
+class Dep extends Model                                                                                                                                                                                                                                                                                                                                                             
 {
     protected $table = 'deps';
     protected $fillable = ['parent_id', 'name'];
@@ -20,5 +20,10 @@ class Dep extends Model
     public function recomend()
     {
         return $this->hasMany('App\Recomend');
+    }
+    
+    public function children()
+    {
+        return $this->hasOne('App\Dep', 'id', 'parent_id');
     }
 }
