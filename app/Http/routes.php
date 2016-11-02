@@ -28,7 +28,7 @@ Route::post('/book', 'BookController@filter');
 Route::get('/book/{id}', 'BookController@show');
 
 Route::get('/users', 'UserController@index');
-Route::post('/users', 'UserController@filter');
+Route::post('/users/find', 'UserController@filter');
 Route::get('/user/{id}', 'UserController@show');	
 
 Route::auth();

@@ -23,6 +23,34 @@
         .fa-btn {
             margin-right: 6px;
         }
+
+        .search_result{
+            background: #FFF;
+            border: 1px #ccc solid;
+            min-width: 197px;
+            border-radius: 4px;
+            /*max-height:200px;*/
+            overflow-y:scroll;
+            display:none;
+            position: absolute;
+            z-index: 9;
+        }
+
+        .search_result p{
+
+            padding: 5px 10px;
+            /*margin: 0 0 0 -40px;*/
+            /*color: #0896D3;*/
+            /*border-bottom: 1px #ccc solid;*/
+            /*cursor: pointer;*/
+            /*transition:0.3s;*/
+
+
+        }
+
+        .search_result p:hover{
+            background: #5d9fd8;
+        }
     </style>
 </head>
 <body id="app-layout">
@@ -94,34 +122,65 @@
     <script>
 		$(function(){
 			//Живой поиск
-			$('.who').bind("change keyup input click", function() {
-				if(this.value.length >= 3){
+			$('.who').bind("change keyup input", function() {
+                $(".search_result").html("");
+                $(".goto_finded").hide();
+
+                if(this.value.length >= 3){
 					$.ajax({
 						type: 'post',
-						url: "/user", //Путь к обработчику
-						data: {'referal':this.value},
-						response: 'text',
+						url: "/users/find",
+						data: {'part':this.value},
+						response: 'json',
 						success: function(data){
-							$(".search_result").html(data).fadeIn(); //Выводим полученые данные в списке
-						}
+                            data = JSON.parse(data);
+                            var i = 0;
+
+                            $.each(data, function(user_id, name) {
+                                var row = "<p class='finded' id='" + user_id + "' style='cursor:pointer;'>" + name + "</p>";
+                                $(".search_result").append(row);
+                                i++;
+                            });
+                            if(i = 0)
+                            {
+                                $(".search_result").fadeOut();
+                            } else {
+                                $(".search_result").fadeIn();
+                            }
+
+						},
+                        error: function(data){
+                            console.log("Errror: " + data);
+                        }
 					})
-				}
+				} else {
+                    $(".search_result").fadeOut();
+                }
 			})
 				
 			$(".search_result").hover(function(){
 				$(".who").blur(); //Убираем фокус с input
-			})
+			});
 				
 			//При выборе результата поиска, прячем список и заносим выбранный результат в input
-			$(".search_result").on("click", "li", function(){
-				s_user = $(this).text();
-				//$(".who").val(s_user).attr('disabled', 'disabled'); //деактивируем input, если нужно
-				$(".search_result").fadeOut();
-			})
+			$(".search_result").on("click", "p", function(){
+				var uid = $(this).attr('id');
+				var name = $(this).html();
+                //window.location.href = '/user/'+uid;
+                $(".goto_finded").attr('href', '/user/'+uid);
+                $(".who").val(name);
+                //$(".who").attr('disabled', 'disabled'); //деактивируем input, если нужно
+                $(".search_result").fadeOut();
+                $(".goto_finded").css('display', 'inline-block');
+			});
+
+
 	
-		})		
-	</script>
-	<script>
+		});
+
+
+
+        // Автосабмит фильтров поиска книг
         $(".filter-input").change(function(){
             $(".filter").submit();
         });

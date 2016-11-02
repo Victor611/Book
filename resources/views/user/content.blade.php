@@ -126,7 +126,7 @@
                                 </td>
                                 <td>
                                     <div class="col-sm-12"><h4>{{ $c->title }}</h4></div>
-                                    <div class="col-sm-12">{{$c->updated_at->format('d-M-Y')}} в {{$c->updated_at->format('H:i')}}</div>
+                                    <div class="col-sm-12">{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}} написал: </div>
                                     <div class="col-sm-12">{{$c->coment}}</div>
                                 </td>
                             </tr>
