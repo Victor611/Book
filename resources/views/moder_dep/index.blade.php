@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                <div class="panel-heading">Books</div>
+                <div class="panel-heading">Отделы</div>
                     <div class="panel-body">
                         
                         <a href="{{ url('/moder/create/dep') }}">
@@ -18,7 +18,7 @@
                             <!-- Table Headings -->
                             <thead>
                                 <th>Отдел</th>
-                                <th>Подчинение</th>
+                                <th>Подчиняется</th>
                                 <th>&nbsp;</th>
                             </thead>
                             
@@ -38,7 +38,7 @@
                                         <td>
                                             <a href="{{ url('/moder/edit/dep/'.$d->id) }}">
                                                 <button type="submit" class="btn btn-warning">
-                                                    <i class="glyphicon glyphicon-repeat"></i> Edit 
+                                                    <i class="glyphicon glyphicon-repeat"></i> Редактировать 
                                                 </button>
                                             </a>
                                         </td>
@@ -48,7 +48,7 @@
                                             {!! csrf_field() !!}
                                             {!! method_field('DELETE') !!}
                                                 <button type="submit" class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
+                                                    <i class="fa fa-trash"></i> Удалить
                                                 </button>
                                             </form>
                                         </td>

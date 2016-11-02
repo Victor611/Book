@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                 <div class="panel-heading">Users</div>
+                 <div class="panel-heading">Пользователи</div>
                     <div class="panel-body">
                         
                         <table class="table table-striped task-table">
@@ -13,11 +13,11 @@
                             <!-- Table Headings -->
                             <thead>
                                 <th>ID</th>
-                                <th>Name</th>
+                                <th>Имя</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th>Department</th>
-                                <th>Active</th>
+                                <th>Роль</th>
+                                <th>Отдел</th>
+                                <th>Разрешение</th>
                                 <th>&nbsp;</th>
                             </thead>
                             
@@ -67,7 +67,7 @@
                                             {!! csrf_field() !!}
                                             {!! method_field('DELETE') !!}
                                                 <button type="submit" class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
+                                                    <i class="fa fa-trash"></i> Удалить
                                                 </button>
                                             </form>
                                         </td>

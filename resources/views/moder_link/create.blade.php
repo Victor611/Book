@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Add Link</div>
+                <div class="panel-heading">Добавить ссылку</div>
                 <div class="panel-body">
                     <!-- Display Validation Errors -->
                     @include('common.errors')
@@ -17,7 +17,7 @@
                         <input type="hidden" name="book_id" value="{{$book->id}}">                        
                         
                         <div class="form-group" >
-                            <label class="col-sm-3 control-label">Format</label>
+                            <label class="col-sm-3 control-label">Формат</label>
                                
                             <div class="col-sm-6">
                                 <select  class="form-control" name="format">
@@ -47,7 +47,7 @@
                         <div class="form-group">
                             <div class="col-sm-offset-3 col-sm-6">
                                 <button type="submit" class="btn btn-default">
-                                    <i class="fa fa-plus"></i> Save Link
+                                    <i class="fa fa-plus"></i> создать
                                 </button>
                             </div>
                         </div>

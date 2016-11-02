@@ -5,19 +5,19 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                 <div class="panel-heading">Logs</div>
+                 <div class="panel-heading">Логи</div>
                     <div class="panel-body">
                         
                         <table class="table table-striped task-table">
 
                             <!-- Table Headings -->
                             <thead>
-                                <th>Time</th>
-                                <th>User</th>
-                                <th>IP</th>
-                                <th>Action</th>
-                                <th>Oblect</th>
-                                <th>ID</th>
+                                <th>Когда</th>
+                                <th>Пользователь</th>
+                                <th>с IP</th>
+                                <th>Действие</th>
+                                <th>Объект</th>
+                                <th>с ID</th>
                                 
                             </thead>
                             

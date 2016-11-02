@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                 <div class="panel-heading">Books</div>
+                 <div class="panel-heading">Книги</div>
                     <div class="panel-body">
                         
                         <table class="table table-striped task-table">
@@ -13,9 +13,9 @@
                             <!-- Table Headings -->
                             <thead>
                                 <th>ID</th>
-                                <th>Title</th>
-                                <th>Author</th>
-                                <th>Pub Year</th>
+                                <th>Название</th>
+                                <th>Автор</th>
+                                <th>Год издания</th>
                                 <th>&nbsp;</th>
                             </thead>
                             

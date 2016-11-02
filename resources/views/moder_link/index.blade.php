@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12 col-lg-10">
             <div class="panel panel-default">
-                <div class="panel-heading">Books</div>
+                <div class="panel-heading">Ссылки на книгу</div>
                     <div class="panel-body">
                         <!-- Обложка -->
                         <div class="col-md-4">
@@ -16,17 +16,17 @@
                         <!-- content book-->  
                         <div class="col-md-8"><h3>{{ $book->title }}</h3>                            
                             
-                            <div class="col-sm-3">Author :</div>
+                            <div class="col-sm-3">автор :</div>
                             <div class="col-sm-9">{{ $book->author }}</div>
                             
-                            <div class="col-sm-3">Pub Year :</div>
+                            <div class="col-sm-3">год издания :</div>
                             <div class="col-sm-9">{{ $book->pubyear }}</div>
                                                         
                             
-                            <div class="col-sm-3">Genre :</div>
+                            <div class="col-sm-3">жанр :</div>
                             <div class="col-sm-9">{{ $book->genre->name }}</div>
                                                         
-                            <div class="col-sm-12">Description </div>
+                            <div class="col-sm-12"> Описание </div>
                             <div class="col-sm-12">{{ $book->description }}</div>
                         
                         </div>
@@ -36,7 +36,7 @@
                             <h3>Cсылки</h3>
                             <a href="{{ url('/moder/create/link/'.$book->id) }}">
                                 <button type="submit" class="btn btn-default">
-                                    <i class="glyphicon glyphicon-cloud"></i> Add Link 
+                                    <i class="glyphicon glyphicon-cloud"></i> Добавить ссылку 
                                 </button>
                             </a>
                                 
@@ -44,7 +44,7 @@
 
                                 <!-- Table Headings -->
                                 <thead>
-                                    <th>Format</th>
+                                    <th>Формат</th>
                                     <th>URL</th>
                                     <th>&nbsp;</th>
                                 </thead>
@@ -66,7 +66,7 @@
                                     <td>
                                         <a href="{{ url('/moder/edit/link/'. $v->id) }}">
                                             <button type="submit" class="btn btn-default">
-                                                <i class="glyphicon glyphicon-repeat"></i> Edit Link 
+                                                <i class="glyphicon glyphicon-repeat"></i> Редактировать 
                                             </button>
                                         </a>
                                     </td>
@@ -76,7 +76,7 @@
                                         {!! csrf_field() !!}
                                         {!! method_field('DELETE') !!}
                                             <button type="submit" class="btn btn-default">
-                                                <i class="fa fa-trash"></i> Delete Link
+                                                <i class="fa fa-trash"></i> Удалить
                                             </button>
                                         </form>
                                     </td>

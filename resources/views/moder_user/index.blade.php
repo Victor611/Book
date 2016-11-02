@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                 <div class="panel-heading">Users</div>
+                 <div class="panel-heading">Пользователи</div>
                     <div class="panel-body">
                         
                         <a href="{{ url('/moder/create/user') }}">
@@ -17,11 +17,11 @@
 
                             <!-- Table Headings -->
                             <thead>
-                                <th>&nbsp;</th>
-                                <th>Name</th>
+                                <th>Доступ</th>
+                                <th>Имя</th>
                                 <th>Email</th>
-                                <th>Role</th>
-                                <th>Department</th>
+                                <th>Роль</th>
+                                <th>Отдел</th>
                                 <th>&nbsp;</th>
                             </thead>
                             
@@ -59,7 +59,7 @@
                                         <td>
                                             <a href="{{ url('/moder/edit/user/'.$user->id) }}">
                                                 <button type="submit" class="btn btn-warning">
-                                                    <i class="glyphicon glyphicon-repeat"></i> Edit 
+                                                    <i class="glyphicon glyphicon-repeat"></i> Редактировать 
                                                 </button>
                                             </a>
                                         </td>
@@ -69,7 +69,7 @@
                                             {!! csrf_field() !!}
                                             {!! method_field('DELETE') !!}
                                                 <button type="submit" class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
+                                                    <i class="fa fa-trash"></i> Удалить
                                                 </button>
                                             </form>
                                         </td>

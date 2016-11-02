@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="panel panel-default">
-                 <div class="panel-heading">Books</div>
+                 <div class="panel-heading">Книги</div>
                     <div class="panel-body">
                         
                         <a href="{{ url('/moder/create/book') }}">
                             <button type="button" class="btn btn-success">
-                                <i class="glyphicon glyphicon-pencil"></i> Add New Book
+                                <i class="glyphicon glyphicon-pencil"></i> Добавить новую книгу
                             </button>
                         </a>
                         <table class="table table-striped task-table" >
@@ -18,12 +18,12 @@
                             <!-- Table Headings -->
                             <thead>
                                 <th>Id</th>
-			        <th>Title</th>
-                                <th>Author</th>
-                                <th>Pub Year</th>
-                                <th>Genre</th>
-                                <th>Type</th>
-                                <th>Count Link</th>    
+								<th>Название</th>
+                                <th>Автор</th>
+                                <th>Год издания</th>
+                                <th>Жанр</th>
+                                <th>Тип</th>
+                                <th>Количество ссылок</th>    
                                 <th>&nbsp;</th>
                             </thead>
                             
@@ -70,14 +70,14 @@
 											@if ($book->type == 'Электронная' && App\Link::countLink($book->id)!==0)
                                                 <p><a href="{{ url('/moder/link/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-default" style="margin-bottom:10px;">
-                                                          <i class="glyphicon glyphicon-list-alt"></i> Show Link 
+                                                          <i class="glyphicon glyphicon-list-alt"></i> Показать ссылку 
                                                     </button>
                                                 </a></p>
                                             @endif     
                                             
                                                 <p><a href="{{ url('/moder/edit/book/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-warning">
-                                                        <i class="glyphicon glyphicon-repeat"></i> Edit Book
+                                                        <i class="glyphicon glyphicon-repeat"></i> Редактировать книгу
                                                     </button>
                                                 </a></p>
                                          </td> 
@@ -87,7 +87,7 @@
 											@if ($book->type == 'Электронная' )						
                                                 <p><a href="{{ url('/moder/create/link/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-default" style="margin-bottom:10px;">
-                                                        <i class="glyphicon glyphicon-cloud"></i> Add Link 
+                                                        <i class="glyphicon glyphicon-cloud"></i> Добавить ссылку 
                                                     </button>
                                                 </a></p>
                                             @endif                                                
@@ -96,7 +96,7 @@
 		                                        {!! csrf_field() !!}
 		                                        {!! method_field('DELETE') !!}
 		                                        <button type="submit" class="btn btn-danger" >
-		                                            <i class="fa fa-trash"></i> Delete Book
+		                                            <i class="fa fa-trash"></i> Удалить книгу
 		                                        </button>
 		                                    </form></p>
                                         </td>

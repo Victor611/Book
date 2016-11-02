@@ -117,10 +117,11 @@
                     </div>
                     <div class="panel-heading"><h4>Последние комментарии</h4>
                         @foreach($coment as $c)
+                           
                         <table class="table table-striped task-table">
                             <tr>            
                                 <td class="table-text col-sm-1">
-                                    <a href="{{ url('book/'.$c->id) }}">
+                                    <a href="{{ url('book/'.$c->book_id) }}">
                                         <img src="/uploads/book_avatar/{{$c->avatar}}" style="max-width:70px; float:left;">
                                     </a>
                                 </td>

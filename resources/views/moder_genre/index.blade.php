@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                <div class="panel-heading">Genres</div>
+                <div class="panel-heading">Жанры</div>
                     <div class="panel-body">
                         
                         <a href="{{ url('/moder/create/genre') }}">
                             <button type="button" class="btn btn-success">
-                                <i class="glyphicon glyphicon-pencil"></i> Add New Genre
+                                <i class="glyphicon glyphicon-pencil"></i> Добавить новый жанр
                             </button>
                         </a>
                         <table class="table table-striped task-table">
@@ -38,7 +38,7 @@
                                         <td>
                                             <a href="{{ url('/moder/edit/genre/'.$g->id) }}">
                                                 <button type="submit" class="btn btn-warning">
-                                                    <i class="glyphicon glyphicon-repeat"></i> Edit 
+                                                    <i class="glyphicon glyphicon-repeat"></i> Редактировать 
                                                 </button>
                                             </a>
                                         </td>
@@ -48,7 +48,7 @@
                                             {!! csrf_field() !!}
                                             {!! method_field('DELETE') !!}
                                                 <button type="submit" class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i> Delete
+                                                    <i class="fa fa-trash"></i> Удалить
                                                 </button>
                                             </form>
                                         </td>

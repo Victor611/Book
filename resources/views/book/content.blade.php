@@ -53,7 +53,7 @@
                                         <input type="hidden" name="book_id" value="{{$book->id}}">
                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label" style="padding: 5px 20px 0 0;">Rating</label>
+                                            <label class="col-sm-2 control-label" style="padding: 5px 20px 0 0;">Рейтинг</label>
                                             
                                             <div class="col-sm-5" style="padding: 5px;">
                                                 @for($i=1;$i<=5;$i++)
@@ -172,7 +172,7 @@
                                         <input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 										
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">Coment</label>
+                                            <label class="col-sm-2 control-label">Коментарий</label>
                                 
                                             <div class="col-sm-7">
                                                 <textarea class="form-control" style="max-width: 616px;" rows="1" name="coment"></textarea>
@@ -180,7 +180,7 @@
         
                                             <div class=" col-sm-2">
                                                 <button type="submit" class="btn btn-default">
-                                                    <i class="fa fa-plus"></i> Add Coment
+                                                    <i class="fa fa-plus"></i> Создать
                                                 </button>
                                             </div>
                                         </div>
@@ -217,7 +217,7 @@
 																				
 																				<div class=" col-sm-2">
 																					<button type="submit" class="btn btn-default">
-																						<i class="fa fa-edit"></i> Edit Coment
+																						<i class="fa fa-edit"></i> Редактировать
 																					</button>
 																				</div>
 																			

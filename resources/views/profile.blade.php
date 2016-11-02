@@ -9,8 +9,8 @@
             </div>
             <div class="col-md-10">
                 <h2>{{$user->name}} профайл</h2>
-                <p>{{$user->role->name}}</p>
-                <p>{{$user->dep->name}}</p>
+                
+                <p>Отдел:  {{$user->dep->name}}</p>
                 <form enctype="multipart/form-data" action="/profile" method="POST">
                     <label>Загрузить аватар</label>
                     @include('common.errors')
