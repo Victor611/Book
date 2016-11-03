@@ -41,17 +41,17 @@
                 <!-- Branding Image -->
                 <a href="{{ url('/') }}">
                    <!-- <img src="/uploads/img/logo.png" style="width:200px; left:10px; top:10px;">-->
-			<h3>Bookshelf</h3>
+					<h3 style="margin-top:17px;">Bookshelf</h3>
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/moder/book') }}">Книги</a></li>
-                    <li><a href="{{ url('/moder/user') }}">Пользователи</a></li>
-                    <li><a href="{{ url('/moder/dep') }}">Отделы</a></li>
-                    <li><a href="{{ url('/moder/genre') }}">Жанры</a></li>
+                    <li style="padding-top:5px;"><a href="{{ url('/moder/book') }}">Книги</a></li>
+                    <li style="padding-top:5px;"><a href="{{ url('/moder/user') }}">Пользователи</a></li>
+                    <li style="padding-top:5px;"><a href="{{ url('/moder/dep') }}">Отделы</a></li>
+                    <li style="padding-top:5px;"><a href="{{ url('/moder/genre') }}">Жанры</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

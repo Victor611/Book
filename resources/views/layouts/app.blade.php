@@ -44,7 +44,7 @@
     </style>
 </head>
 <body id="app-layout">
-   <nav class="navbar navbar-default navbar-static-top" style="min-height:57px;">
+   <nav class="navbar navbar-default navbar-static-top" >
         <div class="container">
             <div class="navbar-header">
 
@@ -59,15 +59,15 @@
                 <!-- Branding Image -->
                 <a href="{{ url('/') }}">
                    <!-- <img src="/uploads/img/logo.png" style="width:200px; left:10px; top:10px;">-->
-			<h3>Bookshelf</h3>
+					<h3 style="margin-top:17px;">Bookshelf</h3>
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
                 <ul class="nav navbar-nav">
-                    <li><a href="{{ url('/book') }}">Книги</a></li>
-                    <li><a href="{{ url('/users') }}">Пользователи</a></li>
+                    <li style="padding-top:5px;"><a href="{{ url('/book') }}">Книги</a></li>
+                    <li style="padding-top:5px;"><a href="{{ url('/users') }}">Пользователи</a></li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
