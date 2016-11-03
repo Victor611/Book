@@ -21,11 +21,6 @@
                             </div>
                             
                             <div class="col-sm-12">
-                                <div class="col-sm-3">Отдел :</div>
-                                <div class="col-sm-9">{{ $user->dep->name }}</div>
-                            </div>
-                            
-                            <div class="col-sm-12">
                                 <div class="col-sm-3">Прочел:</div>
                                 <div class="col-sm-9">
                                         @if($user->count_status == null) 0  книг
