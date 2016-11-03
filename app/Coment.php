@@ -23,10 +23,17 @@ class Coment extends Model
         return $this->belongsTo('App\User');
     }
     
-    static function countComent($uid)
+    static function countComentUser($uid)
     {
         return DB::table('coments')
                 ->where('user_id', '=', $uid)
+                ->count();
+    }
+    
+    static function countComentBook($bid)
+    {
+        return DB::table('coments')
+                ->where('book_id', '=', $bid)
                 ->count();
     }
 }

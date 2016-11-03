@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Rating;
-use App\User;
+use App\Book;
 use App\Status;
 
 class RatingController extends Controller
@@ -21,6 +21,10 @@ class RatingController extends Controller
             $data->user_id = $request->user_id;
             $data->rating = $request->rating;
             $data->save();
+            
+            $book = Book::find($request->book_id);
+            $book->avg_rating = Rating::avgRating($book->id);
+            $book->save();
             return redirect('/book/'.$request->book_id);
         }    
             $rating = RatingController::checkRating($request);
@@ -29,6 +33,10 @@ class RatingController extends Controller
             $data->user_id = $request->user_id;
             $data->rating = $request->rating;
             $data->save();
+            
+            $book = Book::find($request->book_id);
+            $book->avg_rating = Rating::avgRating($book->id);
+            $book->save();
             return redirect('/book/'.$request->book_id);
     }
     

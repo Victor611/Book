@@ -29,34 +29,21 @@
                                             <div class="col-sm-3">Автор :</div>
                                             <div class="col-sm-9">{{ $book->author }}</div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">Год издания :</div>
-                                            <div class="col-sm-9">{{ $book->pubyear }}</div>
-                                        </div>
+                                       
                                         <div class="col-sm-12">
                                             <div class="col-sm-3">Жанр :</div>
                                             <div class="col-sm-9">{{ $book->genre->name }}</div>
                                         </div>
-                                        <div class="col-sm-12">
-                                            <div class="col-sm-3">Тип :</div>
-                                            <div class="col-sm-9">
-                                                {{ $book->type }}
-                                                
-                                                @if($book->type=='Электронная')
-                                                    |&nbsp;&nbsp;&nbsp;
-                                                    <?php  new App\Sklonenie(App\Link::countLink($book->id),['ссылка','ссылки','ссылок']);?>
-                                                @endif
-                                            </div>
-                                        </div>
                                        
                                         <div class="col-sm-12">
                                             <h5>
-                                            <!--склонение в зависимости от количества отзывов-->
-                                             <?php new App\Sklonenie(count($book->coment),['отзыв','отзыва','отзывов']);?>
-                                            <!--Средний рейтинг книги-->
-                                            | Рейтинг книги: <?php  echo round(App\Rating::avgRating($book->id),0);?>
-                                            <!--Склонение в зависимости от количества оценок-->
+											<!--Средний рейтинг книги-->
+                                            Рейтинг: <?php  echo round($book->avg_rating,0);?>
+											<!--Склонение в зависимости от количества оценок-->
                                             | <?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>
+											<!--склонение в зависимости от количества отзывов-->
+                                            | <?php new App\Sklonenie($book->count_coment,['отзыв','отзыва','отзывов']);?>
+                                            
                                             </h5>
                                         </div>                    
                                         
@@ -82,23 +69,8 @@
                      {{ csrf_field() }}
                         <p>Сортировка</p>
                         <select name="sort" class="form-control filter-input" >
-                            <option value="">Без сортировки</option>
-                            <option @if($sort=='author::asc') selected @endif value="author::asc">
-                                Автор от А до Я
-                            </option>
-                            
-                            <option @if($sort=='author::desc') selected @endif value="author::desc">
-                                Автор от Я до А
-                            </option>
-                            
-                            <option @if($sort=='pubyear::asc') selected @endif value="pubyear::asc">
-                                Год издания по возрастанию
-                            </option>
-                            
-                            <option @if($sort=='pubyear::desc') selected @endif value="pubyear::desc">
-                                Год издания по убыванию
-                            </option>
-                            
+                            <option value="">По рейтингу</option>
+                                                        
                             <option @if($sort=='title::asc') selected @endif value="title::asc">
                                 Название от А до Я
                             </option>
@@ -106,6 +78,11 @@
                             <option @if($sort=='title::desc') selected @endif value="title::desc">
                                 Название от Я до А
                             </option>
+                            
+                            <option @if($sort=='created_at::desc') selected @endif value="created_at::desc">
+                                По дате добавления
+                            </option>
+                            
                         </select>
 
                         <hr>
@@ -116,29 +93,29 @@
                                             checked
                                     @endif
                                 >
-                            {{$genre->name}} </p>
+                            {{$genre->name}} (<?php echo App\Book::countGenre($genre->id);?>)</p>
                         @endforeach
-			@if(Auth::user())
-                        <hr>
-                        <p>Рекомендовано</p>
-                        @if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin')) 
-                            @foreach ($deps as $dep)
-                                <p><input name="deps[]" type="checkbox" value="{{$dep->id}}" class="filter-input"
-                                    @if( isset($deps_r) && in_array($dep->id, $deps_r) )
-                                        checked
-                                    @endif
-                                >
-                                {{$dep->name}} </p>
-                            @endforeach
-                        @elseif(Auth::user()->hasRole('user'))
-                            <p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}" class="filter-input"
-                                @if( isset($deps_r) && in_array(Auth::user()->dep_id, $deps_r) )
-                                        checked
-                                @endif
-                            >
-                            Моему отделу</p>
-                        @endif
-			@endif
+						@if(Auth::user())
+									<hr>
+									<p>Рекомендовано</p>
+									@if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin')) 
+										@foreach ($deps as $dep)
+											<p><input name="deps[]" type="checkbox" value="{{$dep->id}}" class="filter-input"
+												@if( isset($deps_r) && in_array($dep->id, $deps_r) )
+													checked
+												@endif
+											>
+											{{$dep->name}} </p>
+										@endforeach
+									@elseif(Auth::user()->hasRole('user'))
+										<p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}" class="filter-input"
+											@if( isset($deps_r) && in_array(Auth::user()->dep_id, $deps_r) )
+													checked
+											@endif
+										>
+										Моему отделу</p>
+									@endif
+						@endif
                         <!--<p><input type="submit" value="Выбрать" class="form-control"></p>-->
                         <!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
                      

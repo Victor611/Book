@@ -27,9 +27,7 @@
         .search_result{
             background: #FFF;
             border: 1px #ccc solid;
-            min-width: 197px;
             border-radius: 4px;
-            /*max-height:200px;*/
             overflow-y:scroll;
             display:none;
             position: absolute;
@@ -37,16 +35,8 @@
         }
 
         .search_result p{
-
             padding: 5px 10px;
-            /*margin: 0 0 0 -40px;*/
-            /*color: #0896D3;*/
-            /*border-bottom: 1px #ccc solid;*/
-            /*cursor: pointer;*/
-            /*transition:0.3s;*/
-
-
-        }
+         }
 
         .search_result p:hover{
             background: #5d9fd8;
@@ -178,7 +168,9 @@
 	
 		});
 
-
+		$(".g").click(function(){
+			$(".filtr").submit();
+        });
 
         // Автосабмит фильтров поиска книг
         $(".filter-input").change(function(){

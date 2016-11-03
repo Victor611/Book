@@ -20,67 +20,56 @@ class StatusController extends Controller
         if(!empty(Status::hasStatus($request->book_id, $request->user_id)) || !empty(Rating::hasRating($request->book_id, $request->user_id)))
         {
 			$status = StatusController::checkValidate($request);
-	
 			$id=Status::hasStatusId($request->book_id, $request->user_id);
 			$data = Status::find($id);
 			
 			if(Status::hasStatus($request->book_id, $request->user_id) == (int)$request->status)
 			{
-				if((int)$request->status == 3)
-				{
-					$user = User::find($request->user_id);
-					$user->count_status = 0;
-					$user->save();
-					
-					$book = Book::find($request->book_id);
-					$book->count_status = 0;
-					$book->save();
-				}
 				$data->delete();
-				return redirect('/book/'.$request->book_id);
-			}
 			
-			$user = User::find($request->user_id);
-			$book = Book::find($request->book_id);
-			//var_dump($user->status);exit;
-			if((int)$data->status == 3 && (int)$request->status !== 3)
-			{
-				$user->count_status = $user->count_status-1;
-				$user->save();
-				
-				$book->count_status = $book->count_status-1;
-				$book->save();
-			}
-			elseif((int)$data->status !== 3 && (int)$request->status == 3)
-			{
-				$user->count_status = $user->count_status+1;
-				$user->save();
-				
-				$book->count_status = $book->count_status+1;
-				$book->save();
-			}
-            $data->status = $request->status;
-            $data->save();
-            return redirect('/book/'.$request->book_id);
-        }    
-            $status = StatusController::checkValidate($request);
-            
-			if((int)$request->status == 3)
-			{
-				$user = User::find($request->user_id);
-				$user->count_status = $user->count_status+1;
+				$user = User::findOrFail($request->user_id);
+				$user->count_status = Status::countStatusUser($request->user_id, 3);
 				$user->save();
 				
 				$book = Book::find($request->book_id);
-				$book->count_status = $book->count_status+1;
+				$book->avg_rating = Rating::avgRating($request->book_id);
+				$book->count_status = Status::countStatusBook($request->book_id, 3);
 				$book->save();
+			
+				return redirect('/book/'.$request->book_id);
 			}
 			
+            $data->status = $request->status;
+            $data->save();
+            
+			$user = User::findOrFail($request->user_id);
+			$user->count_status = Status::countStatusUser($request->user_id, 3);
+			$user->save();
+			
+			$book = Book::find($request->book_id);
+			$book->avg_rating = Rating::avgRating($request->book_id);
+			$book->count_status = Status::countStatusBook($request->book_id, 3);
+			$book->save();
+			
+			
+			return redirect('/book/'.$request->book_id);
+        }    
+            $status = StatusController::checkValidate($request);
 			$data = new Status;
             $data->book_id = $request->book_id;
             $data->user_id = $request->user_id;
             $data->status = $request->status;
             $data->save();
+			
+			$user = User::findOrFail($request->user_id);
+			$user->count_status = Status::countStatusUser($request->user_id, 3);
+			$user->save();
+			
+			$book = Book::find($request->book_id);
+			$book->avg_rating = Rating::avgRating($request->book_id);
+			$book->count_status = Status::countStatusBook($request->book_id, 3);
+			$book->save();
+			
             return redirect('/book/'.$request->book_id);
     }
 

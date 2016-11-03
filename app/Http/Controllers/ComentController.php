@@ -29,19 +29,19 @@ class ComentController extends Controller
 			return redirect('/book/'.$request->book_id);
 		}
 		
-		$user = User::find($request->user_id);
-		$user->count_coment = $user->count_coment+1;
-		$user->save();
-		
-		$book = Book::find($request->book_id);
-		$book->count_coment = $book->count_coment+1;
-		$book->save();
-		
 		$data = new Coment;
         $data->coment = $request->coment;
         $data->user_id = $request->user_id;
         $data->book_id = $request->book_id;
         $data->save();
+		
+		$user = User::findOrFail($request->user_id);
+		$user->count_coment = Coment::countComentUser($request->user_id);
+		$user->save();
+		
+		$book = Book::find($request->book_id);
+		$book->count_coment = Coment::countComentBook($request->book_id);
+		$book->save();
         
         return redirect('/book/'.$data->book_id); 
         
@@ -61,24 +61,31 @@ class ComentController extends Controller
        
         if (empty($request->coment))
         {
+			$data->delete();
+			
 			$user = User::findOrFail($request->user_id);
-			$user->count_coment = $user->count_coment - 1;
+			$user->count_coment = Coment::countComentUser($request->user_id);
 			$user->save();
 			
 			$book = Book::find($request->book_id);
-			$book->count_coment = $book->count_coment-1;
+			$book->count_coment = Coment::countComentBook($request->book_id);
 			$book->save();
-            
-			$data->delete();
             return redirect('/book/'.$request->book_id);
         }
         else
         {
-            
             $data->coment = $request->coment;
             $data->user_id = $request->user_id;
             $data->book_id = $request->book_id;
-            $data->save(); 
+            $data->save();
+			
+			$user = User::findOrFail($request->user_id);
+			$user->count_coment = Coment::countComentUser($request->user_id);
+			$user->save();
+			
+			$book = Book::find($request->book_id);
+			$book->count_coment = Coment::countComentBook($request->book_id);
+			$book->save();
         }
         
         

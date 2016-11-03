@@ -49,27 +49,7 @@
                         <!--Статус чтения-->    
                         <div id="panel2" style="padding-top:100px;">
                             <h3>Статус чтения</h3>
-                            <!--Хочу прочитать -->
-                            <div class="col-md-12">                           
-                                <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                    @if(count(App\Status::StatusToUser($user->id, "1"))>0)
-                                            Хочу прочитать
-                                    @else Ничего не хочу читать
-                                    @endif
-                                </h4></br>
-                                @foreach(App\Status::StatusToUser($user->id, "1")  as $k=>$v)
-                                    <a href="/book/{{$v->id}}" style = "text-decoration:none; color:#777;">
-                                        <div class="col-sm-2" style="text-align:center; padding:15px;">
-                                            <p>
-                                                <img src="/uploads/book_avatar/{{$v->avatar}}"  style="width:100px; heidth:100px; ">
-                                            {{$v->title}}
-                                            </p>
-                                        </div>
-                                    </a>    
-                                @endforeach
-                                <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "1")->links(); ?></div>
-                                    
-                            </div>
+                           
                             <!--Читаю-->
                             <div class="col-md-12">                           
                                 <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >

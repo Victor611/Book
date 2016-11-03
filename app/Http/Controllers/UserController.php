@@ -11,11 +11,12 @@ use App\Book;
 
 class UserController extends Controller
 {
-    
+    public $paginator = 10;
     public function index()
     {
-        $users = User::orderBy('count_status','DESC')->paginate(10);
-        return view('user.index', ['users' => $users]);
+        $users = User::orderBy('count_status', 'DESC')->orderBy('count_coment', 'DESC')->paginate($this->paginator);
+        //var_dump($users); exit;
+        return view('user.index', ['users' => $users, 'paginator' => $this->paginator]);
     }
     
     static function show($id)

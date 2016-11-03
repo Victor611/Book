@@ -17,9 +17,8 @@ class BookController extends Controller
     
     public function index()
     {
-       
         $deps = Dep::all();
-        $books = Book::orderBy("created_at", "desc")->paginate($this->itemsPerPage);
+        $books = Book::orderBy('avg_rating', 'DESC')->orderBy('count_coment', 'DESC')->paginate($this->itemsPerPage);
         $genres = Genre::all();
         return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
     }
@@ -35,7 +34,7 @@ class BookController extends Controller
     {
        
         $sort = Request::has('sort') ? Request::get('sort') : false; // Параметр сортировки 'ASC','DESC'
-        $column = "created_at";
+        $column = "avg_rating";
         $order = null;
         if($sort)
         {
@@ -46,7 +45,7 @@ class BookController extends Controller
         $books = Book::leftJoin('recomends', 'books.id', '=', 'recomends.book_id')->where( function($query)
         {    
             $genres = Request::has('genres') ? Request::get('genres') : []; //Какой жанр книги
-            $deps = Request::has('deps') ? Request::get('deps') :false;// Какой тематики книги
+            $deps = Request::has('deps') ? Request::get('deps') :false;
             
             $where = [];
         

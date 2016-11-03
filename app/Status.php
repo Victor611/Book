@@ -59,10 +59,18 @@ class Status extends Model
                     ->paginate(5);
     }
     
-    static function countStatus($uid, $sid)//считает количество прочитаных книг юзера принимает user_id & status_id
+    static function countStatusUser($uid, $sid)//считает количество прочитаных книг юзера принимает user_id & status_id
     {
         return DB::table('ratings')
                 ->where('user_id', '=', $uid)
+                ->where('status', '=', $sid)
+                ->count();
+    }
+    
+    static function countStatusBook($bid, $sid)//считает количество прочитаных юзеров которые прочли книгу принимает book_id & status_id
+    {
+        return DB::table('ratings')
+                ->where('book_id', '=', $bid)
                 ->where('status', '=', $sid)
                 ->count();
     }
