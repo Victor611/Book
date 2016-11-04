@@ -269,7 +269,7 @@
 										<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
 										
 										<div class="form-group">
-											<label class="col-sm-2 control-label">Коментарий</label>
+											<label class="col-sm-2 control-label">Комментарий</label>
 								
 											<div class="col-sm-10 ">
 												<textarea class="form-control" style="max-width: 300px;" rows="3" name="coment"></textarea>
