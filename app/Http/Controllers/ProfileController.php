@@ -42,7 +42,7 @@ class ProfileController extends Controller
     {
         return  $validator = Validator::make($request->all(),
         [
-            'avatar' => 'image|mimes:jpeg,bmp,png',
+            'avatar' => 'image|mimes:jpeg,bmp,png|max:2000',
         ]);        
     }
 }

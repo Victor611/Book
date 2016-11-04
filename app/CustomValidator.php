@@ -41,7 +41,7 @@ class CustomValidator extends Validator
         return preg_match('/1|2|3/', $value);
     }
     
-    public function validaterating($attribute, $value, $parameters)
+    public function validateRating($attribute, $value, $parameters)
     {
         return preg_match('/1|2|3|4|5/', $value);
     }

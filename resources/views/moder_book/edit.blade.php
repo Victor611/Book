@@ -11,15 +11,16 @@
                         <!-- Display Validation Errors -->
                         @include('common.errors')
                        
-                        <form action="{{ url('/moder/update/book/'.$book->id) }}" method="POST" enctype="multipart/form-data" class="form-horizontal">
+                        <form action="{{ url('/moder/update/book/'.$book->id) }}" method="POST" enctype="multipart/form-data" class="form-horizontal" id="formupload">
                             {!! csrf_field() !!}
-            
+                            
                            <div class="form-group">
                                 <label class="col-sm-3 control-label">Загрузите обложку </label>
                                 
                                 <div class="col-sm-6">  
                                    <img src="{{url('/uploads/book_avatar/'.$book->avatar)}}" style="width:150px; heidth:150px; float:left; margin-right:25px;">
-                                    <input type="file" name="avatar">
+                                    <input type="file" name="avatar" id="fileupload">
+                                    <p id="max" class="bg-danger" style="color: red; border-radius: 5px; margin:10px 0 0 0; padding: inherit;"></p>
                                 </div>
                             </div>
                            

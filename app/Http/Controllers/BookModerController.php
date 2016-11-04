@@ -80,7 +80,8 @@ class BookModerController extends Controller
     {
         $validator_ru = BookModerController::checkBookRu($request);
         $validator = BookModerController::checkBook($request);
-        if ($validator->fails())
+        
+		if ($validator->fails())
         {
             return redirect('/moder/edit/book/'.$id)
                 ->withInput()

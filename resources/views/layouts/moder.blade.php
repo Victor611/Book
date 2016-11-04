@@ -79,5 +79,16 @@
     <script src="/jquery/jquery-2.2.3.min.js"></script>
     <script src="/bootstrap-3.3.7/js/bootstrap.min.js"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
+	<script>
+		$("#formupload").submit(function(){
+			var size = parseInt($("#fileupload")[0].files[0].size);//Мб
+			size = Math.round(((size/1024)/1024));
+			if (size>2){
+				$("#max").html("Изображение не должно быть больше чем 2 мб.");
+				//alert("Файл больше чем 2 мб.");
+				return false;
+			}
+		});
+	</script>
 </body>
 </html>
