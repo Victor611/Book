@@ -181,7 +181,7 @@
 			var size = parseInt($("#fileupload")[0].files[0].size);//Мб
 			size = Math.round(((size/1024)/1024));
 			if (size>2){
-				$("#max").html("<p>Изображение не должно быть больше чем 2 мб.</p>");
+				$("#max").html("<p>Размер файла не должен быть больше чем 2 мб.</p>");
 				return false;
 			}
 		});
