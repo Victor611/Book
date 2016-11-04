@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+@if(Auth::user())
+	<?php $has_status = (App\Status::hasStatus($book->id, Auth::user()->id)); ?>
+@endif
+
 <div class="container">
     <div class="row">
         <div class="col-md-12 col-lg-12">
@@ -28,9 +32,9 @@
 							<div class="col-sm-9">
 								<form action="/book" method="POST" class="filtr">
 									{{ csrf_field() }}
-									<p class="g" style="color:#337ab7;"><input name="genres[]" type="hidden" value="{{$book->genre_id}}" >
+									<a href="#" class="g" style="color:#337ab7; text-decoration:none"><input name="genres[]" type="hidden" value="{{$book->genre_id}}" >
 										{{ $book->genre->name }}
-									</p>   <!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
+									</a>   <!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
 								</form> 
 							</div>
 													 
@@ -51,7 +55,7 @@
 							<!--rating & status-->
 							<div class="col-sm-12" style="padding-top:20px;">
 								@if(Auth::user())
-									<?php $has_status = (App\Status::hasStatus($book->id, Auth::user()->id)); ?>
+									
 									@if(($has_status)==3)
 									<!-- form rating -->   
 									<div class="col-sm-8">
@@ -85,6 +89,16 @@
 								@if(Auth::user())
 								<div class="col-md-4" style="padding-bottom:25px;">    
 									<!-- form status-->
+									@if(($has_status)==3)
+									<form action="/status" method="POST" style="display: inline;">
+										{!! csrf_field() !!}    
+										<input type="hidden" name="book_id" value="{{$book->id}}">
+										<input type="hidden" name="user_id" value="{{Auth::user()->id}}">
+										<button type="submit" class="btn btn-default" style="background-color:#b3b4bc;">
+											<input type="hidden" name="status" value="3">Не прочел
+										</button>
+									</form>
+									@else
 									<form action="/status" method="POST" style="display: inline;">
 										{!! csrf_field() !!}    
 										<input type="hidden" name="book_id" value="{{$book->id}}">
@@ -101,6 +115,7 @@
 											<input type="hidden" name="status" value="3">Прочитал
 										</button>
 									</form>
+									@endif
 									<!-- end form status-->
 								</div>
 								@endif
@@ -256,13 +271,13 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label">Коментарий</label>
 								
-											<div class="col-sm-7">
-												<textarea class="form-control" style="max-width: 616px;" rows="3" name="coment"></textarea>
+											<div class="col-sm-10 ">
+												<textarea class="form-control" style="max-width: 300px;" rows="3" name="coment"></textarea>
 											</div>
 		
-											<div class=" col-sm-2">
+											<div class=" col-sm-2 col-sm-offset-2 " style="margin-top:20px;">
 												<button type="submit" class="btn btn-default">
-													<i class="fa fa-plus"></i> Создать
+													<i class="fa fa-plus"></i> Добавить
 												</button>
 											</div>
 										</div>
