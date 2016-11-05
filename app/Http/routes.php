@@ -87,6 +87,7 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
 	Route::get('/edit/genre/{id}', ['uses' => 'GenreController@edit']);
     Route::post('/update/genre/{id}', ['uses' => 'GenreController@update']);
     Route::get('/delete/genre/{id}', 'GenreController@delete');
+    Route::get('/genre/{prior}/{dec?}', 'GenreController@order');
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'roles'], 'roles' => 'admin'], function()

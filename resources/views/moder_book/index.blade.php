@@ -67,38 +67,38 @@
                                          
                                         <td style="text-align:center; vertical-align: middle;">
                                             
-											@if ($book->type == 'Электронная' && App\Link::countLink($book->id)!==0)
-                                                <p><a href="{{ url('/moder/link/'.$book->id) }}">
+					    @if ($book->type == 'Электронная' && App\Link::countLink($book->id)!==0)
+                                                <a href="{{ url('/moder/link/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-default" style="margin-bottom:10px;">
                                                           <i class="glyphicon glyphicon-list-alt"></i> Показать ссылку 
                                                     </button>
-                                                </a></p>
+                                                </a>
                                             @endif     
                                             
-                                                <p><a href="{{ url('/moder/edit/book/'.$book->id) }}">
+                                                <a href="{{ url('/moder/edit/book/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-warning">
                                                         <i class="glyphicon glyphicon-repeat"></i> Редактировать книгу
                                                     </button>
-                                                </a></p>
+                                                </a>
                                          </td> 
 
-										<td style="text-align:center; vertical-align: middle">
+					 <td style="text-align:center; vertical-align: middle">
 
-											@if ($book->type == 'Электронная' )						
-                                                <p><a href="{{ url('/moder/create/link/'.$book->id) }}">
+					    @if ($book->type == 'Электронная' )						
+                                                <a href="{{ url('/moder/create/link/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-default" style="margin-bottom:10px;">
                                                         <i class="glyphicon glyphicon-cloud"></i> Добавить ссылку 
                                                     </button>
-                                                </a></p>
+                                                </a>
                                             @endif                                                
-                                            <p>
-											<form action="{{ url('/moder/delete/book/'.$book->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">
+                                            
+					    <form action="{{ url('/moder/delete/book/'.$book->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">
 		                                        {!! csrf_field() !!}
 		                                        {!! method_field('DELETE') !!}
 		                                        <button type="submit" class="btn btn-danger" >
 		                                            <i class="fa fa-trash"></i> Удалить книгу
 		                                        </button>
-		                                    </form></p>
+		                                    </form>
                                         </td>
                                     </tr>
                                 @endforeach

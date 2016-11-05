@@ -18,7 +18,7 @@ class GenreController extends Controller
 // Главная   
     public function index()
     {
-        $genres = Genre::all();
+        $genres = Genre::orderBy('priority', 'ASC')->get();
         return view('moder_genre.index', ['genres' => $genres]);
     }
     
@@ -34,10 +34,11 @@ class GenreController extends Controller
         
         $validator = GenreController::check($request);        
         
-            $data = new Genre;
-            $data->name = $request->name;
-            $data->save();
-            return redirect('/moder/genre');
+        $data = new Genre;
+        $data->name = $request->name;
+        $data->save();
+        $this->update_priority();    
+	return redirect('/moder/genre');
         
     }
 // Form Edit Genre    
@@ -62,7 +63,8 @@ class GenreController extends Controller
     {
         $genre = Genre::findOrFail($id);
         $genre->delete();
-        return redirect('/moder/genre'); 
+	$this->update_priority();        
+	return redirect('/moder/genre'); 
     }
     
     public function check(Request $request)
@@ -73,4 +75,30 @@ class GenreController extends Controller
         ]);      
     }
     
+    public function update_priority()
+    {
+    	$genres = Genre::orderBy('priority', 'ASC')->get();
+	$i = 0;
+	foreach($genres as $genre)
+	{
+	    $genre->priority = ++$i;
+	    $genre->save();
+	}
+    }
+
+    public function order($prior, $dec = null)
+    {
+
+	if(is_null($dec)) $prior1 = $prior+1;
+	elseif($dec == 1) $prior1 = $prior-1;
+
+	$genre = Genre::where('priority', '=', $prior)->first();
+	$genre1 = Genre::where('priority', '=', $prior1)->first();
+	$genre->priority = $prior1;
+	$genre->save();
+	$genre1->priority = $prior;
+	$genre1->save();
+	$this->update_priority();
+	return redirect('/moder/genre'); 
+    }
 }

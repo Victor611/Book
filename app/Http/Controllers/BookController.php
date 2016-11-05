@@ -19,7 +19,7 @@ class BookController extends Controller
     {
         $deps = Dep::all();
         $books = Book::orderBy('avg_rating', 'DESC')->orderBy('count_coment', 'DESC')->paginate($this->itemsPerPage);
-        $genres = Genre::all();
+        $genres = Genre::orderBy('priority', 'ASC')->get();
         return view('book.index', ['books' => $books, 'deps' => $deps, 'genres' => $genres]);
     }
     

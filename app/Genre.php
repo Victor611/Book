@@ -8,7 +8,7 @@ use App\Book;
 class Genre extends Model
 {
     protected $table = 'genres';
-    protected $fillable = ['id','name'];
+    protected $fillable = ['id','name', 'priority'];
     public $timestamps =false;
     
     public function book()

@@ -90,23 +90,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-heading"><h4>Последние комментарии</h4>
-                        @foreach($coment as $c)
-                           
-                        <table class="table table-striped task-table">
-                            <tr>            
-                                <td class="table-text col-sm-1">
-                                    <a href="{{ url('book/'.$c->book_id) }}">
-                                        <img src="/uploads/book_avatar/{{$c->avatar}}" style="max-width:70px; float:left;">
-                                    </a>
-                                </td>
-                                <td>
+                    <div class="panel-heading">
+                        <h4>Последние комментарии</h4>
+                    </div>
+                    <div class="panel-body">
+                        @foreach($coment as $c)      
+                        <div class="col-sm-12">
+                            <div class="col-sm-1">
+                                <a href="{{ url('book/'.$c->book_id) }}">
+                                    <img src="/uploads/book_avatar/{{$c->avatar}}" style="max-width:70px; float:left;">
+                                </a>
+                            </div>
+                            <div class="col-sm-11">
                                     <div class="col-sm-12"><h4>{{ $c->title }}</h4></div>
                                     <div class="col-sm-12">{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}} написал: </div>
                                     <div class="col-sm-12">{{$c->coment}}</div>
-                                </td>
-                            </tr>
-                        </table>
+                            </div>
+                        </div>
                         @endforeach
                     </div>
                 </div>

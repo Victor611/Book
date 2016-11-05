@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\User;
+use App\Book;
+use App\Rating;
+use App\Coment;
+use App\Status;
 use App\Role;
 use App\Dep;
 use App\Logger;
@@ -93,12 +97,18 @@ class UserModerController extends Controller
 // Удалить книгу    
     public function delete($id)
     {
-        
-        $user = User::find($id);
-	DB::table('coments')->where('user_id', '=', $id)->delete();
+        $user = User::findOrFail($id);
+	DB::table('coments')->where('user_id', '=', $id)->delete();        
 	DB::table('ratings')->where('user_id', '=', $id)->delete();
-        $user->rating()->delete();
         $user->delete();
+	
+	$books = Book::all();
+	foreach($books as $book){
+	    $book->avg_rating = Rating::avgRating($book->id);
+	    $book->count_status = Status::countStatusBook($book->id, 3);
+	    $book->count_coment = Coment::countComentBook($book->id);
+	    $book->save();
+	}        
         Logger::write(Logger::$user, $id, 'delete');
         return redirect('/moder/user'); 
     }

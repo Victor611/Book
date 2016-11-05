@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Book;
+use App\User;
 use App\Genre;
 use App\Link;
 use App\Rating;
+use App\Status;
+use App\Coment;
 use App\Recomend;
 use App\Logger;
 use Storage;
@@ -121,7 +124,13 @@ class BookModerController extends Controller
 		DB::table('recomends')->where('book_id', '=', $id)->delete();        
         Storage::delete('uploads/book_avatar/'.$book->avatar); 
 		$book->delete();
-        Logger::write(Logger::$book, $id, 'delete');
+	$users = User::all();
+	foreach($users as $user){
+	$user->count_status = Status::countStatusUser($user->id, 3);
+	$user->count_coment = Coment::countComentUser($user->id);
+	$user->save();
+	}        
+	Logger::write(Logger::$book, $id, 'delete');
         return redirect('/moder/book'); 
     }
     
