@@ -69,7 +69,7 @@ class BookController extends Controller
                     foreach($genres as $genre_id)
                     {
                        $q->orWhere('genre_id', '=', $genre_id);
-                    }                    
+                    }
                 });
             } 
                  
@@ -83,7 +83,7 @@ class BookController extends Controller
         return view('book.index', [
                         'books' => $books,
                         'deps' => Dep::all(),
-                        'genres' => Genre::all(),
+                        'genres' => Genre::orderBy('priority', 'ASC')->get(),
                         'deps_r' => Request::get('deps'),
                         'genres_r' => Request::get('genres'),
         ]);
