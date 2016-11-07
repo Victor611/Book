@@ -51,10 +51,34 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li style="padding-top:5px;"><a href="{{ url('/admin/log') }}">Логи</a></li>
-                    <li style="padding-top:5px;"><a href="{{ url('/admin/user') }}">Пользователи</a></li>
-                    <li style="padding-top:5px;"><a href="{{ url('/admin/book') }}">Книги</a></li>
+                <ul class="nav navbar-nav" style="margin: 0 0 0 110px;">
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/admin/log') }}">
+							@if($_SERVER["REQUEST_URI"] =="/admin/log" )
+								<span style="color:#337ab7;">Логи</span>
+							@else
+								<span>Логи</span>
+							@endif
+						</a>
+					</li>
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/admin/user') }}">
+							@if($_SERVER["REQUEST_URI"] =="/admin/user" )
+								<span style="color:#337ab7;">Пользователи</span>
+							@else
+								<span>Пользователи</span>
+							@endif
+						</a>
+					</li>
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/admin/book') }}">
+							@if($_SERVER["REQUEST_URI"] =="/admin/book")
+								<span style="color:#337ab7;">Книги</span>
+							@else
+								<span>Книги</span>
+							@endif
+						</a>
+					</li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
