@@ -13,7 +13,7 @@
                                 <i class="glyphicon glyphicon-pencil"></i> Добавить нового пользователя
                             </button>
                         </a>
-                        <table class="table table-striped task-table">
+                        <table class="table task-table">
 
                             <!-- Table Headings -->
                             <thead>
@@ -22,6 +22,7 @@
                                 <th>Email</th>
                                 <th>Роль</th>
                                 <th>Отдел</th>
+                                <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                             </thead>
                             

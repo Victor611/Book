@@ -8,7 +8,7 @@
                  <div class="panel-heading">Пользователи</div>
                     <div class="panel-body">
                         
-                        <table class="table table-striped task-table">
+                        <table class="table task-table">
 
                             <!-- Table Headings -->
                             <thead>

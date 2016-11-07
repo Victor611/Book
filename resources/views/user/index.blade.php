@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-md-8 col-lg-8">
             <div class="panel panel-default">
-                <div class="panel-heading">Рейтинг пользователей</div>
+               <!-- <div class="panel-heading">Рейтинг пользователей</div>-->
                  
                 <div class="panel-body">
                     <?php $i=($users->currentPage()-1)*$paginator;?>
                     @foreach ($users as $user)
-                        <table class="table table-striped task-table" style="padding-top:20px;">
+                        <table class="table task-table" style="padding-top:20px;">
                            
                             <tr>
                                 <td><?php echo ++$i;?></td>
@@ -55,7 +55,7 @@
         </div>
         <div class="col-md-4 col-lg-4 ">
             <div class="panel panel-default">   
-                <div class="panel-heading">Поиск</div>
+                <!--<div class="panel-heading">Поиск</div>-->
                 <div class="panel-body">
                     <div style=" margin: 3px 5px;">
 

@@ -13,7 +13,7 @@
                                 <i class="glyphicon glyphicon-pencil"></i> Добавить новую книгу
                             </button>
                         </a>
-                        <table class="table table-striped task-table" >
+                        <table class="table task-table" >
 
                             <!-- Table Headings -->
                             <thead>
@@ -25,6 +25,7 @@
                                 <th>Тип</th>
                                 <th>Количество ссылок</th>    
                                 <th>&nbsp;</th>
+								<th>&nbsp;</th>
                             </thead>
                             
                             <!-- Table Body -->

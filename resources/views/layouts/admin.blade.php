@@ -23,6 +23,10 @@
         .fa-btn {
             margin-right: 6px;
         }
+		
+		.table tr:hover {
+			background-color: #fcf8e3; /* Цвет фона под ссылкой */ 
+		} 
     </style>
 </head>
 <body id="app-layout">

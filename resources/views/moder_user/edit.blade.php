@@ -6,7 +6,7 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Редактировать пользователя</div>
+                <!--<div class="panel-heading">Редактировать пользователя</div>-->
                 <div class="panel-body">
                     <!-- Display Validation Errors -->
                     @include('common.errors')

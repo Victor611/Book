@@ -1,18 +1,20 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-lg-8">
             <div class="panel panel-default">
-                <div class="panel-heading">Книги</div>
+               <!-- <div class="panel-heading">Книги</div>-->
                     <div class="panel-body">
                    
-                        @foreach ($books as $book)
-                            <table class="table table-striped task-table">
-                                <tr>
+                       
+                            <table class="table task-table">
+                                @foreach ($books as $book)
+								<tr>
                                     
-                                    <td class="table-text col-sm-3">
+                                    <td class="table-text col-sm-3" >
                                         <a href="{{ url('book/'.$book->id) }}">
                                             <img src="/uploads/book_avatar/{{$book->avatar}}" style="max-width:150px; float:left;">
                                         </a>
@@ -53,8 +55,8 @@
                                         </div>                    
                                     </td>
                                 </tr>
+								@endforeach
                             </table>
-                        @endforeach
                         <?php echo $books->links(); ?>
                     </div>
                 </div>
@@ -64,7 +66,7 @@
         <!--Фильтр-->
         <div class="col-md-4 col-lg-4 ">
             <div class="panel panel-default">   
-                <div class="panel-heading">Фильтр</div>
+                <!--<div class="panel-heading">Фильтр</div>-->
                 <div class="panel-body">       
                     
                     <?php $sort = Request::has('sort') ? Request::get('sort') :false;?>

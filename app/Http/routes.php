@@ -54,7 +54,7 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
     Route::get('/delete/book/{id}', 'BookModerController@delete');
     
 	//CRUD moder User    
-    Route::get('/user', ['uses' => 'UserModerController@index']);
+    Route::get('/users', ['uses' => 'UserModerController@index']);
 	Route::get('/create/user', ['uses' => 'UserModerController@create']);
     Route::post('/save/user', ['uses' => 'UserModerController@save']);
     Route::get('/edit/user/{id}', ['uses' => 'UserModerController@edit']);
@@ -62,7 +62,7 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
     Route::get('/delete/user/{id}', 'UserModerController@delete');
 	
 	// CRUD moder Department
-	Route::get('/dep',['uses' => 'DepController@index']);
+	Route::get('/deps',['uses' => 'DepController@index']);
 	Route::get('/create/dep', ['uses' => 'DepController@create']);
 	Route::post('/save/dep', ['uses' => 'DepController@save']);
 	Route::get('/edit/dep/{id}', ['uses' => 'DepController@edit']);
@@ -81,7 +81,7 @@ Route::group(['prefix' => 'moder', 'middleware' => ['auth', 'roles'], 'roles' =>
 	Route::post('/save/rec', ['uses' => 'RecomendController@save']);
 	
 	//CRUD moder Genre
-	Route::get('/genre',['uses' => 'GenreController@index']);
+	Route::get('/genres',['uses' => 'GenreController@index']);
 	Route::get('/create/genre', ['uses' => 'GenreController@create']);
 	Route::post('/save/genre', ['uses' => 'GenreController@save']);
 	Route::get('/edit/genre/{id}', ['uses' => 'GenreController@edit']);

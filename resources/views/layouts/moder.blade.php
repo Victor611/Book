@@ -23,6 +23,11 @@
         .fa-btn {
             margin-right: 6px;
         }
+		
+		.table tr:hover {
+			background-color: #fcf8e3; /* Цвет фона под ссылкой */ 
+		} 
+			
     </style>
 </head>
 <body id="app-layout">
@@ -47,11 +52,43 @@
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li style="padding-top:5px;"><a href="{{ url('/moder/book') }}">Книги</a></li>
-                    <li style="padding-top:5px;"><a href="{{ url('/moder/user') }}">Пользователи</a></li>
-                    <li style="padding-top:5px;"><a href="{{ url('/moder/dep') }}">Отделы</a></li>
-                    <li style="padding-top:5px;"><a href="{{ url('/moder/genre') }}">Жанры</a></li>
+                <ul class="nav navbar-nav" style="margin: 0 0 0 110px;">
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/moder/book') }}">
+							@if($_SERVER["REQUEST_URI"] =="/moder/book")
+								<span style="color:#337ab7;">Книги</span>
+							@else
+								<span>Книги</span>
+							@endif
+						</a>
+					</li>
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/moder/users') }}">
+							@if($_SERVER["REQUEST_URI"]=="/moder/users")
+								<span style="color:#337ab7;">Пользователи</span>
+							@else
+								<span>Пользователи</span>
+							@endif
+						</a>
+					</li>
+					<li style="padding-top:5px;">
+						<a href="{{ url('/moder/deps') }}">
+							@if($_SERVER["REQUEST_URI"]=="/moder/deps")
+								<span style="color:#337ab7;">Отделы</span>
+							@else
+								<span>Отделы</span>
+							@endif
+						</a>
+					</li>
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/moder/genres') }}">
+							@if($_SERVER["REQUEST_URI"]=="/moder/genres")
+								<span style="color:#337ab7;">Жанры</span>
+							@else
+								<span>Жанры</span>
+							@endif
+						</a>
+					</li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->

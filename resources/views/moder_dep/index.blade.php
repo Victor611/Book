@@ -13,12 +13,13 @@
                                 <i class="glyphicon glyphicon-pencil"></i> Добавить новый отдел
                             </button>
                         </a>
-                        <table class="table table-striped task-table">
+                        <table class="table task-table">
 
                             <!-- Table Headings -->
                             <thead>
                                 <th>Отдел</th>
                                 <th>Подчиняется</th>
+                                <th>&nbsp;</th>
                                 <th>&nbsp;</th>
                             </thead>
                             

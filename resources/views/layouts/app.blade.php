@@ -41,6 +41,18 @@
         .search_result p:hover{
             background: #5d9fd8;
         }
+		
+		.panel{
+			border: transparent;
+    	}
+		
+		.table tr:hover {
+			background-color: #fcf8e3; /* Цвет фона под ссылкой */ 
+		}
+		
+		.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+			padding: 28px 8px 28px 8px;
+		}	
     </style>
 </head>
 <body id="app-layout">
@@ -59,15 +71,30 @@
                 <!-- Branding Image -->
                 <a href="{{ url('/') }}">
                    <!-- <img src="/uploads/img/logo.png" style="width:200px; left:10px; top:10px;">-->
-					<h3 style="margin-top:17px;">Bookshelf</h3>
+					<h3 style="margin-top:17px;"><b>Bookshelf</b></h3>
                 </a>
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 <!-- Left Side Of Navbar -->
-                <ul class="nav navbar-nav">
-                    <li style="padding-top:5px;"><a href="{{ url('/book') }}">Книги</a></li>
-                    <li style="padding-top:5px;"><a href="{{ url('/users') }}">Пользователи</a></li>
+                <ul class="nav navbar-nav" style="margin: 0 0 0 110px;">
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/book') }}">
+							@if($_SERVER["REQUEST_URI"] =="/book" || $_SERVER["REQUEST_URI"] =="/" )
+								<span style="color:#337ab7;">Книги</span>
+							@else <span>Книги</span>
+							@endif
+						</a>
+					</li>
+                    <li style="padding-top:5px;">
+						<a href="{{ url('/users') }}">
+							@if($_SERVER["REQUEST_URI"]=="/users")
+								<span style="color:#337ab7;">Пользователи</span>
+							@else
+								<span>Пользователи</span>
+							@endif
+						</a>
+					</li>
                 </ul>
 
                 <!-- Right Side Of Navbar -->
