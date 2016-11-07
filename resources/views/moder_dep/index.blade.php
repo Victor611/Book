@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 ">
             <div class="panel panel-default">
-                <div class="panel-heading">Отделы</div>
+                <!--<div class="panel-heading">Отделы</div>-->
                     <div class="panel-body">
                         
                         <a href="{{ url('/moder/create/dep') }}">
-                            <button type="button" class="btn btn-success">
-                                <i class="glyphicon glyphicon-pencil"></i> Добавить новый отдел
+                            <button type="button" class="btn btn-success btn-margin-top">
+                                <i class="glyphicon glyphicon-pencil"></i> Добавить
                             </button>
                         </a>
                         <table class="table task-table">

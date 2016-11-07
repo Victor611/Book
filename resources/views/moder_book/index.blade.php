@@ -5,12 +5,12 @@
     <div class="row">
         <div class="col-xs-12 col-md-12 col-lg-12">
             <div class="panel panel-default">
-                 <div class="panel-heading">Книги</div>
+                 <!--<div class="panel-heading">Книги</div>-->
                     <div class="panel-body">
                         
                         <a href="{{ url('/moder/create/book') }}">
-                            <button type="button" class="btn btn-success">
-                                <i class="glyphicon glyphicon-pencil"></i> Добавить новую книгу
+                            <button type="button" class="btn btn-success btn-margin-top">
+                                <i class="glyphicon glyphicon-pencil"></i> Добавить
                             </button>
                         </a>
                         <table class="table task-table" >
@@ -78,7 +78,7 @@
                                             
                                                 <a href="{{ url('/moder/edit/book/'.$book->id) }}">
                                                     <button type="submit" class="btn btn-warning">
-                                                        <i class="glyphicon glyphicon-repeat"></i> Редактировать книгу
+                                                        <i class="glyphicon glyphicon-repeat"></i> Редактировать
                                                     </button>
                                                 </a>
                                          </td> 
@@ -97,7 +97,7 @@
 		                                        {!! csrf_field() !!}
 		                                        {!! method_field('DELETE') !!}
 		                                        <button type="submit" class="btn btn-danger" >
-		                                            <i class="fa fa-trash"></i> Удалить книгу
+		                                            <i class="fa fa-trash"></i> Удалить
 		                                        </button>
 		                                    </form>
                                         </td>

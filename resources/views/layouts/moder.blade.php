@@ -27,7 +27,10 @@
 		.table tr:hover {
 			background-color: #fcf8e3; /* Цвет фона под ссылкой */ 
 		} 
-			
+		
+		.btn-margin-top{
+			margin-top: 20px;
+		}	
     </style>
 </head>
 <body id="app-layout">

@@ -13,7 +13,7 @@
                 <a href="{{ url('/user/'.$user->id) }}" style="color: black; text-decoration: none;">
                     <h2>{{$user->name}} профайл</h2>
                 </a>
-                <p>Отдел:  {{$user->dep->name}}</p>
+                <p style="padding-bottom:30px;">Отдел:  {{$user->dep->name}}</p>
                 <p id="max" class="bg-danger" style="color: red; border-radius: 5px; margin-top:3px; padding: inherit; width: 200px;"></p>
                 <form enctype="multipart/form-data" action="/profile" method="POST" id="formupload">
                     <label>Загрузить аватар</label>
