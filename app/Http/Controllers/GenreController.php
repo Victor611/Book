@@ -89,16 +89,18 @@ class GenreController extends Controller
     public function order($prior, $dec = null)
     {
 
-	if(is_null($dec)) $prior1 = $prior+1;
-	elseif($dec == 1) $prior1 = $prior-1;
+        if(is_null($dec))
+            $prior1 = $prior + 1;
+        elseif($dec == 1)
+            $prior1 = $prior - 1;
 
-	$genre = Genre::where('priority', '=', $prior)->first();
-	$genre1 = Genre::where('priority', '=', $prior1)->first();
-	$genre->priority = $prior1;
-	$genre->save();
-	$genre1->priority = $prior;
-	$genre1->save();
-	$this->update_priority();
-	return redirect('/moder/genre'); 
+        $genre = Genre::where('priority', '=', $prior)->first();
+        $genre1 = Genre::where('priority', '=', $prior1)->first();
+        $genre->priority = $prior1;
+        $genre->save();
+        $genre1->priority = $prior;
+        $genre1->save();
+        //$this->update_priority();
+        return redirect('/moder/genre');
     }
 }

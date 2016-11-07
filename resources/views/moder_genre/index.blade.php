@@ -18,10 +18,9 @@
                             <!-- Table Headings -->
                             <thead>
                                 <th>ID</th>
-				<th>&nbsp;</th>                                
-				<th>Жанр</th>
+                                <th>Жанр</th>
                                 <th>&nbsp;</th>
-				<th>&nbsp;</th>
+                                <th>&nbsp;</th>
                             </thead>
                             
                             <!-- Table Body -->
@@ -34,26 +33,28 @@
                                             <div>{{ $g->priority }}</div>
                                         </td>
                                        
-					<td class="table-text">
-                                            @if($g->priority !== 1)
-					        <a href="{{ url('/moder/genre/'.$g->priority.'/1') }}">
-						    <i class="glyphicon glyphicon-arrow-up"></i>
-					        </a>
-					    @endif
-					</td>					
-					<td class="table-text">
+
+                                        <td class="table-text">
                                             <div>{{ $g->name }}</div>
-					</td>
-					<td class="table-text">
-    
-					    @if(count($genres) !== $g->priority)
-         				        <a href="{{ url('/moder/genre/'.$g->priority) }}">
-						    <i class="glyphicon glyphicon-arrow-down"></i>
-					        </a>                                 
-					    @endif                                    
-					</td>
-					
-					<td>
+                                        </td>
+                                        <td class="table-text">
+                                            @if($g->priority !== 1)
+                                                <a href="{{ url('/moder/genre/'.$g->priority.'/1') }}">
+                                                    <i class="glyphicon glyphicon-arrow-up"></i>
+                                                </a>
+                                            @else
+                                                &nbsp&nbsp&nbsp
+                                            @endif
+
+                                            @if(count($genres) !== $g->priority)
+                                                <a href="{{ url('/moder/genre/'.$g->priority) }}">
+                                                    <i class="glyphicon glyphicon-arrow-down"></i>
+                                                </a>
+                                            @endif
+                                        </td>
+
+
+                                        <td>
                                             <a href="{{ url('/moder/edit/genre/'.$g->id) }}">
                                                 <button type="submit" class="btn btn-warning">
                                                     <i class="glyphicon glyphicon-repeat"></i> Редактировать 
