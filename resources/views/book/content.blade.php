@@ -191,7 +191,14 @@
 														</div>
 														<div class="col-md-11">
 															<div class="col-sm-12">
-																<b style="font-size:16px;">{{$c->user->name}}</b>  <span style="color:grey; font-size:12px;padding-left:15px;">{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}</span>
+																<a href="{{ url('/user/'.$c->user->id) }}" style="text-decoration:none; color: black;">
+																	<b style="font-size:16px;">
+																		{{$c->user->name}}
+																	</b>
+																</a>
+																<span style="color:grey; font-size:12px;padding-left:15px;">
+																	{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}
+																</span>
 															</div>
 															<div class="col-sm-12">
 																<!--Edit coment form-->
@@ -228,7 +235,14 @@
 														</div>
 														<div class="col-md-11">
 															<div class="col-sm-12">
-																<b style="font-size:16px;">{{$c->user->name}}</b>  <span style="color:grey; font-size:12px;padding-left:15px;">{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}</span>
+																<a href="{{ url('/user/'.$c->user->id) }}" style="text-decoration:none; color: black;">
+																	<b style="font-size:16px;">
+																		{{$c->user->name}}
+																	</b>
+																</a>
+																<span style="color:grey; font-size:12px;padding-left:15px;">
+																	{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}
+																</span>
 															</div>
 															<div class="col-sm-12" style="font-size:16px;">{{ $c->coment }}</div>	
 														</div>
@@ -236,19 +250,26 @@
 												@endif
 											@else
 												<div class="col-sm-12">
-												<hr>
-													<div class="col-md-1">
-														<a href="{{ url('/user/'.$c->user->id) }}">
-															<img src="/uploads/avatars/{{$c->user->avatar}}" style="width:50px; height:50px;  top:10px; left:10px; border-radius:50%">
-														</a>
-													</div>
-													<div class="col-md-11">
-														<div class="col-sm-12">
-															<b style="font-size:16px;">{{$c->user->name}}</b>  <span style="color:grey; font-size:12px;padding-left:15px;">{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}</span>
+													 <hr>
+														<div class="col-md-1">
+															<a href="{{ url('/user/'.$c->user->id) }}">
+																<img src="/uploads/avatars/{{$c->user->avatar}}" style="width:50px; height:50px;  top:10px; left:10px; border-radius:50%">
+															</a>
 														</div>
-														<div class="col-sm-12" style="font-size:16px;">{{ $c->coment }}</div>	
+														<div class="col-md-11">
+															<div class="col-sm-12">
+																<a href="{{ url('/user/'.$c->user->id) }}" style="text-decoration:none; color: black;">
+																	<b style="font-size:16px;">
+																		{{$c->user->name}}
+																	</b>
+																</a>
+																<span style="color:grey; font-size:12px;padding-left:15px;">
+																	{{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}
+																</span>
+															</div>
+															<div class="col-sm-12" style="font-size:16px;">{{ $c->coment }}</div>	
+														</div>
 													</div>
-												</div>
 											@endif	
 											@endforeach
 										@endif     
