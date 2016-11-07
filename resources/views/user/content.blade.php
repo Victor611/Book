@@ -90,43 +90,41 @@
                         </div>
                     </div>
                 </div>
+            </div>
                 
-            <!--</div>-->
                 
+            <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding: 0 30px 5px 30px; " >
+                    Последние комментарии
+            </h4>
+            <!--<div class="panel panel-default">-->
+                <!--<div class="panel-heading">Последние комментарии</div>-->
                 
-                <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding: 0 30px 5px 30px; " >
-                        Последние комментарии
-                </h4>
-                <!--<div class="panel panel-default">-->
-                    <!--<div class="panel-heading">Последние комментарии</div>-->
-                    
-                <!--<div class="panel-body">-->
-                    @foreach($coment as $c)         
-                    @if(count($c->coment)>0)
-                    <div class="col-sm-12">
-                    <hr>
-                        <div class="col-md-1">
-                            <a href="{{ url('book/'.$c->book_id) }}">
-                                <img src="/uploads/book_avatar/{{$c->avatar}}" style="max-width:70px; float:left;">
-                            </a>
-                        </div>
-                        <div class="col-md-11">
-                            <div class="col-sm-12">
-                                <a href="{{ url('book/'.$c->book_id) }}" style="text-decoration:none; color: black;">
-                                     <b style="font-size:16px;">
-                                         {{ $c->title }}
-                                     </b>
-                                </a>
-                                <span style="color:grey; font-size:12px;padding-left:15px;">
-                                     {{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}
-                                 </span>
-                            </div>
-                            <div class="col-sm-12" style="font-size:16px;">{{ $c->coment }}</div>	
-                        </div>
+            <div style="margin:0 0 400px;">
+                @foreach($coment as $c)         
+                @if(count($c->coment)>0)
+                <div class="col-sm-12">
+                <hr>
+                    <div class="col-md-1">
+                        <a href="{{ url('book/'.$c->book_id) }}">
+                            <img src="/uploads/book_avatar/{{$c->avatar}}" style="max-width:70px; float:left;">
+                        </a>
                     </div>
-                    @endif
-                    @endforeach    
-                <!--</div>-->
+                    <div class="col-md-11">
+                        <div class="col-sm-12">
+                            <a href="{{ url('book/'.$c->book_id) }}" style="text-decoration:none; color: black;">
+                                 <b style="font-size:16px;">
+                                     {{ $c->title }}
+                                 </b>
+                            </a>
+                            <span style="color:grey; font-size:12px;padding-left:15px;">
+                                 {{$c->updated_at->format('d-m-Y')}} в {{$c->updated_at->format('H:i')}}
+                             </span>
+                        </div>
+                        <div class="col-sm-12" style="font-size:16px;">{{ $c->coment }}</div>	
+                    </div>
+                </div>
+                @endif
+                @endforeach    
             </div>
         </div>
     </div>
