@@ -93,13 +93,15 @@
                 
             <!--</div>-->
                 
+                
+                <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding: 0 30px 5px 30px; " >
+                        Последние комментарии
+                </h4></br>
             @foreach($coment as $c)         
             @if(count($c->coment)>0)
                 <!--<div class="panel panel-default">-->
                     <!--<div class="panel-heading">Последние комментарии</div>-->
-                    <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding: 0 30px 5px 30px; " >
-                        Последние комментарии
-                    </h4></br>
+                    
                     <div class="panel-body">
                         <div class="col-sm-12">
                         <hr>
