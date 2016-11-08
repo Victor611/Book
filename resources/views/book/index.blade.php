@@ -28,28 +28,29 @@
                                             </a> 
                                         </div>
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Автор :</div>
+                                            <div class="col-sm-3 alignRight">Автор :</div>
                                             <div class="col-sm-9">{{ $book->author }}</div>
                                         </div>
                                        
                                         <div class="col-sm-12">
-                                            <div class="col-sm-3">Тематика :</div>
+                                            <div class="col-sm-3 alignRight">Тематика :</div>
                                             <div class="col-sm-9">{{ $book->genre->name }}</div>
                                         </div>
                                        
                                         <div class="col-sm-12">
-                                            <div class="col-md-3" style="margin-top:10px;">Рейтинг:</div> 
-											<!--Средний рейтинг книги-->											
-                                            <div class="col-md-9" style="margin-top:10px;">
-												<strong><?php  echo round($book->avg_rating,0);?></strong>
-												<!--Склонение в зависимости от количества оценок-->
-                                             	(<?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>)
-											</div>
-					
+                                            @if($book->avg_rating != 0)
+												<div class="col-md-3 alignRight" style="margin-top:10px;">Рейтинг:</div> 
+												<!--Средний рейтинг книги-->											
+												<div class="col-md-9" style="margin-top:10px;">
+													<strong><?php  echo round($book->avg_rating,0);?></strong>
+																(<?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>)
+												</div>
+											@endif
+												
                                             <div class="col-md-9 col-md-offset-3 "> 
 												<!--склонение в зависимости от количества отзывов-->						
-												@if($book->count_coment==null) 0 отзывов
-												@else<?php new App\Sklonenie($book->count_coment,['отзыв','отзыва','отзывов']);?>
+												@if($book->count_coment != 0) 
+													<?php new App\Sklonenie($book->count_coment,['отзыв','отзыва','отзывов']);?>
 												@endif
 											</div>                    
                                         </div>                    

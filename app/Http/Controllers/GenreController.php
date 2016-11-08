@@ -101,6 +101,6 @@ class GenreController extends Controller
         $genre1->priority = $prior;
         $genre1->save();
         //$this->update_priority();
-        return redirect('/moder/genre');
+        return redirect('/moder/genres');
     }
 }

@@ -22,14 +22,14 @@
 						
 							<h3>{{ $book->title }}</h3>                            
 							
-							<div class="col-sm-3">Автор :</div>
-							<div class="col-sm-9">{{ $book->author }}</div>
+							<div class="col-sm-2 alignRight">Автор :</div>
+							<div class="col-sm-10">{{ $book->author }}</div>
 							
-							<div class="col-sm-3">Год издания :</div>
-							<div class="col-sm-9">{{ $book->pubyear }}</div>
+							<div class="col-sm-2 alignRight">Год издания :</div>
+							<div class="col-sm-10">{{ $book->pubyear }}</div>
 						
-							<div class="col-sm-3">Тематика :</div>
-							<div class="col-sm-9">
+							<div class="col-sm-2 alignRight">Тематика :</div>
+							<div class="col-sm-10">
 								<form action="/book" method="POST" class="filtr">
 									{{ csrf_field() }}
 									<a href="#" class="g" style="color:#337ab7; text-decoration:none"><input name="genres[]" type="hidden" value="{{$book->genre_id}}" >
@@ -41,12 +41,15 @@
 							<div class="col-sm-12" style="margin:20px 0 20px;">{{ $book->description }}</div>
 							<!--рейтинг оценки-->
 							<div class ="col-sm-12">
-								<div class="col-sm-3" style="padding:6px 15px 20px 0;">Рейтинг:</div>
-								<div class="col-sm-9" style="padding:0 15px 15px 6px;"><span style="font-size:20px;">
-										<b><?php  echo round($book->avg_rating,2);?></b>
-									</span>
-									(<?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>)
-								</div>
+								@if($book->avg_rating != 0)
+									<div class="col-sm-2 alignRight" style="padding:6px 28px 20px 0;">Рейтинг:</div>
+									<div class="col-sm-9" style="padding:0 15px 15px 6px;"><span style="font-size:20px;">
+											<b><?php  echo round($book->avg_rating,2);?></b>
+										</span>
+										(<?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>)
+									</div>
+								@endif
+								
 							</div>
 						    <!--рейтинг оценки-->
 							<!--rating & status-->
@@ -305,12 +308,11 @@
                                     <h3>Статус чтения</h3>
                                     
                                     <div class="col-md-12">                           
-                                        <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                            @if(count(App\Status::StatusToBook($book->id, "2"))>0)
+                                        @if(count(App\Status::StatusToBook($book->id, "2"))>0)
+											<h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
                                                 Читаю
-                                            @else Никто не читает
-                                            @endif
-                                        </h4></br>
+											</h4></br>
+										@endif
                                         @foreach(App\Status::StatusToBook($book->id, "2")  as $k=>$v)
                                             <a href="/user/{{$v->id}}" style = "text-decoration:none; color:#777;">
                                                 <div class="col-sm-1" style="text-align:center; margin-right:20px;">
@@ -324,12 +326,11 @@
                                         <div class="col-md-12"><?php echo App\Status::StatusToBook($book->id, "2")->links(); ?></div>
                                     </div>
                                     <div class="col-md-12">                           
-                                        <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                            @if(count(App\Status::StatusToBook($book->id, "3"))>0)
+                                        @if(count(App\Status::StatusToBook($book->id, "3"))>0)
+											<h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >    
                                                 Прочел
-                                            @else Никто не прочел
-                                            @endif
-                                        </h4></br>
+											</h4></br>
+										@endif
                                         @foreach(App\Status::StatusToBook($book->id, "3")  as $k=>$v)
                                             <a href="/user/{{$v->id}}" style = "text-decoration:none; color:#777;">
                                                 <div class="col-sm-1" style="text-align:center;margin-right:20px;;">

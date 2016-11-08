@@ -29,20 +29,21 @@
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">Прочел:</div>
-                                        <div class="col-sm-9">
-                                            @if($user->count_status == null) 0  книг
-                                            @else <?php new App\Sklonenie($user->count_status, ['книгу','книги','книг']);?>
-                                            @endif
-                                        </div>
+                                        @if($user->count_status != 0 )
+                                            <div class="col-sm-3">Прочел:</div>
+                                            <div class="col-sm-9">
+                                                    <?php new App\Sklonenie($user->count_status, ['книгу','книги','книг']);?>
+                                            </div>
+                                        @endif
                                     </div>
 
                                     <div class="col-sm-12">
-                                        <div class="col-sm-3">Оставил:</div>
-                                        <div class="col-sm-9">@if($user->count_coment == null) 0  отзывов
-                                                        @else <?php new App\Sklonenie($user->count_coment, ['отзыв','отзыва','отзывов']);?>
-                                                        @endif
-                                        </div>
+                                        @if($user->count_coment != 0)
+                                            <div class="col-sm-3">Оставил:</div>
+                                            <div class="col-sm-9">
+                                                <?php new App\Sklonenie($user->count_coment, ['отзыв','отзыва','отзывов']);?>
+                                            </div>
+                                        @endif
                                     </div>
                                 </td>
                             </tr>

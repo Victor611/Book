@@ -21,24 +21,22 @@
                         </div>
                         
                         <div class="col-sm-12">
-                            <div class="col-sm-3">Прочел:</div>
-                            <div class="col-sm-9">
-                                    @if($user->count_status == null) 0  книг
-                                    @else <?php new App\Sklonenie($user->count_status, ['книгу','книги','книг']);?>
-                                    @endif
-                            </div>
+                            @if($user->count_status > 0)
+                                <div class="col-sm-3">Прочел:</div>
+                                <div class="col-sm-9">
+                                    <?php new App\Sklonenie($user->count_status, ['книгу','книги','книг']);?>    
+                                </div>
+                            @endif
                         </div>    
                                     
                         <div class="col-sm-12">
-                            <div class="col-sm-3">Оставил:</div>
-                            <div class="col-sm-9">
-                                @if($user->count_coment == null) 0 отзывов
-                                @else <?php new App\Sklonenie($user->count_coment, ['отзыв','отзыва','отзывов']);?>
-                                @endif
-                                            
-                            </div>
-                        </div>
-                            
+                            @if($user->count_coment > 0)
+                                <div class="col-sm-3">Оставил:</div>
+                                <div class="col-sm-9">
+                                    <?php new App\Sklonenie($user->count_coment, ['отзыв','отзыва','отзывов']);?>           
+                                </div>
+                            @endif
+                        </div>  
                     </div>
                         
                     <!--Статус чтения-->    
@@ -47,55 +45,51 @@
                        
                         <!--Читаю-->
                         <div class="col-md-12">                           
-                            <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                @if(count(App\Status::StatusToUser($user->id, "2"))>0)
-                                        Читаю
-                                @else Ничего не читаю
-                                @endif
-                            </h4></br>
-                            @foreach(App\Status::StatusToUser($user->id, "2")  as $k=>$v)
-                                <a href="/book/{{$v->id}}" style = "text-decoration:none; color:#777;" >
-                                    <div class="col-sm-2" style="text-align:center; padding:15px;">
-                                        <p>
-                                            <img src="/uploads/book_avatar/{{$v->avatar}}" style="width:100px; heidth:100px;">
-                                            {{$v->title}}
-                                        </p>
-                                    </div>
-                                </a>    
-                            @endforeach
-                            <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "2")->links(); ?></div>
-                        
+                            @if(count(App\Status::StatusToUser($user->id, "2"))>0)
+                                <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
+                                    Читаю
+                                </h4></br>
+                                @foreach(App\Status::StatusToUser($user->id, "2")  as $k=>$v)
+                                    <a href="/book/{{$v->id}}" style = "text-decoration:none; color:#777;" >
+                                        <div class="col-sm-2" style="text-align:center; padding:15px;">
+                                            <p>
+                                                <img src="/uploads/book_avatar/{{$v->avatar}}" style="width:100px; heidth:100px;">
+                                                {{$v->title}}
+                                            </p>
+                                        </div>
+                                    </a>    
+                                @endforeach
+                                <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "2")->links(); ?></div>
+                            @endif
                         </div>
                         <!--Прочел-->
                         <div class="col-md-12">                           
-                            <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
-                                @if(count(App\Status::StatusToUser($user->id, "3"))>0)
-                                        Прочел
-                                @else Ничего не прочел
-                                @endif
-                            </h4></br>
-                            @foreach(App\Status::StatusToUser($user->id, "3")  as $k=>$v)
-                                <a href="/book/{{$v->id}}" style="text-decoration:none; color:#777;">
-                                    <div class="col-sm-2" style="text-align:center; padding:15px;">
-                                        <p>
-                                            <img src="/uploads/book_avatar/{{$v->avatar}}" style="width:100px; heidth:100px;">
-                                            {{$v->title}}
-                                        </p>
-                                        
-                                    </div>
-                                </a>
-                            @endforeach
-                            <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "3")->links(); ?></div>
-                
+                            @if(count(App\Status::StatusToUser($user->id, "3"))>0)
+                                <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
+                                    Прочел
+                                </h4></br>
+                                @foreach(App\Status::StatusToUser($user->id, "3")  as $k=>$v)
+                                    <a href="/book/{{$v->id}}" style="text-decoration:none; color:#777;">
+                                        <div class="col-sm-2" style="text-align:center; padding:15px;">
+                                            <p>
+                                                <img src="/uploads/book_avatar/{{$v->avatar}}" style="width:100px; heidth:100px;">
+                                                {{$v->title}}
+                                            </p>
+                                        </div>
+                                    </a>
+                                @endforeach
+                                <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "3")->links(); ?></div>
+                            @endif
                         </div>
                     </div>
                 </div>
             </div>
                 
-                
-            <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding: 0 30px 5px 30px; " >
+            @if(count($coment) > 0)    
+                <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding: 0 30px 5px 30px; " >
                     Последние комментарии
-            </h4>
+                </h4>
+            @endif
             <!--<div class="panel panel-default">-->
                 <!--<div class="panel-heading">Последние комментарии</div>-->
                 
