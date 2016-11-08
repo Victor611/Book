@@ -29,14 +29,14 @@
 
                                 @foreach ($genres as $g)
                                     <tr>
-                                        
+                                       
                                         <td class="table-text">
                                             <div>{{ $g->priority }}</div>
                                         </td>
                                        
 
                                         <td class="table-text">
-                                            <div>{{ $g->name }}</div>
+                                            <div>{{ $g->name }} ({{count($g->book)}})</div>
                                         </td>
                                         <td class="table-text">
                                             @if($g->priority !== 1)
@@ -64,13 +64,11 @@
                                         </td>
                                         
                                         <td>
-                                            <form action="{{ url('/moder/delete/genre/'.$g->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">
-                                            {!! csrf_field() !!}
-                                            {!! method_field('DELETE') !!}
-                                                <button type="submit" class="btn btn-danger">
+                                            <!--<form action="{{ url('/moder/delete/genre/'.$g->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">-->
+                                            <button gid="{{ $g->id }}" bc="{{count($g->book)}}" class="btn btn-danger del_genre">
                                                     <i class="fa fa-trash"></i> Удалить
-                                                </button>
-                                            </form>
+                                            </button>
+                                            
                                         </td>
                                     </tr>
                                 @endforeach

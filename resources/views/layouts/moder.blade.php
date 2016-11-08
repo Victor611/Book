@@ -48,8 +48,8 @@
 
                 <!-- Branding Image -->
                 <a href="{{ url('/') }}">
-                   <!-- <img src="/uploads/img/logo.png" style="width:200px; left:10px; top:10px;">-->
-					<h3 style="margin-top:17px;"><b>Bookshelf</b></h3>
+                    <img src="/uploads/img/logo.png" style="margin-top:10px;">
+					<!--<h3 style="margin-top:17px;"><b>Bookshelf</b></h3>-->
                 </a>
             </div>
 
@@ -128,6 +128,33 @@
 				//alert("Файл больше чем 2 мб.");
 				return false;
 			}
+		});
+		
+		$(".del_genre").click(function(){
+			var gid = $(this).attr('gid');
+			var book_count = $(this).attr('bc');
+			
+			if(book_count > 0)
+			{
+				alert("Нельзя удалить тематику: содержит " + book_count + " книг");
+			}
+			else if(confirm("Вы действительно хотите удалить тематику?"))
+			{
+				window.location.href = "/moder/delete/genre/"+gid;
+			}	
+		});
+		$(".del_dep").click(function(){
+			var did = $(this).attr('did');
+			var user_count = $(this).attr('uc');
+			
+			if(user_count > 0)
+			{
+				alert("Нельзя удалить отдел: содержит " + user_count + " человек");
+			}
+			else if(confirm("Вы действительно хотите удалить отдел?"))
+			{
+				window.location.href = "/moder/delete/dep/"+did;
+			}	
 		});
 	</script>
 </body>

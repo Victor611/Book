@@ -38,7 +38,7 @@ class GenreController extends Controller
         $data->name = $request->name;
         $data->save();
         $this->update_priority();    
-	return redirect('/moder/genre');
+	return redirect('/moder/genres');
         
     }
 // Form Edit Genre    
@@ -56,7 +56,7 @@ class GenreController extends Controller
             $data = Genre::findOrFail($id);
             $data->name = $request->name;
             $data->save();
-            return redirect('/moder/genre');
+            return redirect('/moder/genres');
     }
 // Удалить книгу    
     public function delete($id)
@@ -64,7 +64,7 @@ class GenreController extends Controller
         $genre = Genre::findOrFail($id);
         $genre->delete();
 	$this->update_priority();        
-	return redirect('/moder/genre'); 
+	return redirect('/moder/genres'); 
     }
     
     public function check(Request $request)

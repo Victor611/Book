@@ -39,17 +39,23 @@
                         </div>  
                     </div>
                         
-                    <!--Статус чтения-->    
+                    <!--Статус чтения-->
+                    <?php
+                        $status_2 = App\Status::StatusToUser($user->id, "2");
+                        $status_3 = App\Status::StatusToUser($user->id, "3");
+                    ?>
+                    
                     <div id="panel2" style="padding-top:100px;">
-                        <h3>Статус чтения</h3>
-                       
+                        @if(count($status_2) > 0 || count($status_3) > 0)
+                            <h3>Статус чтения</h3>
+                        @endif
                         <!--Читаю-->
                         <div class="col-md-12">                           
-                            @if(count(App\Status::StatusToUser($user->id, "2"))>0)
+                            @if(count($status_2) > 0)
                                 <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
                                     Читаю
                                 </h4></br>
-                                @foreach(App\Status::StatusToUser($user->id, "2")  as $k=>$v)
+                                @foreach($status_2  as $k=>$v)
                                     <a href="/book/{{$v->id}}" style = "text-decoration:none; color:#777;" >
                                         <div class="col-sm-2" style="text-align:center; padding:15px;">
                                             <p>
@@ -59,16 +65,16 @@
                                         </div>
                                     </a>    
                                 @endforeach
-                                <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "2")->links(); ?></div>
+                                <div class="col-md-12"><?php echo $status_2->links(); ?></div>
                             @endif
                         </div>
                         <!--Прочел-->
                         <div class="col-md-12">                           
-                            @if(count(App\Status::StatusToUser($user->id, "3"))>0)
+                            @if(count($status_3) > 0)
                                 <h4 style="font-size: 100%; border-bottom: 2px solid maroon; font-weight: normal; padding-bottom: 5px;" >
                                     Прочел
                                 </h4></br>
-                                @foreach(App\Status::StatusToUser($user->id, "3")  as $k=>$v)
+                                @foreach($status_3  as $k=>$v)
                                     <a href="/book/{{$v->id}}" style="text-decoration:none; color:#777;">
                                         <div class="col-sm-2" style="text-align:center; padding:15px;">
                                             <p>
@@ -78,7 +84,7 @@
                                         </div>
                                     </a>
                                 @endforeach
-                                <div class="col-md-12"><?php echo App\Status::StatusToUser($user->id, "3")->links(); ?></div>
+                                <div class="col-md-12"><?php echo $status_3->links(); ?></div>
                             @endif
                         </div>
                     </div>

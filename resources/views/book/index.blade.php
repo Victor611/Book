@@ -38,7 +38,7 @@
                                         </div>
                                        
                                         <div class="col-sm-12">
-                                            @if($book->avg_rating != 0)
+                                            @if($book->avg_rating > 0)
 												<div class="col-md-3 alignRight" style="margin-top:10px;">Рейтинг:</div> 
 												<!--Средний рейтинг книги-->											
 												<div class="col-md-9" style="margin-top:10px;">

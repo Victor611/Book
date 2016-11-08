@@ -29,7 +29,7 @@
                                     <tr>
                                         
                                         <td class="table-text">
-                                            <div>{{ $d->name }}</div>
+                                            <div>{{ $d->name }} ({{count($d->user)}})</div>
                                         </td>
                                         <?php //print_r($d->children);?>
                                         <td class="table-text">
@@ -45,13 +45,9 @@
                                         </td>
                                         
                                         <td>
-                                            <form action="{{ url('/moder/delete/dep/'.$d->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">
-                                            {!! csrf_field() !!}
-                                            {!! method_field('DELETE') !!}
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="fa fa-trash"></i> Удалить
-                                                </button>
-                                            </form>
+                                            <button did="{{ $d->id }}" uc="{{count($d->user)}}" class="btn btn-danger del_dep">
+                                                <i class="fa fa-trash"></i> Удалить
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach
