@@ -56,6 +56,7 @@
 		
 		.alignRight{
 			text-align: right;
+			padding-left: 0px;
 		}
     </style>
 </head>
