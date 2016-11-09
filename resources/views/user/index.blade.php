@@ -8,12 +8,12 @@
                <!-- <div class="panel-heading">Рейтинг пользователей</div>-->
                  
                 <div class="panel-body">
-                    <?php $i=($users->currentPage()-1)*$paginator;?>
+                    <?php $i = ($users->currentPage()-1) * $paginator; ?>
                     @foreach ($users as $user)
                         <table class="table task-table" style="padding-top:20px;">
                            
                             <tr>
-                                <td><?php echo ++$i;?></td>
+                                <td><?php echo ++$i; ?></td>
                                 <td class="table-text col-sm-3">
                                     
                                     <a href="{{ url('user/'.$user->id) }}"> 
@@ -52,11 +52,11 @@
                                             <div class="col-sm-9">
                                                     <?php new App\Sklonenie($user->count_status2, ['книгу','книги','книг']);?>
                                             </div>
-                                            <?php $status_2 = App\Status::StatusToUser($user->id, "2"); $i=1;?>
+                                            <?php $status_2 = App\Status::StatusToUser($user->id, "2"); $cnt=1;?>
                                             @foreach($status_2  as $k=>$v)
                                                 <a href="/book/{{$v->id}}" style = "text-decoration:none; color:#777;" >
                                                     <div class="col-sm-12" style="text-align:left;">
-                                                        {{$i++}}. {{$v->title}}
+                                                        {{$cnt++}}. {{$v->title}}
                                                     </div>
                                                 </a>    
                                             @endforeach
