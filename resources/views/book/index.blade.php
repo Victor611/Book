@@ -38,21 +38,15 @@
                                         </div>
                                        
                                         <div class="col-sm-12">
-                                            @if($book->avg_rating > 0)
-												<div class="col-md-3 alignRight" style="margin-top:10px;">Рейтинг:</div> 
-												<!--Средний рейтинг книги-->											
-												<div class="col-md-9" style="margin-top:10px;">
-													<strong><?php  echo round($book->avg_rating,0);?></strong>
-																(<?php  new App\Sklonenie(App\Rating::countRating($book->id),['оценка','оценки','оценок']);?>)
-												</div>
-											@endif
-												
-                                            <div class="col-md-9 col-md-offset-3 "> 
-												<!--склонение в зависимости от количества отзывов-->						
-												@if($book->count_coment != 0) 
-													<?php new App\Sklonenie($book->count_coment,['отзыв','отзыва','отзывов']);?>
-												@endif
-											</div>                    
+											<div class="col-md-3 alignRight" style="margin-top:10px;">Рейтинг:</div> 
+											<!--Средний рейтинг книги-->											
+											<div class="col-md-9" style="margin-top:10px;">
+												<?php $rating = round($book->avg_rating,0);?>
+												@for($i = 1; $i <= $rating; $i++)
+												 <img src="/uploads/img/star1.png"> @endfor
+												@for($i = 1; $i <= (5 - $rating); $i++)
+												<img src="/uploads/img/star2.png"> @endfor
+											</div>
                                         </div>                    
                                     </td>
                                 </tr>
@@ -102,32 +96,32 @@
                             {{$genre->name}} (<?php echo App\Book::countGenre($genre->id);?>)</p>
                         @endforeach
 			
-			@if(Auth::user())
-			    <hr>
-			    <p>Рекомендовано</p>
-			    @if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin')) 
-			        @foreach ($deps as $dep)
-				    <p><input name="deps[]" type="checkbox" value="{{$dep->id}}" class="filter-input"
-					@if( isset($deps_r) && in_array($dep->id, $deps_r) )
-						checked
+					@if(Auth::user())
+						<hr>
+						<p>Рекомендовано</p>
+						@if ( Auth::user()->hasRole('moderator') || Auth::user()->hasRole('admin')) 
+							@foreach ($deps as $dep)
+							<p><input name="deps[]" type="checkbox" value="{{$dep->id}}" class="filter-input"
+							@if( isset($deps_r) && in_array($dep->id, $deps_r) )
+								checked
+							@endif
+							>
+							{{$dep->name}}
+							</p>
+							@endforeach
+						@elseif(Auth::user()->hasRole('user'))
+							<p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}" class="filter-input"
+							@if( isset($deps_r) && in_array(Auth::user()->dep_id, $deps_r) )
+							checked
+							@endif
+							>
+							Моему отделу
+							</p>
+						@endif
 					@endif
-					>
-					{{$dep->name}}
-				    </p>
-			        @endforeach
-			    @elseif(Auth::user()->hasRole('user'))
-			        <p><input name="deps[]" type="checkbox" value="{{Auth::user()->dep_id}}" class="filter-input"
-				    @if( isset($deps_r) && in_array(Auth::user()->dep_id, $deps_r) )
-					checked
-				    @endif
-				    >
-				    Моему отделу
-			        </p>
-			    @endif
-			@endif
-                        <!--<p><input type="submit" value="Выбрать" class="form-control"></p>-->
-                        <!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
-                     
+								<!--<p><input type="submit" value="Выбрать" class="form-control"></p>-->
+								<!--Cобытие submit - автоматически в скрипте в главном шаблоне app.blade.php-->
+							 
                     </form> 
                     
                     

@@ -60,8 +60,9 @@
                                         <div class="col-sm-2" style="text-align:center; padding:15px;">
                                             <p>
                                                 <img src="/uploads/book_avatar/{{$v->avatar}}" style="width:100px; heidth:100px;">
-                                                {{$v->title}}
+                                                <?php //var_dump($status_2); exit?> {{$v->title}}
                                             </p>
+                                            <p>{{strftime("%d.%m.%Y", strtotime($v->created_at))}}</p>
                                         </div>
                                     </a>    
                                 @endforeach

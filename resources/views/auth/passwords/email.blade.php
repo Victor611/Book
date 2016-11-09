@@ -54,8 +54,8 @@
         <div class="row">
             <div class="col-md-6 col-md-offset-3"  >
             <a href="{{url('/')}}">
-				<h3 class="logo">Bookshelf</h3>
-                <!--<img src="/uploads/img/logo.png" class="logo">-->
+				<!--<h3 class="logo">Bookshelf</h3>-->
+                <img src="/uploads/img/logo.png" class="logo" style="margin-top:10px;">
             </a>
                 
                 <!--<div class="headers">Туточки наваять заголовки как у гугла</div>-->

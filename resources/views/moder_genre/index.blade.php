@@ -64,7 +64,6 @@
                                         </td>
                                         
                                         <td>
-                                            <!--<form action="{{ url('/moder/delete/genre/'.$g->id) }}" method="GET" onclick="return confirm('Вы уверены что хотите удалить?')">-->
                                             <button gid="{{ $g->id }}" bc="{{count($g->book)}}" class="btn btn-danger del_genre">
                                                     <i class="fa fa-trash"></i> Удалить
                                             </button>

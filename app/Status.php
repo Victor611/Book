@@ -42,7 +42,7 @@ class Status extends Model
     static function StatusToUser($uid, $sid)//выбирает книги которые прочел юзер принимает user_id & status_id
     {
         return DB::table('books')
-                    ->select('books.id', 'avatar', 'title', 'author' )
+                    ->select('books.id', 'avatar', 'title', 'author', 'ratings.created_at' )
                     ->join('ratings', 'books.id', '=', 'ratings.book_id')
                     ->where('ratings.user_id', '=', $uid)
                     ->where('ratings.status', '=', $sid)

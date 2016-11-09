@@ -33,7 +33,7 @@ class BookController extends Controller
     public function filter(Request $request)
     {
        
-        $sort = Request::has('sort') ? Request::get('sort') : false; // Параметр сортировки 'ASC','DESC'
+        $sort = Request::has('sort') ? Request::get('sort') : false; 
         $column = "avg_rating";
         $order = null;
         if($sort)
@@ -51,7 +51,6 @@ class BookController extends Controller
         
             if($deps)
             {
-                //$query->join('recomends', 'books.id', '=', 'recomends.book_id');
                 $query->where('recomends.dep_id', '=', -1);
                 $query->orWhere(function ($q) use($deps)
                 {

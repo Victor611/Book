@@ -28,7 +28,8 @@ class StatusController extends Controller
 				$data->delete();
 			
 				$user = User::findOrFail($request->user_id);
-				$user->count_status = Status::countStatusUser($request->user_id, 3);
+				$user->count_status2 = Status::countStatusUser($request->user_id, 2);
+				$user->count_status3 = Status::countStatusUser($request->user_id, 3);
 				$user->save();
 				
 				$book = Book::find($request->book_id);
@@ -43,7 +44,8 @@ class StatusController extends Controller
             $data->save();
             
 			$user = User::findOrFail($request->user_id);
-			$user->count_status = Status::countStatusUser($request->user_id, 3);
+			$user->count_status2 = Status::countStatusUser($request->user_id, 2);
+			$user->count_status3 = Status::countStatusUser($request->user_id, 3);
 			$user->save();
 			
 			$book = Book::find($request->book_id);
@@ -62,7 +64,8 @@ class StatusController extends Controller
             $data->save();
 			
 			$user = User::findOrFail($request->user_id);
-			$user->count_status = Status::countStatusUser($request->user_id, 3);
+			$user->count_status2 = Status::countStatusUser($request->user_id, 2);
+			$user->count_status3 = Status::countStatusUser($request->user_id, 3);
 			$user->save();
 			
 			$book = Book::find($request->book_id);

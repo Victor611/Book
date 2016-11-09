@@ -126,7 +126,8 @@ class BookModerController extends Controller
 		$book->delete();
 	$users = User::all();
 	foreach($users as $user){
-	$user->count_status = Status::countStatusUser($user->id, 3);
+	$user->count_status2 = Status::countStatusUser($user->id, 2);
+	$user->count_status3 = Status::countStatusUser($user->id, 3);
 	$user->count_coment = Coment::countComentUser($user->id);
 	$user->save();
 	}        
