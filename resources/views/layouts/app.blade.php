@@ -167,7 +167,6 @@
                             if(i = 0)
                             {
                                 $(".search_result").fadeOut();
-								
                             } else {
                                 $(".search_result").fadeIn();
 								$('input').css('width','234px');

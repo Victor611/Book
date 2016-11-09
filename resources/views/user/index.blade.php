@@ -49,9 +49,7 @@
                                     <div class="col-sm-12">
                                         @if($user->count_status2 > 0 )
                                             <div class="col-sm-3">Читает:</div>
-                                            <div class="col-sm-9">
-                                                    <?php new App\Sklonenie($user->count_status2, ['книгу','книги','книг']);?>
-                                            </div>
+                                            <div class="col-sm-9"></div>
                                             <?php $status_2 = App\Status::StatusToUser($user->id, "2"); $cnt=1;?>
                                             @foreach($status_2  as $k=>$v)
                                                 <a href="/book/{{$v->id}}" style = "text-decoration:none; color:#777;" >
