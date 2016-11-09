@@ -147,7 +147,7 @@
 			$('.who').bind("change keyup input", function() {
                 $(".search_result").html("");
                 $(".goto_finded").hide();
-
+				
                 if(this.value.length >= 3){
 					$.ajax({
 						type: 'post',
@@ -157,18 +157,20 @@
 						success: function(data){
                             data = JSON.parse(data);
                             var i = 0;
-
+							
                             $.each(data, function(user_id, name) {
                                 var row = "<p class='finded' id='" + user_id + "' style='cursor:pointer;'>" + name + "</p>";
                                 $(".search_result").append(row);
                                 i++;
-								$('input').css('width','234px');
+								
                             });
                             if(i = 0)
                             {
                                 $(".search_result").fadeOut();
+								
                             } else {
                                 $(".search_result").fadeIn();
+								$('input').css('width','234px');
                             }
 
 						},
@@ -178,23 +180,24 @@
 					})
 				} else {
                     $(".search_result").fadeOut();
+					$('input').css('width','320px');
                 }
 			})
 				
 			$(".search_result").hover(function(){
 				$(".who").blur(); //Убираем фокус с input
+				
 			});
 				
 			//При выборе результата поиска, прячем список и заносим выбранный результат в input
 			$(".search_result").on("click", "p", function(){
 				var uid = $(this).attr('id');
 				var name = $(this).html();
-                //window.location.href = '/user/'+uid;
                 $(".goto_finded").attr('href', '/user/'+uid);
                 $(".who").val(name);
-                //$(".who").attr('disabled', 'disabled'); //деактивируем input, если нужно
                 $(".search_result").fadeOut();
                 $(".goto_finded").css('display', 'inline-block');
+				
 			});
 
 
