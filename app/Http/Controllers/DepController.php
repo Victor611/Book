@@ -42,7 +42,7 @@ class DepController extends Controller
             $data->name = $request->name;
             $data->parent_id = $request->parent_id;
             $data->save();
-            return redirect('/moder/dep');
+            return redirect('/moder/deps');
         
     }
 // Form Edit Dep    
@@ -63,14 +63,14 @@ class DepController extends Controller
             $data->name = $request->name;
             $data->parent_id = $request->parent_id;
             $data->save();
-            return redirect('/moder/dep');
+            return redirect('/moder/deps');
     }
 // Удалить книгу    
     public function delete($id)
     {
         $dep = Dep::findOrFail($id);
         $dep->delete();
-        return redirect('/moder/dep'); 
+        return redirect('/moder/deps'); 
     }
     
     public function checkDep(Request $request)
