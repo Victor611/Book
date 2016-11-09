@@ -60,7 +60,7 @@ class UserModerController extends Controller
             $data->dep_id = $request->dep_id;
             $data->save();
             Logger::write(Logger::$user, $data->id, 'create');
-            return redirect('/moder/user');
+            return redirect('/moder/users');
         
     }
 // форма редактирования книги    
@@ -92,7 +92,7 @@ class UserModerController extends Controller
         $data->dep_id = $request->dep_id;
         $data->save();
         Logger::write(Logger::$user, $data->id, 'update');
-        return redirect('/moder/user');
+        return redirect('/moder/users');
     }
 // Удалить книгу    
     public function delete($id)
@@ -110,7 +110,7 @@ class UserModerController extends Controller
 	    $book->save();
 	}        
         Logger::write(Logger::$user, $id, 'delete');
-        return redirect('/moder/user'); 
+        return redirect('/moder/users'); 
     }
     
     public function checkCreate(Request $request)
