@@ -162,6 +162,7 @@
                                 var row = "<p class='finded' id='" + user_id + "' style='cursor:pointer;'>" + name + "</p>";
                                 $(".search_result").append(row);
                                 i++;
+								$('input').css('width','234px');
                             });
                             if(i = 0)
                             {

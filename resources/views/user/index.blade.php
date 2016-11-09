@@ -77,7 +77,7 @@
                 <div class="panel-body">
                     <p>Поиск</p>
                     <div style=" margin: 3px 5px;">
-                        <input class="form-control who" type="text" placeholder="Имя" value="" autocomplete="off" style="display:inline-block; width:auto; vertical-align: middle;">
+                        <input class="form-control who" type="text" placeholder="Имя" value="" autocomplete="off" style="display:inline-block;  vertical-align: middle;">
                         <a class="goto_finded" style="display:none; text-decoration: none;">
                             <button type="button" class="btn btn-info" >Перейти</button>
                         </a>
